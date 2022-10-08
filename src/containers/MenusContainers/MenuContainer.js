@@ -1,10 +1,57 @@
-import { Button, Typography } from "@mui/material";
+import { Button, Menu, Typography } from "@mui/material";
 import { borderRadius } from "@mui/system";
-import vip from "../../assets/images/vip.jpg";
 import { BiDotsVerticalRounded } from "react-icons/bi";
+import { MenuItem } from "@material-ui/core";
+import React, {useEffect, useState} from "react"
+import axios from "axios";
+import { constants } from "../../Helpers/constantsFile";
+import AddNewMenu from "./AddNewMenu";
 
-const MenuContainer = () => {
+const MenuContainer = (props) => {
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const [updateId, setUpdateId] = useState()
+  const [update, setUpdate] = useState(false)
+  const [menuImage, setMenuImage] = useState()
+
+  useEffect(()=> {
+    axios.get(`${constants.baseUrl}/files/${props.menu.coverImageUrl}`,
+    {responseType: 'blob'}).then((res)=> {
+      setMenuImage(URL.createObjectURL(res.data))
+    })
+  }, [])
+
+  console.log(menuImage)
+
+   
+  
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const deleteMenu = () => {
+    axios.delete(`${constants.baseUrl}/menus/${props.menu.id}`).then((res)=> {
+      alert("Successfully delted")
+      props.change()
+    })
+    handleClose()
+  }
+  
+  const updatedMenu = () => {
+    setUpdateId(props.menu.id)
+    setUpdate(true)
+  }
+
+  const hideModal = () => {
+    setUpdate(false)
+  }
+
+  const optionHadler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  
     return (
         <div style = {{
            background: "white",
@@ -16,13 +63,20 @@ const MenuContainer = () => {
            gap: "10px"
         }}>
             <div style = {{display: 'flex', alignItems: "center", 
-        justifyContent: "space-between"}}>
-          <Typography style = {{fontSize: "14px", fontWeight: "600"}}>VIP MENU </Typography>
+        justifyContent: "space-between", width: '100%'}}>
+          <Typography style = {{fontSize: "14px", fontWeight: "600"}}>
+            {props.menu.name.toUpperCase()} </Typography>
             <BiDotsVerticalRounded style = {{fontSize: "18px", cursor: "pointer"}} 
-            onClick = {()=> alert("Be tolerant")}/>
+            onClick = {optionHadler}
+            id="basic-button"
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+
+              />
             </div>
           
-          <img src = {vip} style = {{width: "100%", height: "130px",
+          <img src = {menuImage} style = {{width: "100%", height: "130px",
         borderRadius: "6px"}}/>
 
           <div style = {{display: "flex", flexDirection: "row",
@@ -32,6 +86,20 @@ const MenuContainer = () => {
             <Button variant="contained" style = {{background: "#3245E9", borderRadius: "6px",
         width: "45%", height: "30px"}}> ADD</Button>
           </div>
+
+        {update && <AddNewMenu updateId = {updateId} hideModal = {hideModal}/>}
+          <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={updatedMenu}>Update Menu</MenuItem>
+        <MenuItem onClick={deleteMenu}>Delete Menu</MenuItem>
+      </Menu>
 
 
         </div>

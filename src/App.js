@@ -34,7 +34,7 @@ function App() {
   const dispatch = useDispatch();
   const companyInfo = useSelector(state => state.companyInfo.companyInfo)
 
-  dispatch(setDashboard(useFetch("dashboard", isLogin, "dashboard")))
+  // dispatch(setDashboard(useFetch("dashboard", isLogin, "dashboard")))
 
   const showHandler = () => {
     setShowLayout(true)

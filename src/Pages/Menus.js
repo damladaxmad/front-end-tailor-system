@@ -10,6 +10,8 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { constants } from "../Helpers/constantsFile";
 import useFetch from "../funcrions/DataFetchers";
 import MenuContainer from "../containers/MenusContainers/MenuContainer";
+import { setMenus } from "../redux/actions/menusActions";
+import AddNewMenu from "../containers/MenusContainers/AddNewMenu";
 
 
 const Menus = () => {
@@ -18,21 +20,13 @@ const Menus = () => {
   const [buttonName, setButtonName] = useState('Add New Menus')
   const [update, setUpdate] = useState(false)
   const [showCornerIcon, setShowCornerIcon] = useState(false)
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
   const [updatedMenu, setUpdatedMenu] = useState(null)
   const [del, setDel] = useState(1);
   const [menuIds, setMenusIds] = useState('')
   const [state, setState] = useState("")
   const activeUser = useSelector(state => state.activeUser.activeUser)
+  const menus = useSelector((state) => state.menus.menus);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, student) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
 
   const changeHandler = () => {
@@ -40,18 +34,13 @@ const Menus = () => {
   }
 
   const dispatch = useDispatch()
+  dispatch(setMenus(useFetch("menus", del, "menus")))
 
-  
-  const statusArr = ["All", "Active", "Inactive"]
-  const [status, setStatus] = useState(statusArr[0]);
   const [query, setQuery] = useState("");
   const [force, setForce] = useState(1)
 
-  const statusHandler = (e) => {
-    setStatus(e.target.value)
-  }
 
-  const addEmployeeHandler = () => {
+  const addMenuHandler = () => {
     setQuery('')
     if (buttonName == "Add New Menus"){
       setNewMenus(true)
@@ -124,6 +113,11 @@ const Menus = () => {
     setButtonName("Go To Menus")
   }
 
+  const hideModal = () => {
+    setNewMenus(false)
+    setButtonName("Add New Menus")
+  }
+
 
   return (
     <div
@@ -145,7 +139,7 @@ const Menus = () => {
           margin: "auto",
         }}
       >
-   
+        
         <Typography style = {{fontWeight: "600",
     fontSize: '25px'}}> {newMenus ? "Create New Menus" : "Menus"}</Typography>
         <Button
@@ -156,7 +150,7 @@ const Menus = () => {
           }}
           onClick = {() => {
             if (activeUser.privillages.includes('Add New Menus'))
-            addEmployeeHandler()
+            addMenuHandler()
             else alert("You have no access!")
           }}
           startIcon={
@@ -205,40 +199,27 @@ const Menus = () => {
         />
         <div style={{ display: "flex", gap: "20px" }}>
  
-          {showCornerIcon && <BiDotsVerticalRounded style = {{
-            fontSize: "24px", margin: "auto 0px",
-            cursor: "pointer"
-          }} onClick = {handleClick} />}
         </div>
       </div>
 
+      {newMenus && <AddNewMenu hideModal = {hideModal} change = {changeHandler}/>}
+
       <div style = {{
             width: "95%",
-          margin: "40px auto",
+          margin: "30px auto",
           display: "flex",
-          gap: "39px",
+          gap: "38px",
           flexWrap: "wrap"
         }}>
-          
-      <MenuContainer/>
-      <MenuContainer/>
-      <MenuContainer/>
-      <MenuContainer/>
+
+        {menus?.map(menu => (
+          <MenuContainer menu = {menu} change = {changeHandler}/>
+        ))}
 
       </div>
   
 
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem >Delete Employees</MenuItem>
-      </Menu>
+    
 
     </div>
   );

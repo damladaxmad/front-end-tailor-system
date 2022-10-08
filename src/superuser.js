@@ -25,7 +25,8 @@ module.exports = {
     "Reset User",
     "Delete User",
     "Company Info",
-   "Menus"
+   "Menus",
+   "Add New Menus"
   ],
 };
 

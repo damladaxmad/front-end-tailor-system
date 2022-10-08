@@ -60,7 +60,6 @@ const Emplooyees = () => {
   const dispatch = useDispatch()
   const employees = useSelector((state) => state.employees.employees);
   dispatch(setEmployees(useFetch("employees", del, "employees")))
-  dispatch(setEmployeeTitle(useFetch("employeeTitle", del, "employeeTitles")))
   
   const statusArr = ["All", "Active", "Inactive"]
   const [status, setStatus] = useState(statusArr[0]);
