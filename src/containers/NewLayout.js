@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import { FaShopify } from "react-icons/fa"; 
+import { SiStylelint } from "react-icons/si"; 
 import { VscPerson } from "react-icons/vsc";
 import { MdPointOfSale } from "react-icons/md";
 import GroupIcon from "@material-ui/icons/Group";
@@ -137,9 +137,19 @@ const menuItems = [
       path: "/dashboard",
     },
     {
+      text: "Customers",
+      icon: <GroupIcon style={{fontSize: "20px", color: "white" }} />,
+      path: "/customers",
+    },
+    {
       text: "Menus",
       icon: <DashboardIcon style={{fontSize: "20px", color: "white" }} />,
       path: "/menus",
+    },
+    {
+      text: "Styles-Types",
+      icon: <SiStylelint style={{fontSize: "20px", color: "white" }} />,
+      path: "/styles-types",
     },
 
     

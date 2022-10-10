@@ -33,6 +33,7 @@ const Access = () => {
 
   const tabs = [
     { name: "Dashboard", access: ["Dashboard"] },
+
     {
       name: "Customers",
       access: [
@@ -41,31 +42,13 @@ const Access = () => {
       ],
     },
     {
-      name: "Products",
+      name: "Menus",
       access: [
-        "Products", "Add New Products", "Delete Product", "Update Product",
-        "Available"
+        "Menus", "Add New Menus", "Delete Menu",
+        "Update Menu", "View Menu"
       ],
     },
-   {
-      name: "Sales",
-      access: [
-        "Sales", "New Order", "Sales Report"
-      ],
-    },
-   {
-      name: "Purchases",
-      access: [
-        "Purchases", "New Purchase", "Purchase Report"
-      ],
-    },
-   {
-      name: "Vendors",
-      access: [
-        "Vendors", "Add New Vendors", "View Transactions",
-        "Update Vendor", "Payment", "View Purchases"
-      ],
-    },
+ 
     {
       name: "Employees",
       access: [
@@ -85,18 +68,7 @@ const Access = () => {
       name: "Transactions",
       access: ["Transactions", "Cancel Transaction", "Restore Transaction"],
     },
-     {
-      name: "Reports",
-      access: ["Reports", "Purchases Summary", "Sales Summary", 
-    "Sales By Date", "Purchases By Date"],
-    },
-     {
-      name: "Expenses",
-      access: ["Expenses",
-      "Add New Expenses",
-      "Update Expense",
-      "Delete Expense",],
-    },
+     
    ];
 
   const [currentUserPrivillages, setCurrentUserPrivillages] = useState();

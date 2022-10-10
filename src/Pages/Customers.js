@@ -12,9 +12,9 @@ import { constants } from "../Helpers/constantsFile";
 import useFetch from "../funcrions/DataFetchers";
 import Table from "../utils/Table";
 import Register from "../utils/Register";
-import { setEmployeeTitle } from "../redux/actions/employeeTtileActions";
+import { setCustomers } from "../redux/actions/customersActions";
 
-const Emplooyees = () => {
+const Customers = () => {
 
   const [newEmployees, setNewEmployees] = useState(false)
   const [buttonName, setButtonName] = useState('Add New Employees')
@@ -30,14 +30,14 @@ const Emplooyees = () => {
   const [state, setState] = useState("")
   const activeUser = useSelector(state => state.activeUser.activeUser)
   const columns = [
-    { title: "ID", field: "employeeId",},
+    { title: "ID", field: "customerId",},
     { title: "Full Name", field: "name", width: "4%"},
-    { title: "Email Address", field: "email" },
-    { title: "Employee Role", field: "role" },
+    { title: "Email Address", field: "phone" },
+    { title: "Balance", field: "balance" },
   ]
   const fields = [
     { label: "Enter Name", type: "text", name: "name" },
-    { label: "Enter Email", type: "gmail", name: "email" }
+    { label: "Enter Phone", type: "text", name: "phone" }
   ];
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>, student) => {
@@ -53,8 +53,8 @@ const Emplooyees = () => {
   }
 
   const dispatch = useDispatch()
-  const employees = useSelector((state) => state.employees.employees);
-  dispatch(setEmployees(useFetch("employees", del, "employees")))
+  const employees = useSelector((state) => state.customers.customers);
+  dispatch(setCustomers(useFetch("customers", del, "customers")))
   
   const statusArr = ["All", "Active", "Inactive"]
   const [status, setStatus] = useState(statusArr[0]);
@@ -246,12 +246,12 @@ const Emplooyees = () => {
         setNewEmployees(false)
         setButtonName("Add New Employees")
       }}
-      fields = {fields}  url = "employees"
-      name = "Employee"
+      fields = {fields}  url = "customers"
+      name = "Customer"
       change = {changeHandler} />}
 
     </div>
   );
 };
 
-export default Emplooyees;
+export default Customers;

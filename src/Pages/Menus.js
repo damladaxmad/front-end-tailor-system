@@ -12,6 +12,8 @@ import useFetch from "../funcrions/DataFetchers";
 import MenuContainer from "../containers/MenusContainers/MenuContainer";
 import { setMenus } from "../redux/actions/menusActions";
 import AddNewMenu from "../containers/MenusContainers/AddNewMenu";
+import ViewProducts from "../containers/MenusContainers/ViewProducts";
+import { FaSleigh } from "react-icons/fa";
 
 
 const Menus = () => {
@@ -26,6 +28,8 @@ const Menus = () => {
   const [state, setState] = useState("")
   const activeUser = useSelector(state => state.activeUser.activeUser)
   const menus = useSelector((state) => state.menus.menus);
+  const [viewProducts, setViewProducts] = useState(false)
+  const [products, setProducts] = useState()
 
 
 
@@ -50,6 +54,7 @@ const Menus = () => {
       setNewMenus(false)
       setButtonName("Add New Menus") 
       setUpdate(false)
+      setViewProducts(false)
     }
    
     
@@ -118,6 +123,12 @@ const Menus = () => {
     setButtonName("Add New Menus")
   }
 
+  const viewProductsHandler = (products) => {
+    setViewProducts(true)
+    setProducts(products)
+    setButtonName("Go To Menus")
+  }
+
 
   return (
     <div
@@ -141,7 +152,8 @@ const Menus = () => {
       >
         
         <Typography style = {{fontWeight: "600",
-    fontSize: '25px'}}> {newMenus ? "Create New Menus" : "Menus"}</Typography>
+    fontSize: '25px'}}> {newMenus ? "Create New Menus" :
+    viewProducts ? "View Products" : "Menus"}</Typography>
         <Button
           variant="contained"
           style={{
@@ -154,7 +166,7 @@ const Menus = () => {
             else alert("You have no access!")
           }}
           startIcon={
-            newMenus  ? <BiArrowBack
+            newMenus || viewProducts ? <BiArrowBack
               style={{
                 color: "white",
               }}
@@ -203,8 +215,24 @@ const Menus = () => {
       </div>
 
       {newMenus && <AddNewMenu hideModal = {hideModal} change = {changeHandler}/>}
+      {viewProducts &&  <div style = {{
+            width: "95%",
+          margin: "30px auto",
+          display: "flex",
+          gap: "38px",
+          flexWrap: "wrap",
+          background: "white",
+          borderRadius: "6px",
+          padding: "20px"
+        }}>
+          {products?.map(product => (
+            <ViewProducts product = {product}/>
+          ))}
+        </div>
+      
+     }
 
-      <div style = {{
+     {!viewProducts && <div style = {{
             width: "95%",
           margin: "30px auto",
           display: "flex",
@@ -213,10 +241,11 @@ const Menus = () => {
         }}>
 
         {menus?.map(menu => (
-          <MenuContainer menu = {menu} change = {changeHandler}/>
+          <MenuContainer menu = {menu} change = {changeHandler}
+          viewProducts = {(products)=> viewProductsHandler(products)}/>
         ))}
 
-      </div>
+      </div>}
   
 
     

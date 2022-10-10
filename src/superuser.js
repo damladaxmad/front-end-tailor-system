@@ -26,7 +26,10 @@ module.exports = {
     "Delete User",
     "Company Info",
    "Menus",
-   "Add New Menus"
+   "Add New Menus",
+   "Delete Menu",
+   "Update Menu",
+   "Styles-Types"
   ],
 };
 

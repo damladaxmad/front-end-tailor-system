@@ -6,25 +6,25 @@ import React, {useEffect, useState} from "react"
 import axios from "axios";
 import { constants } from "../../Helpers/constantsFile";
 import AddNewMenu from "./AddNewMenu";
+import AddNewProducts from "./AddNewProducts";
 
 const MenuContainer = (props) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const [updateId, setUpdateId] = useState()
+  const [id, setId] = useState()
   const [update, setUpdate] = useState(false)
   const [menuImage, setMenuImage] = useState()
+  const [newProducts, setNewProducts] = useState(false)
+  const [change, setChange] = useState(1)
 
   useEffect(()=> {
     axios.get(`${constants.baseUrl}/files/${props.menu.coverImageUrl}`,
     {responseType: 'blob'}).then((res)=> {
       setMenuImage(URL.createObjectURL(res.data))
+      console.log(res.data)
     })
-  }, [])
-
-  console.log(menuImage)
-
-   
+  }, [change, props.menu.coverImageUrl])
   
 
   const handleClose = () => {
@@ -33,14 +33,15 @@ const MenuContainer = (props) => {
 
   const deleteMenu = () => {
     axios.delete(`${constants.baseUrl}/menus/${props.menu.id}`).then((res)=> {
-      alert("Successfully delted")
+      alert("Successfully deleted")
       props.change()
+      setChange(state => state + 1)
     })
     handleClose()
   }
   
   const updatedMenu = () => {
-    setUpdateId(props.menu.id)
+    setId(props.menu.id)
     setUpdate(true)
   }
 
@@ -51,6 +52,15 @@ const MenuContainer = (props) => {
   const optionHadler = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const addNewProducts = () => {
+    setId(props.menu.id)
+    setNewProducts(true)
+  }
+
+  // useEffect(()=> {
+  //   console.log("running...")
+  // }, [change])
   
     return (
         <div style = {{
@@ -77,17 +87,22 @@ const MenuContainer = (props) => {
             </div>
           
           <img src = {menuImage} style = {{width: "100%", height: "130px",
-        borderRadius: "6px"}}/>
+        borderRadius: "6px", cursor: "pointer"}}
+        onClick = {()=>props.viewProducts(props.menu.menuProducts)}/>
 
           <div style = {{display: "flex", flexDirection: "row",
         justifyContent: "space-between"}}>
             <Button style = {{border: "1px solid #F2994A", borderRadius: "6px",
-        width: "45%", height: "30px"}}> View</Button>
+        width: "45%", height: "30px"}}
+        onClick = {()=>props.viewProducts(props.menu.menuProducts)}> View</Button>
             <Button variant="contained" style = {{background: "#3245E9", borderRadius: "6px",
-        width: "45%", height: "30px"}}> ADD</Button>
+        width: "45%", height: "30px"}}
+        onClick = {addNewProducts}> ADD</Button>
           </div>
 
-        {update && <AddNewMenu updateId = {updateId} hideModal = {hideModal}/>}
+        {update && <AddNewMenu id = {id} hideModal = {hideModal}/>}
+        {newProducts && <AddNewProducts id = {id} hideModal = {hideModal}/>}
+
           <Menu
         id="basic-menu"
         anchorEl={anchorEl}

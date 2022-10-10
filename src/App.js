@@ -15,12 +15,16 @@ import { setDashboard } from "./redux/actions/dashboardActions";
 import useFetch from "./funcrions/DataFetchers";
 import { constants } from "./Helpers/constantsFile";
 import Menus from "./Pages/Menus";
+import Customers from "./Pages/Customers";
+import StylesAndTypes from "./Pages/StylesAndTypes";
 
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
+     <Route path= "/customers" element = {<Customers/>} />,
      <Route path= "/emplooyees" element = {<Employees/>} />,
      <Route path= "/adminstration" element = {<Adminstration/>} />,  
      <Route path= "/menus" element = {<Menus/>} />,  
+     <Route path= "/styles-types" element = {<StylesAndTypes/>} />,  
 
 ]
 
