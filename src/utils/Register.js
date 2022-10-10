@@ -170,8 +170,6 @@ const Register = (props) => {
               </div>
             </div>} */}
 
-  
-
         <Button
           style={{
             width: "190px",

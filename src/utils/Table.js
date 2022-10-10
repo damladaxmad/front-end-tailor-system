@@ -80,27 +80,8 @@ const Table = (props) => {
     handleClose();
   };
 
-  const cancel = () => {
-    axios.post(`${constants.baseUrl}/${props.url}/cancel/${instance._id}`).then(()=> {
-      props.change()
-      alert("Successfully Cancelled")
-    }).catch((err)=> {
-      alert("something went wrong")
-    })
-    handleClose()
-  }
 
-  const updateTransaction = async() => {
-    console.log(instance)
-    navigate("/sales")
-    dispatch(setUpdateTransaction(instance))
-    let arr = []
-    await instance.products.map(i => {
-      arr.push(JSON.stringify(i))
-    })
-    console.log(arr)
-    dispatch(setOrderList(arr))
-  }
+
 
   const restore = () => {
     axios.post(`${constants.baseUrl}/${props.url}/restore/${instance._id}`).then((res)=> {
@@ -161,42 +142,8 @@ const Table = (props) => {
           </MenuItem>
         )}
 
-      {(props.name == "Sale" || props.name == "Purchase") && (
-          <MenuItem
-            onClick={() => {
-              if (activeUser.privillages.includes("Cancel Transaction"))
-                cancel();
-              else alert("You have no access");
-            }}
-          >
-           Cancel Transaction
-          </MenuItem>
-        )}
-
-      {(props.name == "Sale" || props.name == "Purchase") && (
-          <MenuItem
-            onClick={() => {
-              if (activeUser.privillages.includes("Cancel Transaction"))
-                updateTransaction();
-              else alert("You have no access");
-            }}
-          >
-           Update Transaction
-          </MenuItem>
-        )}
-      {(props.name == "Cancelled Sales" || props.name == "Cancelled Purchases") && (
-          <MenuItem
-            onClick={() => {
-              if (activeUser.privillages.includes("Restore Transaction"))
-                restore();
-              else alert("You have no access");
-            }}
-          >
-           Restore Transaction
-          </MenuItem>
-        )}
-
-        {props.name == "Employee" && (
+   
+     {props.name == "Employee" && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes("Give User")) showModal();
@@ -207,10 +154,7 @@ const Table = (props) => {
           </MenuItem>
         )}
 
-        {(props.name == "Employee" ||
-          props.name == "Product" ||
-          props.name == "User" ||
-          props.name == "Expense") && (
+        {props.name !== "Customer" && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes(`Delete ${props.name}`))
@@ -223,8 +167,7 @@ const Table = (props) => {
         )}
 
         {(props.name == "Employee" ||
-          props.name == "Product" ||
-          props.name == "Vendor" ||  
+          props.name == "Styles" ||
           props.name == "Customer" || props.name == "Expense") && (
           <MenuItem
             onClick={() => {

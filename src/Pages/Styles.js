@@ -7,14 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { BiArrowBack } from "react-icons/bi";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import { setEmployees } from "../redux/actions/employeesActions";
 import { constants } from "../Helpers/constantsFile";
 import useFetch from "../funcrions/DataFetchers";
 import Table from "../utils/Table";
 import Register from "../utils/Register";
-import { setCustomers } from "../redux/actions/customersActions";
+import { setStyles } from "../redux/actions/stylesActions";
 
-const Customers = () => {
+const Styles = () => {
 
   const [newEmployees, setNewEmployees] = useState(false)
   const [buttonName, setButtonName] = useState('Add New Employees')
@@ -24,20 +23,19 @@ const Customers = () => {
   const open = Boolean(anchorEl);
   const [updatedEmployee, setUpdatedEmployee] = useState(null)
   const [del, setDel] = useState(1);
-  const [showProfile, setShowProfile] = useState(false)
   const [assignMany, setAssignMany] = useState(false)
   const [emplyeeIds, setEmployeesIds] = useState('')
   const [state, setState] = useState("")
   const activeUser = useSelector(state => state.activeUser.activeUser)
   const columns = [
-    { title: "ID", field: "customerId",},
-    { title: "Full Name", field: "name", width: "4%"},
-    { title: "Email Address", field: "phone" },
-    { title: "Balance", field: "balance" },
+    { title: "Name", field: "name",},
+    { title: "Email Type", field: "type" },
+    { title: "Description", field: "description", width: "4%"}
   ]
   const fields = [
     { label: "Enter Name", type: "text", name: "name" },
-    { label: "Enter Phone", type: "text", name: "phone" }
+    { label: "Enter Description", type: "text", name: "description" },
+    { label: "Enter Type", type: "text", name: "type" },
   ];
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>, student) => {
@@ -53,8 +51,8 @@ const Customers = () => {
   }
 
   const dispatch = useDispatch()
-  const employees = useSelector((state) => state.customers.customers);
-  dispatch(setCustomers(useFetch("customers", del, "customers")))
+  const styles = useSelector((state) => state.styles.styles);
+  dispatch(setStyles(useFetch("styles", del, "styles")))
   
   const statusArr = ["All", "Active", "Inactive"]
   const [status, setStatus] = useState(statusArr[0]);
@@ -70,16 +68,14 @@ const Customers = () => {
     if (buttonName == "Add New Employees"){
       setNewEmployees(true)
       setButtonName("Go To Employees")
-      setShowProfile(false)
+    
       return
     } else if (buttonName == "Go To Employees") {
-      setShowProfile(false)
+
       setNewEmployees(false)
       setButtonName("Add New Employees") 
       setUpdate(false)
     }
-   
-    
   }
 
   const handler = (data) => { 
@@ -88,28 +84,12 @@ const Customers = () => {
       return data.filter(
         (std) =>
         std.name.toLowerCase().includes(query) ||
-        std.phone.toLowerCase().includes(query)
+        std.type.toLowerCase().includes(query)
       );
     } else {
       return
     }  
   };
-
- 
-  let employeesIds = '';
-  const selectHandler = (data) => {
-    data.map((d)=> {
-      employeesIds += d._id
-      employeesIds += ','
-    })
-    const slicedEmployeesIds = employeesIds.slice(0, -1)
-    setEmployeesIds(slicedEmployeesIds)
-
-    setShowCornerIcon(true)
-    if (data.length < 1) {
-      setShowCornerIcon(false)
-    }
-  }
 
   const updateHandler = (employee) => {
     setNewEmployees(true)
@@ -127,9 +107,9 @@ const Customers = () => {
   }, [force])
 
   useEffect(()=> {
-    if (employees?.length < 1)
-    setState("No employees found!")
-  }, [employees])
+    if (styles?.length < 1)
+    setState("No styles found!")
+  }, [styles])
 
   useEffect(()=> {
   }, [del])
@@ -140,10 +120,6 @@ const Customers = () => {
     }
   }, [query])
 
-  const showProfileHandler = () => {
-    setShowProfile(true)
-    setButtonName("Go To Empoloyees")
-  }
 
   const hideModal = () =>{
     setAssignMany(false)
@@ -170,8 +146,7 @@ const Customers = () => {
         }}
       >
    
-        <h2> {newEmployees ? "Create New Employees" : 
-        showProfile ? "Employee Profile" : "Employees"}</h2>
+        <h2> {newEmployees ? "Create New Employees" : "Employees"}</h2>
         <Button
           variant="contained"
           style={{
@@ -184,7 +159,7 @@ const Customers = () => {
             else alert("You have no access!")
           }}
           startIcon={
-            newEmployees || showProfile ? <BiArrowBack
+            newEmployees ? <BiArrowBack
               style={{
                 color: "white",
               }}
@@ -198,7 +173,7 @@ const Customers = () => {
           {buttonName}
         </Button>
       </div>
-      {!showProfile &&
+      
       <div
         style={{
           display: "flex",
@@ -234,24 +209,25 @@ const Customers = () => {
             cursor: "pointer"
           }} onClick = {handleClick} />}
         </div>
-      </div>}
-      {!showProfile && <Table data={handler(employees)} 
-      change = {changeHandler} selectEmpoloyees = {selectHandler}
-      update = {updateHandler} showProfile = {showProfileHandler}
-      state = {state} columns = {columns} url = "employees"
-      name = "Employee"/>}
+      </div>
+
+     <Table data={handler(styles)} 
+      change = {changeHandler} 
+      update = {updateHandler} 
+      state = {state} columns = {columns} url = "styles"
+      name = "Styles"/>
       {newEmployees && <Register update = {update}
       instance = {updatedEmployee} reset = {resetFomr}  hideModal = {()=> {
         setUpdate(false)
         setNewEmployees(false)
         setButtonName("Add New Employees")
       }}
-      fields = {fields}  url = "customers"
-      name = "Customer"
+      fields = {fields}  url = "styles"
+      name = "Styles"
       change = {changeHandler} />}
 
     </div>
   );
 };
 
-export default Customers;
+export default Styles;

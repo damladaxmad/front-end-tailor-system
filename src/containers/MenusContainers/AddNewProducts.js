@@ -11,7 +11,7 @@ const AddNewProducts = (props) => {
     const formData = new FormData()
   
   const handleFile = (e) => {
-    setFile(e.target.files[0])
+    setFile(e.target.files)
   }
 
   if (file) {
@@ -19,13 +19,12 @@ const AddNewProducts = (props) => {
   }
 
   const addMenuHandler = () => {
-
     axios.post(`${constants.baseUrl}/menus/add-menu-products/${props.id}`, formData).then((res) => {
         alert("Successfully Created")
         props.hideModal()
         props.change()
     }).catch((err) => {
-        alert(err.response.message)
+        alert(err.response.data.message)
         console.log(props.id, file)
     })
 
@@ -43,7 +42,7 @@ const AddNewProducts = (props) => {
             borderRadius: "6px", border: "thin solid #F2994A",
           height: "45px", background: "white"}}>
                 <label style = {{fontSize: "15px", cursor: "pointer"}}> Select Images
-                <input id="inputTag" type="file" style={{display: "none"}}
+                <input id="inputTag" type="file" style={{display: "none"}} multiple 
                 onChange = {(e) => handleFile(e)}
                 />
                 </label>

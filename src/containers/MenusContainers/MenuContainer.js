@@ -47,6 +47,7 @@ const MenuContainer = (props) => {
 
   const hideModal = () => {
     setUpdate(false)
+    setNewProducts(false)
   }
 
   const optionHadler = (event: React.MouseEvent<HTMLButtonElement>) => {

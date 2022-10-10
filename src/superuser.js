@@ -29,7 +29,9 @@ module.exports = {
    "Add New Menus",
    "Delete Menu",
    "Update Menu",
-   "Styles-Types"
+   "Styles",
+   "Update Styles",
+   "Delete Styles"
   ],
 };
 

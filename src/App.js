@@ -16,7 +16,7 @@ import useFetch from "./funcrions/DataFetchers";
 import { constants } from "./Helpers/constantsFile";
 import Menus from "./Pages/Menus";
 import Customers from "./Pages/Customers";
-import StylesAndTypes from "./Pages/StylesAndTypes";
+import Styles from "./Pages/Styles";
 
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
@@ -24,7 +24,7 @@ const pages = [
      <Route path= "/emplooyees" element = {<Employees/>} />,
      <Route path= "/adminstration" element = {<Adminstration/>} />,  
      <Route path= "/menus" element = {<Menus/>} />,  
-     <Route path= "/styles-types" element = {<StylesAndTypes/>} />,  
+     <Route path= "/styles" element = {<Styles/>} />,  
 
 ]
 

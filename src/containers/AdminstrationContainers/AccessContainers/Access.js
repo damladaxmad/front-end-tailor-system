@@ -48,6 +48,13 @@ const Access = () => {
         "Update Menu", "View Menu"
       ],
     },
+    {
+      name: "Styles",
+      access: [
+        "Styles", "Add New Styles", "Delete Styles",
+        "Update Styles", "View Styles"
+      ],
+    },
  
     {
       name: "Employees",

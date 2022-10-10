@@ -147,9 +147,9 @@ const menuItems = [
       path: "/menus",
     },
     {
-      text: "Styles-Types",
+      text: "Styles",
       icon: <SiStylelint style={{fontSize: "20px", color: "white" }} />,
-      path: "/styles-types",
+      path: "/styles",
     },
 
     
@@ -257,8 +257,8 @@ export default function NewLayout({children}) {
               }}
             />
           </Avatar> */}
-          <Typography variant="h5" style = {{fontSize:"20px",
-        color: "white", fontWeight: "500", marginLeft: "12px"}}>
+          <Typography  style = {{fontSize:"18px",
+        color: "white", fontWeight: "600", marginLeft: "12px"}}>
           Xidig Tailor
             {/* {companyInfo ? companyInfo?.name?.substring(0, 13) : "Company Name"}{companyInfo ? companyInfo?.name?.length <= 12 ? null : "..." : null} */}
           </Typography>
