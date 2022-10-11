@@ -30,6 +30,7 @@ module.exports = {
    "Delete Menu",
    "Update Menu",
    "Styles",
+   "Add New Styles",
    "Update Styles",
    "Delete Styles"
   ],

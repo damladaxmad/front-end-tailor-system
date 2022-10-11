@@ -247,16 +247,7 @@ export default function NewLayout({children}) {
             gap: "12px"
           }}
         >
-          {/* <Avatar style={{ backgroundColor: "white", color: "orange",
-        alignSelf: "self-start"}}>
-            <img
-              src={femaleProfile}
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-            />
-          </Avatar> */}
+
           <Typography  style = {{fontSize:"18px",
         color: "white", fontWeight: "600", marginLeft: "12px"}}>
           Xidig Tailor
@@ -282,7 +273,6 @@ export default function NewLayout({children}) {
               button
               key={index}
               onClick={() => {
-                // if (item.text == "Reports" ) return dispatch(setIsReports(true))
                 navigate(item.path)
               }}
               classes={{

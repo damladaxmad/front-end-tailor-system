@@ -15,16 +15,14 @@ import { setStyles } from "../redux/actions/stylesActions";
 
 const Styles = () => {
 
-  const [newEmployees, setNewEmployees] = useState(false)
-  const [buttonName, setButtonName] = useState('Add New Employees')
+  const [newStyles, setNewStyles] = useState(false)
+  const [buttonName, setButtonName] = useState('Add New Styles')
   const [update, setUpdate] = useState(false)
   const [showCornerIcon, setShowCornerIcon] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const [updatedEmployee, setUpdatedEmployee] = useState(null)
+  const [updatedStyle, setUpdatedStyle] = useState(null)
   const [del, setDel] = useState(1);
-  const [assignMany, setAssignMany] = useState(false)
-  const [emplyeeIds, setEmployeesIds] = useState('')
   const [state, setState] = useState("")
   const activeUser = useSelector(state => state.activeUser.activeUser)
   const columns = [
@@ -38,7 +36,7 @@ const Styles = () => {
     { label: "Enter Type", type: "text", name: "type" },
   ];
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, student) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, style) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -63,17 +61,17 @@ const Styles = () => {
     setStatus(e.target.value)
   }
 
-  const addEmployeeHandler = () => {
+  const addStyleHandler = () => {
     setQuery('')
-    if (buttonName == "Add New Employees"){
-      setNewEmployees(true)
-      setButtonName("Go To Employees")
+    if (buttonName == "Add New Styles"){
+      setNewStyles(true)
+      setButtonName("Go To Styles")
     
       return
-    } else if (buttonName == "Go To Employees") {
+    } else if (buttonName == "Go To Styles") {
 
-      setNewEmployees(false)
-      setButtonName("Add New Employees") 
+      setNewStyles(false)
+      setButtonName("Add New Styles") 
       setUpdate(false)
     }
   }
@@ -91,11 +89,11 @@ const Styles = () => {
     }  
   };
 
-  const updateHandler = (employee) => {
-    setNewEmployees(true)
-    setButtonName("Go To Employees")
+  const updateHandler = (style) => {
+    setNewStyles(true)
+    setButtonName("Go To Styles")
     setUpdate(true)
-    setUpdatedEmployee(employee)
+    setUpdatedStyle(style)
   }
 
   const resetFomr = () => {
@@ -116,13 +114,12 @@ const Styles = () => {
 
     useEffect(()=> {
     if (query != '') {
-      setState("No matching employees!")
+      setState("No matching styles!")
     }
   }, [query])
 
 
   const hideModal = () =>{
-    setAssignMany(false)
   }
 
   return (
@@ -146,7 +143,7 @@ const Styles = () => {
         }}
       >
    
-        <h2> {newEmployees ? "Create New Employees" : "Employees"}</h2>
+        <h2> {newStyles ? "Create New Styles" : "Styles"}</h2>
         <Button
           variant="contained"
           style={{
@@ -154,12 +151,12 @@ const Styles = () => {
             color: "white",
           }}
           onClick = {() => {
-            if (activeUser.privillages.includes('Add New Employees'))
-            addEmployeeHandler()
+            if (activeUser.privillages.includes('Add New Styles'))
+            addStyleHandler()
             else alert("You have no access!")
           }}
           startIcon={
-            newEmployees ? <BiArrowBack
+            newStyles ? <BiArrowBack
               style={{
                 color: "white",
               }}
@@ -202,13 +199,7 @@ const Styles = () => {
           }}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <div style={{ display: "flex", gap: "20px" }}>
- 
-          {showCornerIcon && <BiDotsVerticalRounded style = {{
-            fontSize: "24px", margin: "auto 0px",
-            cursor: "pointer"
-          }} onClick = {handleClick} />}
-        </div>
+      
       </div>
 
      <Table data={handler(styles)} 
@@ -216,11 +207,11 @@ const Styles = () => {
       update = {updateHandler} 
       state = {state} columns = {columns} url = "styles"
       name = "Styles"/>
-      {newEmployees && <Register update = {update}
-      instance = {updatedEmployee} reset = {resetFomr}  hideModal = {()=> {
+      {newStyles && <Register update = {update}
+      instance = {updatedStyle} reset = {resetFomr}  hideModal = {()=> {
         setUpdate(false)
-        setNewEmployees(false)
-        setButtonName("Add New Employees")
+        setNewStyles(false)
+        setButtonName("Add New Styles")
       }}
       fields = {fields}  url = "styles"
       name = "Styles"

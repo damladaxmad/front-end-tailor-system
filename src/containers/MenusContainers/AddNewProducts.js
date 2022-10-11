@@ -7,25 +7,28 @@ import { constants } from "../../Helpers/constantsFile"
 
 const AddNewProducts = (props) => {
 
-    const [file, setFile] = useState()
+    const [files, setFiles] = useState([])
     const formData = new FormData()
   
   const handleFile = (e) => {
-    setFile(e.target.files)
+    setFiles(e.target.files)
   }
 
-  if (file) {
-    formData.append('menuProducts', file)
+  if (files.length) {
+    Array.from(files).forEach(file => 
+      formData.append('menuProducts', file)
+      );
   }
+ 
 
   const addMenuHandler = () => {
     axios.post(`${constants.baseUrl}/menus/add-menu-products/${props.id}`, formData).then((res) => {
         alert("Successfully Created")
-        props.hideModal()
-        props.change()
+        // props.hideModal()
+        // props.change()
     }).catch((err) => {
+        console.log(props.id, files)
         alert(err.response.data.message)
-        console.log(props.id, file)
     })
 
   }
@@ -51,7 +54,7 @@ const AddNewProducts = (props) => {
         
             <Button variant="contained" style = {{background: "#3245E9", borderRadius: "6px",
         width: "300px", height: "45px", color: "white"}}
-        onClick = {addMenuHandler}> ADD MENU</Button>
+        onClick = {addMenuHandler}> ADD products</Button>
 
         
             </div>

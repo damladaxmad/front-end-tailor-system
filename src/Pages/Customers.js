@@ -16,17 +16,15 @@ import { setCustomers } from "../redux/actions/customersActions";
 
 const Customers = () => {
 
-  const [newEmployees, setNewEmployees] = useState(false)
-  const [buttonName, setButtonName] = useState('Add New Employees')
+  const [newCustomers, setNewCustomers] = useState(false)
+  const [buttonName, setButtonName] = useState('Add New Customers')
   const [update, setUpdate] = useState(false)
-  const [showCornerIcon, setShowCornerIcon] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const [updatedEmployee, setUpdatedEmployee] = useState(null)
+  const [updatedCustomer, setUpdatedCustomer] = useState(null)
   const [del, setDel] = useState(1);
   const [showProfile, setShowProfile] = useState(false)
   const [assignMany, setAssignMany] = useState(false)
-  const [emplyeeIds, setEmployeesIds] = useState('')
   const [state, setState] = useState("")
   const activeUser = useSelector(state => state.activeUser.activeUser)
   const columns = [
@@ -40,7 +38,7 @@ const Customers = () => {
     { label: "Enter Phone", type: "text", name: "phone" }
   ];
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, student) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, customer) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -53,29 +51,23 @@ const Customers = () => {
   }
 
   const dispatch = useDispatch()
-  const employees = useSelector((state) => state.customers.customers);
+  const customers = useSelector((state) => state.customers.customers);
   dispatch(setCustomers(useFetch("customers", del, "customers")))
-  
-  const statusArr = ["All", "Active", "Inactive"]
-  const [status, setStatus] = useState(statusArr[0]);
+
   const [query, setQuery] = useState("");
   const [force, setForce] = useState(1)
 
-  const statusHandler = (e) => {
-    setStatus(e.target.value)
-  }
-
-  const addEmployeeHandler = () => {
+  const addCustomerHandler = () => {
     setQuery('')
-    if (buttonName == "Add New Employees"){
-      setNewEmployees(true)
-      setButtonName("Go To Employees")
+    if (buttonName == "Add New Customers"){
+      setNewCustomers(true)
+      setButtonName("Go To Customers")
       setShowProfile(false)
       return
-    } else if (buttonName == "Go To Employees") {
+    } else if (buttonName == "Go To Customers") {
       setShowProfile(false)
-      setNewEmployees(false)
-      setButtonName("Add New Employees") 
+      setNewCustomers(false)
+      setButtonName("Add New Customers") 
       setUpdate(false)
     }
    
@@ -95,27 +87,11 @@ const Customers = () => {
     }  
   };
 
- 
-  let employeesIds = '';
-  const selectHandler = (data) => {
-    data.map((d)=> {
-      employeesIds += d._id
-      employeesIds += ','
-    })
-    const slicedEmployeesIds = employeesIds.slice(0, -1)
-    setEmployeesIds(slicedEmployeesIds)
-
-    setShowCornerIcon(true)
-    if (data.length < 1) {
-      setShowCornerIcon(false)
-    }
-  }
-
-  const updateHandler = (employee) => {
-    setNewEmployees(true)
-    setButtonName("Go To Employees")
+  const updateHandler = (customer) => {
+    setNewCustomers(true)
+    setButtonName("Go To Customers")
     setUpdate(true)
-    setUpdatedEmployee(employee)
+    setUpdatedCustomer(customer)
   }
 
   const resetFomr = () => {
@@ -127,26 +103,25 @@ const Customers = () => {
   }, [force])
 
   useEffect(()=> {
-    if (employees?.length < 1)
-    setState("No employees found!")
-  }, [employees])
+    if (customers?.length < 1)
+    setState("No customers found!")
+  }, [customers])
 
   useEffect(()=> {
   }, [del])
 
     useEffect(()=> {
     if (query != '') {
-      setState("No matching employees!")
+      setState("No matching customers!")
     }
   }, [query])
 
   const showProfileHandler = () => {
     setShowProfile(true)
-    setButtonName("Go To Empoloyees")
+    setButtonName("Go To Customers")
   }
 
   const hideModal = () =>{
-    setAssignMany(false)
   }
 
   return (
@@ -170,8 +145,8 @@ const Customers = () => {
         }}
       >
    
-        <h2> {newEmployees ? "Create New Employees" : 
-        showProfile ? "Employee Profile" : "Employees"}</h2>
+        <h2> {newCustomers ? "Create New Customers" : 
+        showProfile ? "Customer Profile" : "Customers"}</h2>
         <Button
           variant="contained"
           style={{
@@ -179,12 +154,12 @@ const Customers = () => {
             color: "white",
           }}
           onClick = {() => {
-            if (activeUser.privillages.includes('Add New Employees'))
-            addEmployeeHandler()
+            if (activeUser.privillages.includes('Add New Customers'))
+            addCustomerHandler()
             else alert("You have no access!")
           }}
           startIcon={
-            newEmployees || showProfile ? <BiArrowBack
+            newCustomers || showProfile ? <BiArrowBack
               style={{
                 color: "white",
               }}
@@ -227,24 +202,18 @@ const Customers = () => {
           }}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <div style={{ display: "flex", gap: "20px" }}>
- 
-          {showCornerIcon && <BiDotsVerticalRounded style = {{
-            fontSize: "24px", margin: "auto 0px",
-            cursor: "pointer"
-          }} onClick = {handleClick} />}
-        </div>
+    
       </div>}
-      {!showProfile && <Table data={handler(employees)} 
-      change = {changeHandler} selectEmpoloyees = {selectHandler}
+      {!showProfile && <Table data={handler(customers)} 
+      change = {changeHandler} 
       update = {updateHandler} showProfile = {showProfileHandler}
-      state = {state} columns = {columns} url = "employees"
-      name = "Employee"/>}
-      {newEmployees && <Register update = {update}
-      instance = {updatedEmployee} reset = {resetFomr}  hideModal = {()=> {
+      state = {state} columns = {columns} url = "customers"
+      name = "Customer"/>}
+      {newCustomers && <Register update = {update}
+      instance = {updatedCustomer} reset = {resetFomr}  hideModal = {()=> {
         setUpdate(false)
-        setNewEmployees(false)
-        setButtonName("Add New Employees")
+        setNewCustomers(false)
+        setButtonName("Add New Customers")
       }}
       fields = {fields}  url = "customers"
       name = "Customer"
