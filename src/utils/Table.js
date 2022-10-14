@@ -49,8 +49,11 @@ const Table = (props) => {
     setAnchorEl(null);
   };
 
-  const showTransactions = (type) => {
-    props.showTransactions(instance, type)
+  const showOrders = () => {
+    props.showOrders(instance)
+  }
+  const showTransactions = () => {
+    alert("Learn again..")
   }
 
   const handleClick = (
@@ -183,17 +186,16 @@ const Table = (props) => {
         {(props.name == "Customer" || props.name == "Vendor")
           &&  <MenuItem onClick={() => {
           if (activeUser.privillages.includes("View Transactions"))
-          showTransactions('Transaction')
+          showTransactions()
           else alert("You have no access!")
           }}>View Transactions</MenuItem>}
 
-        {(props.name == "Customer" || props.name == "Vendor")
+        {props.name == "Customer" 
           &&  <MenuItem onClick={() => {
-          if (activeUser.privillages.includes("View Sales"))
-          showTransactions("Sale")
+          if (activeUser.privillages.includes("View Orders"))
+          showOrders()
           else alert("You have no access!")
-          }}>{props.name == "Customer" ? "View Sales" : 
-          "View Purchases"}</MenuItem>}
+          }}>View Orders</MenuItem>}
 
       </Menu>
 

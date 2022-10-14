@@ -13,6 +13,7 @@ import useFetch from "../funcrions/DataFetchers";
 import Table from "../utils/Table";
 import Register from "../utils/Register";
 import { setCustomers } from "../redux/actions/customersActions";
+import CustomerOrders from "../containers/CustomerContainers/CustomerOrders";
 
 const Customers = () => {
 
@@ -23,8 +24,8 @@ const Customers = () => {
   const open = Boolean(anchorEl);
   const [updatedCustomer, setUpdatedCustomer] = useState(null)
   const [del, setDel] = useState(1);
-  const [showProfile, setShowProfile] = useState(false)
-  const [assignMany, setAssignMany] = useState(false)
+  const [showOrders, setShowOrders] = useState(false)
+  const [customerInfo, setCustomerInfo] = useState()
   const [state, setState] = useState("")
   const activeUser = useSelector(state => state.activeUser.activeUser)
   const columns = [
@@ -53,7 +54,6 @@ const Customers = () => {
   const dispatch = useDispatch()
   const customers = useSelector((state) => state.customers.customers);
   dispatch(setCustomers(useFetch("customers", del, "customers")))
-
   const [query, setQuery] = useState("");
   const [force, setForce] = useState(1)
 
@@ -62,10 +62,10 @@ const Customers = () => {
     if (buttonName == "Add New Customers"){
       setNewCustomers(true)
       setButtonName("Go To Customers")
-      setShowProfile(false)
+      setShowOrders(false)
       return
     } else if (buttonName == "Go To Customers") {
-      setShowProfile(false)
+      setShowOrders(false)
       setNewCustomers(false)
       setButtonName("Add New Customers") 
       setUpdate(false)
@@ -116,9 +116,10 @@ const Customers = () => {
     }
   }, [query])
 
-  const showProfileHandler = () => {
-    setShowProfile(true)
+  const showOrdersHandler = (customer) => {
+    setShowOrders(true)
     setButtonName("Go To Customers")
+    setCustomerInfo(customer)
   }
 
   const hideModal = () =>{
@@ -146,7 +147,7 @@ const Customers = () => {
       >
    
         <h2> {newCustomers ? "Create New Customers" : 
-        showProfile ? "Customer Profile" : "Customers"}</h2>
+        showOrders ? "Customer Details" : "Customers"}</h2>
         <Button
           variant="contained"
           style={{
@@ -159,7 +160,7 @@ const Customers = () => {
             else alert("You have no access!")
           }}
           startIcon={
-            newCustomers || showProfile ? <BiArrowBack
+            newCustomers || showOrders ? <BiArrowBack
               style={{
                 color: "white",
               }}
@@ -173,7 +174,7 @@ const Customers = () => {
           {buttonName}
         </Button>
       </div>
-      {!showProfile &&
+      {!showOrders &&
       <div
         style={{
           display: "flex",
@@ -204,9 +205,11 @@ const Customers = () => {
         />
     
       </div>}
-      {!showProfile && <Table data={handler(customers)} 
+
+      {showOrders && <CustomerOrders data = {customerInfo}/>}
+      {!showOrders && <Table data={handler(customers)} 
       change = {changeHandler} 
-      update = {updateHandler} showProfile = {showProfileHandler}
+      update = {updateHandler} showOrders = {(customer)=> showOrdersHandler(customer)}
       state = {state} columns = {columns} url = "customers"
       name = "Customer"/>}
       {newCustomers && <Register update = {update}

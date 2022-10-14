@@ -6,6 +6,7 @@ module.exports = {
     "Customers",
     "Add New Customers",
     "View Transactions",
+    "View Orders",
     "Update Customer",
     "Payment",
     "Dashboard",
