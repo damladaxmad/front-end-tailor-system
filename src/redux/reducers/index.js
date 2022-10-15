@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import { dashboardReducer } from "./dashboardReducer";
 import { customersReducer } from "./customersReducer";
+import { ordersReducer } from "./ordersReducer";
 import { menusReducer } from "./menusReducer";
 import { usersReducer } from "./usersReducer";
 import { companyInfoReducer } from "./companyInfoReducer";
@@ -13,6 +14,7 @@ import { isLoginReducer } from "./isLoginReducer";
 const reducers = combineReducers({
   dashboard: dashboardReducer,
   customers: customersReducer,
+  orders: ordersReducer,
   menus: menusReducer,
   users: usersReducer,
   companyInfo: companyInfoReducer,

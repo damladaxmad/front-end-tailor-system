@@ -33,7 +33,8 @@ module.exports = {
    "Styles",
    "Add New Styles",
    "Update Styles",
-   "Delete Styles"
+   "Delete Styles",
+   "Lists"
   ],
 };
 

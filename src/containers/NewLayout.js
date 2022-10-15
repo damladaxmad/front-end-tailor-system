@@ -147,6 +147,11 @@ const menuItems = [
       path: "/menus",
     },
     {
+      text: "Lists",
+      icon: <DashboardIcon style={{fontSize: "20px", color: "white" }} />,
+      path: "/lists",
+    },
+    {
       text: "Styles",
       icon: <SiStylelint style={{fontSize: "20px", color: "white" }} />,
       path: "/styles",
