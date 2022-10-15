@@ -64,7 +64,9 @@ const MenuContainer = (props) => {
   // }, [change])
   
     return (
-        <div style = {{
+        <div 
+        class = "myDiv"
+        style = {{
            background: "white",
            width: "22%",
            padding: "12px",

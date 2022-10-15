@@ -1,5 +1,6 @@
 import { Button } from "@material-ui/core";
 import Service from "../CustomerContainers/Service";
+import "./list.css"
 
 const ListDetails = (props) => {
 
@@ -15,7 +16,7 @@ const ListDetails = (props) => {
         styles: ["gacmo gaab", "kulleeti"]
     }
   return (
-    <div
+    <div class = "myDiv"
       style={{
         display: "flex",
         flexDirection: "column",

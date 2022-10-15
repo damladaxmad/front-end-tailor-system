@@ -15,7 +15,7 @@ const ListOptions = (props) => {
         gap: "35px",
         flexWrap: "wrap"}}>
             {props.orders?.map(order => (
-                <ListOrder details = {()=> props.details()} />
+                <ListOrder details = {()=> props.details()} order = {order} />
             ))}
         </div>
     )
@@ -24,7 +24,8 @@ const ListOptions = (props) => {
 const ListOrder = (props) => {
 
     return (
-        <div style={{
+        <div class = "myDiv"
+        style={{
             width: "30%",
             background: "white",
             display: "flex",
@@ -48,9 +49,9 @@ Late
         
         <div>
           <p style = {{fontSize: "16px", fontWeight: "bold",
-        margin: "0px"}}> Shaati, Surwaal</p>
+        margin: "0px"}}> {props.order.name}</p>
           <p style = {{fontSize: "14px",
-        margin: "0px", color: "#8B8B8B"}}> Damlad Axmad</p>
+        margin: "0px", color: "#8B8B8B"}}> {props.order.customer.name}</p>
         </div>
 
         </div>

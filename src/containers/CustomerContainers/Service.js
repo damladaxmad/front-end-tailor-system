@@ -19,6 +19,7 @@ const Service = (props) => {
 
   return (
     <div
+    class = "myDiv"
       style={{
         width: "26%",
         background: "white",
