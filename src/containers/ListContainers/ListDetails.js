@@ -1,8 +1,30 @@
 import { Button } from "@material-ui/core";
+import axios from "axios";
+import { constants } from "../../Helpers/constantsFile";
 import Service from "../CustomerContainers/Service";
 import "./list.css"
 
 const ListDetails = (props) => {
+
+  console.log(props.order)
+
+  const orderActions = () => {
+    if (props.order?.status == "on-service") {
+      axios.post(`${constants.baseUrl}/orders/finish-order/${props.order?.id}`).then(()=> {
+        alert("Successfully Finished Order")
+      })
+    }
+    if (props.order?.status == "finished") {
+      axios.post(`${constants.baseUrl}/orders/take-order/${props.order?.id}`).then(()=> {
+        alert("Successfully Taken Order")
+      })
+    }
+    if (props.order?.status == "pending") {
+      axios.post(`${constants.baseUrl}/orders/assign-order-to-user/${props.order?.id}/63483a68435b04089c7de7d3`).then(()=> {
+        alert("Successfully Assigned Order To User")
+      })
+    }
+  }
 
     const service = {
         type: "Shaati",
@@ -33,6 +55,24 @@ const ListDetails = (props) => {
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          {props.order?.services?.map(service => (
+   <div
+   style={{
+     border: "1px solid black",
+     display: "flex",
+     alignItems: "center",
+     justifyContent: "center",
+     width: "90px",
+     height: "30px",
+     borderRadius: "8px",
+     fontWeight: "bold",
+   }}
+ >
+   {service.type}
+ </div>
+          ))}
+       
+         
           <div
             style={{
               border: "1px solid black",
@@ -45,35 +85,7 @@ const ListDetails = (props) => {
               fontWeight: "bold",
             }}
           >
-            Surwaal
-          </div>
-          <div
-            style={{
-              border: "1px solid black",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "90px",
-              height: "30px",
-              borderRadius: "8px",
-              fontWeight: "bold",
-            }}
-          >
-            Shaati
-          </div>
-          <div
-            style={{
-              border: "1px solid black",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "90px",
-              height: "30px",
-              borderRadius: "8px",
-              fontWeight: "bold",
-            }}
-          >
-            001
+            00{props.order.orderNumber}
           </div>
         </div>
 
@@ -85,10 +97,10 @@ const ListDetails = (props) => {
           }}
         >
           <p style={{ fontSize: "25px", fontWeight: "600", margin: "0px" }}>
-            Damlad Axmad
+            {props.order.customer.name}
           </p>
           <p style={{ fontSize: "20px", margin: "0px", color: "#8B8B8B" }}>
-            0616549198
+            {props.order.customer.phone}
           </p>
         </div>
 
@@ -113,8 +125,10 @@ const ListDetails = (props) => {
               background: "#F2994A",
               width: "100px",
             }}
+            onClick = {orderActions}
           >
-            Take
+            {props.order?.status == "pending" ? "assign" : 
+            props.order?.status == "on-service" ? "finish" : "take" }
           </Button>
           <Button
             variant="contained"
@@ -136,10 +150,9 @@ const ListDetails = (props) => {
           Services
         </p>
         <div style = {{display: "flex", gap: "100px", flexWrap: "wrap"}}>
-           <Service service = {service}/> 
-           <Service service = {service}/> 
-           <Service service = {service}/>
-           <Service service = {service}/> 
+          {props.order?.services.map(service => (
+            <Service service = {service}/>
+          ))}
         </div>
       </div>
 

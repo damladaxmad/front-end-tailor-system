@@ -4,18 +4,20 @@ import image from "../../assets/images/vip.jpg"
 const ListOptions = (props) => {
 
     console.log(props.orders)
-
-
-  const arr = [1, 2, 3, 4,  10]
-
+    
     return (
         <div style = {{ width: "95%",
         margin: "30px auto",
         display: "flex",
         gap: "35px",
         flexWrap: "wrap"}}>
+          {!props.orders ? <p> Loading...</p> : 
+          props.orders?.length < 1 ? <p> No orders to display</p> : null  }
             {props.orders?.map(order => (
-                <ListOrder details = {()=> props.details()} order = {order} />
+                <ListOrder details = {(order)=> {
+                  console.log(order)
+                  props.details(order)
+                }} order = {order} />
             ))}
         </div>
     )
@@ -37,15 +39,12 @@ const ListOrder = (props) => {
             gap: "10px",
             cursor: "pointer"
           }}
-          onClick = {()=> props.details()}>
+          onClick = {()=> props.details(props.order)}>
 
             <div style={{display: "flex", gap: "14px", alignItems: "center"}}>
-        {/* <div style = {{background: "blue", padding: "10px", color: "white",
-    borderRadius: "6px"}}>
-Late
-        </div> */}
+     
         <p style = {{fontSize: "18px", fontWeight: "600",
-        margin: "0px", color: "#ABA9A9",}}> 001</p>
+        margin: "0px", color: "#ABA9A9",}}> 00{props.order.orderNumber}</p>
         
         <div>
           <p style = {{fontSize: "16px", fontWeight: "bold",

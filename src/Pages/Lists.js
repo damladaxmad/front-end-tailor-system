@@ -14,9 +14,11 @@ import useFetch from "../funcrions/DataFetchers";
 const Lists = () => {
 
   const statusArr = ["All", "Active", "Inactive"]
+  const [query, setQuery] = useState("")
   const activeUser = useSelector(state => state.activeUser.activeUser)
   const orders = useSelector(state => state.orders.orders)
-
+  const [order, setOrder] = useState()
+  console.log(order)
   const [value, setValue] = React.useState("pending");
   const [details, setDetails] = useState(false)
   const dispatch = useDispatch()
@@ -32,12 +34,18 @@ const Lists = () => {
     if (data?.length > 0) {
       return data.filter(
         (std) =>
-        std.status == type
+        std.status == type && std.name.includes(query)
       );
     } else {
       return
     }  
   };
+
+  const detailHandler = (order) => {
+    setOrder(order)
+    setDetails(true)
+    console.log(order)
+  }
   
   return (
     <div
@@ -101,15 +109,17 @@ const Lists = () => {
             background: "white",
             border: "none",
           }}
-        //   onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
         />
         </div>}
 
-        {details && <ListDetails back = {()=> setDetails(false)} />}
+        {details && <ListDetails back = {()=> setDetails(false)} order = {order}/>}
         {(value == "pending" && !details) && <ListOptions orders = {filterer(orders, "pending")}
-        details = {()=> setDetails(true)}/>}
+        details = {(order)=> detailHandler(order)}/>}
         {(value == "on-service" && !details) && <ListOptions orders = {filterer(orders, "on-service")}
-        details = {()=> setDetails(true)}/>}
+        details = {(order)=> detailHandler(order)}/>}
+        {(value == "finished" && !details) && <ListOptions orders = {filterer(orders, "finished")}
+        details = {(order)=> detailHandler(order)}/>}
    
     </div>
   );

@@ -32,6 +32,8 @@ const Customers = () => {
     { title: "ID", field: "customerId",},
     { title: "Full Name", field: "name", width: "4%"},
     { title: "Email Address", field: "phone" },
+    { title: "Debit", field: "phone" },
+    { title: "Credit", field: "credit" },
     { title: "Balance", field: "balance" },
   ]
   const fields = [
@@ -53,7 +55,7 @@ const Customers = () => {
 
   const dispatch = useDispatch()
   const customers = useSelector((state) => state.customers.customers);
-  dispatch(setCustomers(useFetch("customers", del, "customers")))
+  dispatch(setCustomers(useFetch("customers/customers-with-transactions", del, "customers")))
   const [query, setQuery] = useState("");
   const [force, setForce] = useState(1)
 
