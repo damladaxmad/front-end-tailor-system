@@ -1,12 +1,19 @@
 import { Button } from "@material-ui/core";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { constants } from "../../Helpers/constantsFile";
+import { setUsers } from "../../redux/actions/usersActions";
 import Service from "../CustomerContainers/Service";
+import AssignOrderToUser from "./AssingOrderToUser";
 import "./list.css"
+import PaymentForm from "./PaymentForm";
 
 const ListDetails = (props) => {
 
-  console.log(props.order)
+  const [paymentForm, setPaymentForm] = useState(false)
+  const [assign, setAssign] = useState(false)
+  const dispatch = useDispatch()
 
   const orderActions = () => {
     if (props.order?.status == "on-service") {
@@ -15,28 +22,28 @@ const ListDetails = (props) => {
       })
     }
     if (props.order?.status == "finished") {
-      axios.post(`${constants.baseUrl}/orders/take-order/${props.order?.id}`).then(()=> {
-        alert("Successfully Taken Order")
-      })
+      setPaymentForm(true)
+      // axios.post(`${constants.baseUrl}/orders/take-order/${props.order?.id}`).then(()=> {
+      //   alert("Successfully Taken Order")
+      // })
     }
     if (props.order?.status == "pending") {
-      axios.post(`${constants.baseUrl}/orders/assign-order-to-user/${props.order?.id}/63483a68435b04089c7de7d3`).then(()=> {
-        alert("Successfully Assigned Order To User")
-      })
+     setAssign(true)
     }
   }
 
-    const service = {
-        type: "Shaati",
-        imageUrl: "1665477228067-any-name-stripes.jpg",
-        sizes:  [{title: "l", value: 10},
-        {title: "p", value: 9},
-        {title: "m", value: 11},
-        {title: "s", value: 12},
-        {title: "k", value: 8}
-    ],
-        styles: ["gacmo gaab", "kulleeti"]
-    }
+  const fetchUsers = async () => {
+    const response = await axios
+      .get(`${constants.baseUrl}/users`)
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+    dispatch(setUsers(response.data.data.users));
+  };
+
+  useEffect(() => {
+    fetchUsers()
+  },[])
   return (
     <div class = "myDiv"
       style={{
@@ -47,6 +54,10 @@ const ListDetails = (props) => {
         gap: "80px",
       }}
     >
+      {paymentForm && <PaymentForm hideModal = {()=> setPaymentForm(false)}
+      orderId = {props.order?.id} balance = {props.order?.balance}/>}
+      {assign && <AssignOrderToUser hideModal = {()=> setAssign(false)}
+      orderId = {props.order?.id} />}
       <div
         style={{
           display: "flex",

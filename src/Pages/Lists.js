@@ -34,7 +34,7 @@ const Lists = () => {
     if (data?.length > 0) {
       return data.filter(
         (std) =>
-        std.status == type && std.name.includes(query)
+        std.status == type && std.name.toLowerCase().includes(query.toLocaleLowerCase())
       );
     } else {
       return

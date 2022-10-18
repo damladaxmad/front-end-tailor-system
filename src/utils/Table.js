@@ -10,6 +10,7 @@ import { deleteFunction } from "../funcrions/deleteStuff";
 import ResetUser from "../containers/AdminstrationContainers/UsersContainer/ResetUser";
 import GiveUser from "../containers/EmplooyeeContainers/GiveUser";
 import { useNavigate, useLocation } from "react-router-dom";
+import Payment from "../containers/CustomerContainers/Payment";
 
 const Table = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -100,6 +101,8 @@ const Table = (props) => {
   return (
     <div style={{ width: "95%", margin: "auto" }}>
       {show && <GiveUser hideModal={hideModal} employee={instance} />}
+      {cVModal && <Payment hideModal={hideModal} instance = {instance}
+      name = "customer"/>}
 
       {userShow && (
         <ResetUser

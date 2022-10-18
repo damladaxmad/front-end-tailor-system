@@ -42,6 +42,7 @@ const MenuContainer = (props) => {
   
   const updatedMenu = () => {
     setId(props.menu.id)
+    handleClose()
     setUpdate(true)
   }
 

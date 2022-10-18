@@ -199,8 +199,6 @@ const Access = () => {
         }}
       >
         <FormControl style = {{width: "25%"}}>
-          {/* <InputLabel>Gender</InputLabel> */}
-
           <Select
             style={selectStyle}
             labelId="demo-simple-select-label"

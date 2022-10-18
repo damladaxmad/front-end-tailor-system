@@ -6,7 +6,7 @@ const ListOptions = (props) => {
     console.log(props.orders)
     
     return (
-        <div style = {{ width: "95%",
+        <div style = {{ width: "92%",
         margin: "30px auto",
         display: "flex",
         gap: "35px",
@@ -44,7 +44,7 @@ const ListOrder = (props) => {
             <div style={{display: "flex", gap: "14px", alignItems: "center"}}>
      
         <p style = {{fontSize: "18px", fontWeight: "600",
-        margin: "0px", color: "#ABA9A9",}}> 00{props.order.orderNumber}</p>
+        margin: "0px", color: "#ABA9A9",}}> 0{props.order.orderNumber}</p>
         
         <div>
           <p style = {{fontSize: "16px", fontWeight: "bold",

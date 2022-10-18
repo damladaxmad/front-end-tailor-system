@@ -12,7 +12,7 @@ const CustomerOrders = (props) => {
 
   useEffect(() => {
     axios
-      .get(`${constants.baseUrl}/customers/orders/${props.data.id}`)
+      .get(`${constants.baseUrl}/customers/orders/${props.data._id}`)
       .then((res) => {
         setOrders(res.data.orders);
       })

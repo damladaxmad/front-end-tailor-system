@@ -18,6 +18,7 @@ import Menus from "./Pages/Menus";
 import Customers from "./Pages/Customers";
 import Styles from "./Pages/Styles";
 import Lists from "./Pages/Lists";
+import NewOrders from "./Pages/NewOrders";
 
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
@@ -25,6 +26,7 @@ const pages = [
      <Route path= "/emplooyees" element = {<Employees/>} />,
      <Route path= "/adminstration" element = {<Adminstration/>} />,  
      <Route path= "/menus" element = {<Menus/>} />,  
+     <Route path= "/orders" element = {<NewOrders/>} />,  
      <Route path= "/lists" element = {<Lists/>} />,  
      <Route path= "/styles" element = {<Styles/>} />,  
 

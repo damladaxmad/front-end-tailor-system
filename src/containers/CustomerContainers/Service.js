@@ -49,7 +49,8 @@ const Service = (props) => {
           Styles:
         </Typography>
 
-        <div style={{ display: "flex", gap: "16px", marginTop: "10px" }}>
+        <div style={{ display: "flex", gap: "16px", marginTop: "10px",
+      flexWrap: "wrap" }}>
           {props.service.styles.map((style) => (
             <p
               style={{
@@ -72,7 +73,8 @@ const Service = (props) => {
           Sizes:
         </Typography>
 
-        <div style={{ display: "flex", gap: "35px", marginTop: "10px" }}>
+        <div style={{ display: "flex", gap: "35px", marginTop: "10px",
+      flexWrap: "wrap" }}>
           {props.service.sizes.map((size) => (
             <div
               style={{ display: "flex", flexDirection: "column", gap: "12px",
