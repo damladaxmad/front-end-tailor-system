@@ -36,7 +36,7 @@ const PaymentForm = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      amount: "",
+      amount: props.balance,
     },
     validate,
     onSubmit: async (values, { resetForm }) =>  {
@@ -95,7 +95,7 @@ const PaymentForm = (props) => {
           backgroundColor: disabled ? "lightgrey" : "#2F49D1",
           fontWeight: "600",
           color: "white",
-          height: "40px",
+          height: "50px",
           border: "none",
           borderRadius: "6px",
           cursor: "pointer",

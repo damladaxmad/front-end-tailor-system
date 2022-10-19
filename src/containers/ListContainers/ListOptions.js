@@ -28,7 +28,7 @@ const ListOrder = (props) => {
     return (
         <div class = "myDiv"
         style={{
-            width: "30%",
+            width: "31%",
             background: "white",
             display: "flex",
             flexDirection: "row",

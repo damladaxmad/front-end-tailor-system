@@ -1,7 +1,8 @@
+import { Typography } from "@material-ui/core"
 import OrderLists from "../containers/OrderContainers/OrderLIsts"
 
-
 const NewOrders = () => {
+
 
     return (
         <div
@@ -15,9 +16,9 @@ const NewOrders = () => {
           flexDirection: "column",
         }}
         >
-        <h2> New Orders</h2>
-
-        <OrderLists/>
+        <Typography style = {{fontWeight: "600",
+    fontSize: '25px'}}> New Order </Typography>
+        <OrderLists />
         
         </div>
     )
