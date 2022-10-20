@@ -5,6 +5,10 @@ import PaymentForm from "./PaymentForm";
 import ProductForm from "./ProductForm";
 import SizesForm from "./SizesForm";
 import StylesForm from "./StylesForm";
+import React, { useEffect } from "react";
+import axios from "axios";
+import { constants } from "../../../Helpers/constantsFile";
+// import image from "../../../assets/images/stripes.jpg";
 
 const OrderForm = (props) => {
     
@@ -16,6 +20,32 @@ const OrderForm = (props) => {
     ];
     const [num, setNum] = useState(0)
     const [currentProgress, setCurrentProgress] = useState("customer");
+
+    const [orderData, setOrderData] = useState({
+      type: props.type.typeName,
+      imageUrl: null,
+      customer: null,
+      sizes: null,
+      styles: [],
+      advance: null,
+      unitPrice: null,
+      unitPrice: null,
+      deadline: null
+    })
+
+    console.log(orderData)
+
+    const [image, setImage] = useState();
+
+    useEffect(() => {
+      axios
+        .get(`${constants.baseUrl}/files/${orderData.imageUrl}`, {
+          responseType: "blob",
+        })
+        .then((res) => {
+          setImage(URL.createObjectURL(res.data));
+        });
+    }, [orderData]);
 
   return (
     <MyModal onClose={() => props.hideModal()} left="25%" top="23vh">
@@ -30,6 +60,19 @@ const OrderForm = (props) => {
           height: "400px",
         }}
       >
+        <div style = {{display: "flex", width: "100%", gap: "75px"}}>
+
+        <img
+      src={image}
+      style={{
+        width: "150px",
+        height: "100px",
+        borderRadius: "6px",
+        cursor: "pointer",
+        visibility: currentProgress == "customer" ? "hidden" : null
+      }}
+      
+    />
         <div style={{ display: "flex", gap: "55px" }}>
           {progress.map((i, index) => (
             <div
@@ -66,11 +109,41 @@ const OrderForm = (props) => {
               </p>
             </div>
           ))}
+        </div> 
         </div>
-        {currentProgress == "customer" && <ProductForm />}
-        {currentProgress == "sizes" && <SizesForm/>}
-        {/* <StylesForm/> */}
-        {/* <PaymentForm/> */}
+
+        {currentProgress == "customer" && <ProductForm data = {
+          (data) => {
+            setOrderData(prevState => {
+              return {...prevState, imageUrl: data.imageUrl,
+                customer: data.customer};
+            });
+          }
+        } />}
+        {/* {currentProgress == "sizes" && <SizesForm data = {
+          (data) => {
+            setOrderData(prevState => {
+              return {...prevState, sizes: data.sizes};
+            });
+          }
+        }/>} */}
+       
+      {/* { currentProgress == "styles" &&  <StylesForm data = {
+          (data) => {
+            setOrderData(prevState => {
+              return {...prevState, styles: data.styles};
+            });
+          }
+        }/> } */}
+
+       { currentProgress == "payment" && <PaymentForm data = {
+          (data) => {
+            setOrderData(prevState => {
+              return {...prevState, unitPrice: data.unitPrice,
+                advance: data.advance, deadline: data.deadline};
+            });
+          }
+        }/> }
         <Button
             variant="contained"
             style={{
@@ -81,17 +154,18 @@ const OrderForm = (props) => {
               fontSize:"16px",
               width: "250px"
             }}
-            onClick = {()=> setCurrentProgress("sizes")}
+            onClick = {()=> setCurrentProgress("payment")}
           >
             {" "}
             Next
           </Button>
-          <div style = {{display: "flex", gap: "10px",
+
+          {currentProgress == "customer" && <div style = {{display: "flex", gap: "10px",
         fontSize: "16px"}}>
             <p style = {{margin: "0px"}}> Customer does not exist?</p>
             <p style = {{color: "#3245E9", margin: "0px", 
         fontWeight: "bold", cursor: "pointer"}}> Create</p>
-          </div>
+          </div>}
       </div>
     </MyModal>
   );

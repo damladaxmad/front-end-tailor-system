@@ -1,24 +1,36 @@
 import { Button, FormControl, MenuItem, Select } from "@material-ui/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ProductModel from "./ProductModel";
 
 const selectStyle = { height: "40px", color: "#B9B9B9", width: "100%" };
 const ProductForm = (props) => {
+
   const [state, setState] = useState(1);
-  const users = useSelector((state) => state.users.users);
-  const [productModel, setProdcutModel] = useState(false);
-  const [user, setUser] = useState(users[0]?._id);
-  const userHandler = (e) => {
-    setUser(e.target.value);
+  const customers = useSelector((state) => state.customers.customers);
+  const [customer, setCustomer] = useState(customers[0]?._id);
+  const [productName, setProductName] = useState()
+  const [productModel, setProductModel] = useState(false);
+
+  const customerHandler = (e) => {
+    setCustomer(e.target.value);
+    props.data({imageUrl: productName, customer: e.target.value})
   };
+
+  console.log(productName)
+
 
   return (
     <div
       style={{ display: "flex", flexDirection: "column", gap: "15px" }}
       class="myDiv"
     >
-       { productModel && <ProductModel hideModal = {()=> setProdcutModel(false)} />}
+       { productModel && <ProductModel hideModal = {()=> setProductModel(false)} 
+       productName = {(name)=> {
+        setProductName(name)
+        setProductModel(false)
+        props.data({imageUrl: name, customer: customer})
+        }}/>}
       <Button
         style={{
           border: "1.5px solid #F2994A",
@@ -27,7 +39,7 @@ const ProductForm = (props) => {
           height: "45px",
           fontSize: "14px",
         }}
-        onClick = {()=> setProdcutModel(true)}
+        onClick = {()=> setProductModel(true)}
       >
         {" "}
         Add Product
@@ -38,12 +50,12 @@ const ProductForm = (props) => {
           style={selectStyle}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={user}
-          onChange={userHandler}
+          value={customer}
+          onChange={customerHandler}
         >
-          {users?.map((user, index) => (
-            <MenuItem value={user._id} key={index}>
-              {user.name}
+          {customers?.map((customer, index) => (
+            <MenuItem value={customer._id} key={index}>
+              {customer.name}
             </MenuItem>
           ))}
         </Select>

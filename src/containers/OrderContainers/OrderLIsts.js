@@ -15,13 +15,15 @@ const types = [
 
 const OrderLists = (props) => {
     const [orderForm, setOrderForm] = useState(false)
+    const [type, setType] = useState()
 
   return (
     <div style = {{display: "flex", gap: "40px", flexWrap: "wrap",
     marginTop: "20px"}}
     class = "myDiv">
 
-        {orderForm && <OrderForm hideModal = {()=> setOrderForm(false)}/>}
+        {orderForm && <OrderForm hideModal = {()=> setOrderForm(false)}
+        type = {type} />}
       {types.map((type) => (
         <div
           style={{
@@ -55,7 +57,10 @@ const OrderLists = (props) => {
               color: "white",
               fontSize:"16px"
             }}
-            onClick = {()=> setOrderForm(true)}
+            onClick = {()=> {
+              setOrderForm(true)
+              setType(type)
+            }}
           >
             {" "}
             ORDER

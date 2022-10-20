@@ -27,7 +27,7 @@ const Styles = () => {
   const activeUser = useSelector(state => state.activeUser.activeUser)
   const columns = [
     { title: "Name", field: "name",},
-    { title: "Email Type", field: "type" },
+    { title: "Type", field: "type" },
     { title: "Description", field: "description", width: "4%"}
   ]
   const fields = [

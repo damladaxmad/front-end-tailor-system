@@ -56,7 +56,7 @@ const CustomerOrders = (props) => {
           borderRadius: "6px",
           padding: "15px 0px",
           justifyContent: "space-around",
-          border: "1px solid black",
+          border: "1.5px solid lightGrey",
         }}
       >
         {customerInfo.map((info) => (

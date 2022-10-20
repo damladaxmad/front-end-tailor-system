@@ -104,8 +104,7 @@ const Payment = (props) => {
         {" "}
         Pay
       </button>
-      { usernameOrPasswordError != '' ? <div style={errorStyle}> 
-      Username or password is incorrect</div> : null}
+    
     </form>
     </MyModal>
   );
