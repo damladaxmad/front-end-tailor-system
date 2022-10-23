@@ -49,6 +49,7 @@ const MenuContainer = (props) => {
   const hideModal = () => {
     setUpdate(false)
     setNewProducts(false)
+    props.change()
   }
 
   const optionHadler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -59,10 +60,6 @@ const MenuContainer = (props) => {
     setId(props.menu.id)
     setNewProducts(true)
   }
-
-  // useEffect(()=> {
-  //   console.log("running...")
-  // }, [change])
   
     return (
         <div 
@@ -105,7 +102,7 @@ const MenuContainer = (props) => {
         onClick = {addNewProducts}> ADD</Button>
           </div>
 
-        {update && <AddNewMenu id = {id} hideModal = {hideModal}/>}
+        {update && <AddNewMenu id = {props.menu.id} hideModal = {hideModal} update = {2}/>}
         {newProducts && <AddNewProducts id = {id} hideModal = {hideModal}/>}
 
           <Menu

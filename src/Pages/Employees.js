@@ -244,6 +244,7 @@ const Emplooyees = () => {
       instance = {updatedEmployee} reset = {resetFomr}  hideModal = {()=> {
         setUpdate(false)
         setNewEmployees(false)
+        changeHandler()
         setButtonName("Add New Employees")
       }}
       fields = {fields}  url = "employees"

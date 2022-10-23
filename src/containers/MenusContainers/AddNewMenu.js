@@ -15,20 +15,32 @@ const AddNewMenu = (props) => {
     setFile(e.target.files[0])
   }
 
-  if (file) {
+  if (file && !props.update) {
     formData.append('cover', file)
   }
 
   const addMenuHandler = () => {
-
     formData.append('name', name)
-    axios.post(`${constants.baseUrl}/menus`, formData).then((res) => {
+    if (props.update) {
+      axios.patch(`${constants.baseUrl}/menus/${props.id}`, formData).then((res) => {
+        alert("Successfully Updated")
+        props.hideModal()
+        props.change()
+    }).catch((err) => {
+        alert("Failed")
+    })
+    }
+
+    else {
+      axios.post(`${constants.baseUrl}/menus`, formData).then((res) => {
         alert("Successfully Created")
         props.hideModal()
         props.change()
     }).catch((err) => {
-        alert(err.response.message)
+        alert(err.response.data.message)
     })
+    }
+    
 
   }
 

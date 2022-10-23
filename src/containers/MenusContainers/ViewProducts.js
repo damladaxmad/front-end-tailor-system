@@ -16,7 +16,7 @@ const ViewProducts = (props) => {
   
 
     return (
-        <img src = {image} style = {{width: "22%", height: "130px",
+        <img src = {image} style = {{width: "20%", height: "130px",
         borderRadius: "6px"}}/>
     )
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useFormik } from "formik";
+import { FastField, useFormik } from "formik";
 import axios from "axios";
 import MyModal from "../../Modal/Modal"
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +22,7 @@ const AssignOrderToUser = (props) => {
   const [disabled, setDisabled] = useState(false)
 
   const assignHandler = async() => {
+    setDisabled(true)
     console.log(user)
     const res = await axios.post(`${constants.baseUrl}/orders/assign-order-to-user/${props.orderId}/${user}`).then(()=> {
         props.hideModal()

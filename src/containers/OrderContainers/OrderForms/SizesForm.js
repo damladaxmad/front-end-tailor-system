@@ -22,41 +22,9 @@ const SizesForm = (props) => {
     { label: "Enter Amount", type: "number", name: "k" },
   ];
 
-  const [orders, setOrders] = useState()
   
 
-  useEffect(() => {
-    axios
-      .get(`${constants.baseUrl}/customers/orders/${props.customer}`)
-      .then((res) => {
-        setOrders(res.data.orders);
-      })
-      .catch((err) => {
-        alert("failed to fetch");
-      });
-  }, [props.customer]);
-
-  let services = [];
-  orders?.map((order) => {
-    Array.prototype.push.apply(services, order.services);
-  });
-
-  let olderSizes = null
-  services.map(service => {
-    if (service.type == props.type) {
-      olderSizes = service.sizes
-    }
-  })
-
-  let olderObject = {}
-  olderSizes?.map(size => {
-    olderObject[size.title] = size.value
-  })
-
   const errorStyle = { color: "red", marginLeft: "27px", fontSize: "16px" };
-
-  console.log(olderObject)
-
 
   const validate = (values) => {
     const errors = {};
@@ -85,6 +53,8 @@ const SizesForm = (props) => {
     return errors;
   };
 
+  
+
  const init1 = {
   l: null,
   p: null,
@@ -100,8 +70,7 @@ const init2 = {
   k: null,
 }
   const formik = useFormik({
-    initialValues:  olderObject, 
-    // ? olderObject : props.type == "Surwaal" ? init2 : init1,
+    initialValues: props.olderSizes ? props.olderSizes : props.type == "Surwaal" ? init2 : init1,
     validate,
     enableReintialize: true
   });
@@ -115,11 +84,6 @@ const init2 = {
     
     props.data({sizes: sizeData})
   }, [formik.values])
-
- useEffect(()=> {
-   formik.initialValues = olderObject
-   console.log("re initializing..")
- }, [olderObject])
   
   return (
     <form

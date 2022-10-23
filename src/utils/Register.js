@@ -10,6 +10,12 @@ import EmplooyeeTitle from "../containers/EmplooyeeContainers/EmployeeTitle";
 
 const Register = (props) => {
 
+  const types = ["Shaati", "Surwaal", "Qamiis", "Jaakad"]
+  const [type, setType] = useState()
+
+  const typeHandler = (e) => {
+    setType(e.target.value)
+  }
 
   const validate = (values) => {
     const errors = {};
@@ -54,7 +60,7 @@ const Register = (props) => {
       email: props.update ? props.instance.email : "",
       name: props.update ? props.instance.name : "",
       role: props.update ? props.instance.role : "",
-    } : props.name == "Expense" ?  {
+    } : props.name == "Styles" ?  {
       description: props.update ? props.instance.description : "",
       expenseType: props.update ? props.instance.expenseType : "",
       date: props.update ? props.instance.date : "",
@@ -65,11 +71,12 @@ const Register = (props) => {
     : {
         name: props.update ? props.instance.name : "",
         phone: props.update ? props.instance.phone : "",
-        deadline: props.update ? props.instance.deadline : ""
+        deadline: props.update ? props.instance.deadline : "",
+        type: props.update ? props.instance.type : ""
     },
     validate,
     onSubmit: (values, { resetForm }) => {
-  
+      if (props.name == "Styles") values.type = type
       if (props.update){
         axios.patch(`${constants.baseUrl}/${props.url}/${props.instance._id}`, values).then((res) => {
           alert("Successfully Updated")
@@ -142,33 +149,36 @@ const Register = (props) => {
           </div>
         ))}
 
-        {/* {(props.name == "Employee" || props.name == "Expense") 
-        && <div style = {{display: "flex", gap: "10px"}}>
-       
-            <div
-                style={{
-                  height: "48px",
-                  width: "50px",
-                  alignItems: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                  border: "1px solid #BDBDBD",
-                  borderRadius: "5px",
-                }}
+      {props.name == "Styles" &&  <FormControl
+              style={{
+                padding: "0px",
+                margin: "0px",
+                width: "290px",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              <TextField
+                select
+                style={{width: "100%", color: "black"}}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={type}
+                label="Select a type"
+                onChange={typeHandler}
               >
-                <AiOutlinePlus
-                  style={{
-                    color: "black",
-                    opacity: 0.5,
-                    cursor: "pointer",
-                    fontWeight: "700",
-                    fontSize: "25px",
-                    fontWeight: "bolder",
-                  }}
-                  onClick = {showEmpTitle}
-                />
-              </div>
-            </div>} */}
+               {types?.map((type, index) => (
+                  <MenuItem value={type} key={index}>
+                    {type}
+                  </MenuItem>
+                ))
+              }
+              </TextField>
+
+              
+            </FormControl>}
 
         <Button
           style={{

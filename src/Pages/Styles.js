@@ -32,8 +32,7 @@ const Styles = () => {
   ]
   const fields = [
     { label: "Enter Name", type: "text", name: "name" },
-    { label: "Enter Description", type: "text", name: "description" },
-    { label: "Enter Type", type: "text", name: "type" },
+    { label: "Enter Description", type: "text", name: "description" }
   ];
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>, style) => {
@@ -211,6 +210,7 @@ const Styles = () => {
       instance = {updatedStyle} reset = {resetFomr}  hideModal = {()=> {
         setUpdate(false)
         setNewStyles(false)
+        changeHandler()
         setButtonName("Add New Styles")
       }}
       fields = {fields}  url = "styles"

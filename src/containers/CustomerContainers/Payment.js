@@ -40,6 +40,7 @@ const Payment = (props) => {
         props.hideModal()
         alert("Succesfully Paid")
         setDisabled(false)
+        props.change()
       }
       ).catch((err)=> {
         props.hideModal()

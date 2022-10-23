@@ -104,7 +104,7 @@ const Table = (props) => {
     <div style={{ width: "95%", margin: "auto" }}>
       {show && <GiveUser hideModal={hideModal} employee={instance} />}
       {cVModal && <Payment hideModal={hideModal} instance = {instance}
-      name = "customer"/>}
+      name = "customer" change = {()=> props.change()}/>}
 
       {userShow && (
         <ResetUser
@@ -124,7 +124,7 @@ const Table = (props) => {
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
-        style={{marginTop: "35px"}}
+        style={{marginTop: "25px"}}
       >
         {(props.name == "Customer" || props.name == "Vendor") && (
           <MenuItem

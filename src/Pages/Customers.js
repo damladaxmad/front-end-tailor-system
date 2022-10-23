@@ -23,6 +23,8 @@ const Customers = () => {
   const [update, setUpdate] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const statusArr = ["All", "Deen", "Clear"]
+  const [status, setStatus] = useState(statusArr[0]);
   const [updatedCustomer, setUpdatedCustomer] = useState(null)
   const [del, setDel] = useState(1);
   const [showOrders, setShowOrders] = useState(false)
@@ -56,6 +58,10 @@ const Customers = () => {
     setDel(state => state + 1)
   }
 
+  const statusHandler = (e) => {
+    setStatus(e.target.value)
+  }
+
   const dispatch = useDispatch()
   const customers = useSelector((state) => state.customers.customers);
   dispatch(setCustomers(useFetch("customers/customers-with-transactions", del, "customers")))
@@ -83,11 +89,25 @@ const Customers = () => {
   const handler = (data) => { 
  
     if (data?.length > 0) {
+      if (query == ""){
+        return data.filter(
+          (std) => {
+            if (status == "Deen")
+            return std.balance > 0 
+            else if (status == "Clear")
+            return std.balance == 0
+            else return std.balance >= 0 || std.balance <= 0
+          }
+        );
+      }
+      else {
       return data.filter(
-        (std) =>
-        std.name.toLowerCase().includes(query) ||
-        std.phone.toLowerCase().includes(query)
+        (std) => (status == "Deen" ? std.balance > 0 : 
+        status == "Clear" ? std.balance == 0 : std.balance >= 0 || std.balance <= 0) &&
+        (std.name.toLowerCase().includes(query) ||
+        std.phone.toLowerCase().includes(query))
       );
+      }
     } else {
       return
     }  
@@ -209,6 +229,22 @@ const Customers = () => {
           }}
           onChange={(e) => setQuery(e.target.value)}
         />
+         <FormControl style={{ padding: "0px", margin: "0px" }}>
+          <Select
+            style={{  height: "40px", color: "#B9B9B9",
+            width: "172px", }}
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={status}
+            onChange={statusHandler}
+          >
+            {statusArr.map((status, index) => (
+              <MenuItem value={status} key={index}>
+                {status}
+              </MenuItem>
+            ))}
+          </Select>
+          </FormControl>
     
       </div>}
 
@@ -228,6 +264,7 @@ const Customers = () => {
       instance = {updatedCustomer} reset = {resetFomr}  hideModal = {()=> {
         setUpdate(false)
         setNewCustomers(false)
+        changeHandler()
         setButtonName("Add New Customers")
       }}
       fields = {fields}  url = "customers"

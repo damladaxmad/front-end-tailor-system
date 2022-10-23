@@ -1,4 +1,4 @@
-import { Button, FormControl, MenuItem, Select } from "@material-ui/core";
+import { Button, FormControl, FormLabel, MenuItem, Select, TextField } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ProductModel from "./ProductModel";
@@ -8,7 +8,7 @@ const ProductForm = (props) => {
 
   const [state, setState] = useState(1);
   const customers = useSelector((state) => state.customers.customers);
-  const [customer, setCustomer] = useState(customers[0]?._id);
+  const [customer, setCustomer] = useState();
   const [productName, setProductName] = useState()
   const [productModel, setProductModel] = useState(false);
 
@@ -46,8 +46,10 @@ const ProductForm = (props) => {
       </Button>
 
       <FormControl style={{ width: "250px" }}>
-        <Select
+        <TextField
+        select
           style={selectStyle}
+          label = "Select a customer"
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={customer}
@@ -58,7 +60,7 @@ const ProductForm = (props) => {
               {customer.name}
             </MenuItem>
           ))}
-        </Select>
+        </TextField>
       </FormControl>
     </div>
   );
