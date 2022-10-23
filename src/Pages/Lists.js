@@ -21,9 +21,9 @@ const Lists = () => {
   console.log(order)
   const [value, setValue] = React.useState("pending");
   const [details, setDetails] = useState(false)
+  const [change, setChange] = useState(1)
   const dispatch = useDispatch()
-  dispatch(setOrders(useFetch("orders", value, "orders")))
-  console.log(orders)
+  dispatch(setOrders(useFetch("orders", change, "orders")))
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -46,6 +46,15 @@ const Lists = () => {
     setDetails(true)
     console.log(order)
   }
+
+  const changeHandler = () => {
+    setChange(state => state + 1)
+  }
+
+  useEffect(()=> {
+  }, [change])
+
+  console.log(change)
   
   return (
     <div
@@ -113,9 +122,10 @@ const Lists = () => {
         />
         </div>}
 
-        {details && <ListDetails back = {()=> setDetails(false)} order = {order}/>}
+        {details && <ListDetails back = {()=> setDetails(false)} order = {order}
+        change = {changeHandler}/>}
         {(value == "pending" && !details) && <ListOptions orders = {filterer(orders, "pending")}
-        details = {(order)=> detailHandler(order)}/>}
+        details = {(order)=> detailHandler(order)} />}
         {(value == "on-service" && !details) && <ListOptions orders = {filterer(orders, "on-service")}
         details = {(order)=> detailHandler(order)}/>}
         {(value == "finished" && !details) && <ListOptions orders = {filterer(orders, "finished")}

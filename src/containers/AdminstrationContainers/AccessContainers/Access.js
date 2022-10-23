@@ -55,6 +55,13 @@ const Access = () => {
         "Update Styles", "View Styles"
       ],
     },
+    {
+      name: "Lists",
+      access: [
+        "Lists", "Assign Order", "Finish Order",
+        "Take Order", "Cancel Order"
+      ],
+    },
  
     {
       name: "Employees",
@@ -72,8 +79,8 @@ const Access = () => {
       "Delete User", "Company Info"],
     },
      {
-      name: "Transactions",
-      access: ["Transactions", "Cancel Transaction", "Restore Transaction"],
+      name: "New Order",
+      access: ["New Order"],
     },
      
    ];

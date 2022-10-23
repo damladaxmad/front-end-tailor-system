@@ -2,8 +2,11 @@ import { Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { constants } from "../../Helpers/constantsFile";
+import moment from "moment/moment";
+
 const Service = (props) => {
   const [image, setImage] = useState();
+  console.log(props.deadline)
 
   useEffect(() => {
     axios
@@ -21,7 +24,7 @@ const Service = (props) => {
     <div
     class = "myDiv"
       style={{
-        width: "26%",
+        width: "250px",
         background: "white",
         display: "flex",
         flexDirection: "column",
@@ -35,7 +38,7 @@ const Service = (props) => {
           {" "}
           {props.service.type}
         </Typography>
-        <Typography> 2022/10/14</Typography>
+        <Typography> {moment(props.deadline).format("YYYY-MM-DD")}</Typography>
       </div>
 
       <img

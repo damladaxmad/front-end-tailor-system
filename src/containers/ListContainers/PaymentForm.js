@@ -15,7 +15,7 @@ const PaymentForm = (props) => {
   const validate = (values) => {
     const errors = {};
 
-    if (!values.amount) {
+    if (!values.amount && values.amount != 0) {
       errors.name = "Field is Required";
     }
     return errors;
@@ -26,6 +26,7 @@ const PaymentForm = (props) => {
         props.hideModal()
         alert(message)
         setDisabled(false)
+        props.change()
       }
       ).catch((err)=> {
         props.hideModal()
@@ -41,7 +42,9 @@ const PaymentForm = (props) => {
     validate,
     onSubmit: async (values, { resetForm }) =>  {
       setDisabled(true)
-    apiHandler(`${constants.baseUrl}/orders/payment/${props.orderId}/${values.amount}`, "Succesfully Payed")
+    if (values.amount != 0) {
+      await apiHandler(`${constants.baseUrl}/orders/payment/${props.orderId}/${values.amount}`, "Succesfully Payed")
+    }
     if (props.balance > values.amount) {
         apiHandler(`${constants.baseUrl}/orders/invoice-order-to-customer/${props.orderId}`, "Successfully Invoiced")
     }

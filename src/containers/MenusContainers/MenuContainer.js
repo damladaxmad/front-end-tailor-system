@@ -76,6 +76,7 @@ const MenuContainer = (props) => {
            flexDirection: "column",
            gap: "10px"
         }}>
+          {!props.menu.name && <p> No menu to display!</p>}
             <div style = {{display: 'flex', alignItems: "center", 
         justifyContent: "space-between", width: '100%'}}>
           <Typography style = {{fontSize: "14px", fontWeight: "600"}}>

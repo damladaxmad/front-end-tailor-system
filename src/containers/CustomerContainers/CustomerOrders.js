@@ -57,6 +57,7 @@ const CustomerOrders = (props) => {
           padding: "15px 0px",
           justifyContent: "space-around",
           border: "1.5px solid lightGrey",
+          flexWrap: "wrap"
         }}
       >
         {customerInfo.map((info) => (
@@ -84,9 +85,9 @@ const CustomerOrders = (props) => {
           gap: "45px",
         }}
       >
-        {services?.map((service) => (
-          <Service service={service} />
-        ))}
+        {services?.map((service) => {
+          return (<Service service={service} deadline = {orders?.date}/>)
+        })}
       </div>
     </div>
   );

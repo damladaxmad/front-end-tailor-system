@@ -14,6 +14,7 @@ import Table from "../utils/Table";
 import Register from "../utils/Register";
 import { setCustomers } from "../redux/actions/customersActions";
 import CustomerOrders from "../containers/CustomerContainers/CustomerOrders";
+import Transactions from "../containers/CustomerContainers/Transactions";
 
 const Customers = () => {
 
@@ -27,12 +28,14 @@ const Customers = () => {
   const [showOrders, setShowOrders] = useState(false)
   const [customerInfo, setCustomerInfo] = useState()
   const [state, setState] = useState("")
+  const [showTransactions, setShowTransactions] = useState(false)
+  const [instance, setInstance] = useState()
   const activeUser = useSelector(state => state.activeUser.activeUser)
   const columns = [
     { title: "ID", field: "customerId",},
     { title: "Full Name", field: "name", width: "4%"},
     { title: "Email Address", field: "phone" },
-    { title: "Debit", field: "phone" },
+    { title: "Debit", field: "debit" },
     { title: "Credit", field: "credit" },
     { title: "Balance", field: "balance" },
   ]
@@ -68,6 +71,7 @@ const Customers = () => {
       return
     } else if (buttonName == "Go To Customers") {
       setShowOrders(false)
+      setShowTransactions(false)
       setNewCustomers(false)
       setButtonName("Add New Customers") 
       setUpdate(false)
@@ -149,7 +153,7 @@ const Customers = () => {
       >
    
         <h2> {newCustomers ? "Create New Customers" : 
-        showOrders ? "Customer Details" : "Customers"}</h2>
+        showOrders ? "Customer Details" : showTransactions ? "Customer Transactions" : "Customers"}</h2>
         <Button
           variant="contained"
           style={{
@@ -162,7 +166,7 @@ const Customers = () => {
             else alert("You have no access!")
           }}
           startIcon={
-            newCustomers || showOrders ? <BiArrowBack
+            newCustomers || showOrders || showTransactions ? <BiArrowBack
               style={{
                 color: "white",
               }}
@@ -176,7 +180,7 @@ const Customers = () => {
           {buttonName}
         </Button>
       </div>
-      {!showOrders &&
+      {(!showOrders && !showTransactions) && 
       <div
         style={{
           display: "flex",
@@ -209,7 +213,13 @@ const Customers = () => {
       </div>}
 
       {showOrders && <CustomerOrders data = {customerInfo}/>}
-      {!showOrders && <Table data={handler(customers)} 
+      {showTransactions && <Transactions instance = {instance} name = "customer" />}
+      {(!showOrders && !showTransactions) && <Table data={handler(customers)} 
+      showTransactions = {(instance) => {
+        setShowTransactions(true)
+        setInstance(instance)
+        setButtonName("Go To Customers")
+      }}
       change = {changeHandler} 
       update = {updateHandler} showOrders = {(customer)=> showOrdersHandler(customer)}
       state = {state} columns = {columns} url = "customers"

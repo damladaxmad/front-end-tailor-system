@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import { useState } from "react";
 import MyModal from "../../../Modal/Modal";
 import PaymentForm from "./PaymentForm";
@@ -9,6 +9,9 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { constants } from "../../../Helpers/constantsFile";
 // import image from "../../../assets/images/stripes.jpg";
+import CloseIcon from "@material-ui/icons/Close";
+import swal from "sweetalert";
+import { BiArrowBack } from "react-icons/bi";
 
 const OrderForm = (props) => {
     
@@ -19,16 +22,20 @@ const OrderForm = (props) => {
         { name: "payment" },
     ];
     const [num, setNum] = useState(0)
-    const [currentProgress, setCurrentProgress] = useState("customer");
+    const [currentProgress, setCurrentProgress] = useState(progress[num].name);
+    const [disabled, setDisabled] = useState(false)
+    useEffect(() => {
+      if (num < 4)
+      setCurrentProgress(progress[num].name)
+    }, [num])
 
     const [orderData, setOrderData] = useState({
       type: props.type.typeName,
       imageUrl: null,
       customer: null,
       sizes: null,
-      styles: [],
+      styles: ["Kulleeti shiinees", "Gacmo Gaab"],
       advance: null,
-      unitPrice: null,
       unitPrice: null,
       deadline: null
     })
@@ -47,8 +54,55 @@ const OrderForm = (props) => {
         });
     }, [orderData]);
 
+    const postOrder = async (data) => {
+      setDisabled(true)
+      const res = await axios.post(`${constants.baseUrl}/orders`, data).then((res) => {
+        alert("Succesfully posted order.")
+        props.hideModal()
+      }).catch(err => {
+        alert(err.response.data.message);
+      })
+    }
+
+
+    const completeOder = () => {
+      const data = {
+        customer: orderData.customer,
+        advance: orderData.advance,
+        deadline: orderData.deadline,
+        services: [
+          {
+            type: orderData.type,
+            sizes: orderData.sizes,
+            styles: orderData.styles,
+            unitPrice: orderData.unitPrice,
+            imageUrl: orderData.imageUrl,
+            quantity: 1
+          }
+        ]
+      }
+      postOrder(data)
+    }
+
+const closeForm = () => {
+    swal({
+      title: "Closing the form",
+      text: `Are you sure to close the form?`,
+      icon: "warning",
+      buttons: {
+        cancel : 'No',
+        confirm : {text:'Yes',className:'sweet-warning'},
+    }
+
+    }).then((response) => {
+      if (response) {
+      props.hideModal()  
+      }
+    })
+  }
+
   return (
-    <MyModal onClose={() => props.hideModal()} left="25%" top="23vh">
+    <MyModal  left="25%" top="23vh">
       <div
         style={{
           width: "750px",
@@ -60,20 +114,23 @@ const OrderForm = (props) => {
           height: "400px",
         }}
       >
-        <div style = {{display: "flex", width: "100%", gap: "75px"}}>
+        <div style = {{display: "flex", width: "100%", justifyContent: "space-between",
+      }}>
 
         <img
       src={image}
+      alt = "Order Image"
       style={{
         width: "150px",
         height: "100px",
         borderRadius: "6px",
         cursor: "pointer",
-        visibility: currentProgress == "customer" ? "hidden" : null
+        // visibility: !image ? "hidden" : null,
+        // flex: 1
       }}
       
     />
-        <div style={{ display: "flex", gap: "55px" }}>
+        <div style={{ display: "flex", gap: "55px",  }}>
           {progress.map((i, index) => (
             <div
               style={{
@@ -110,6 +167,24 @@ const OrderForm = (props) => {
             </div>
           ))}
         </div> 
+        
+        <div style = {{display: "flex", gap: "6px", justifyContent: "center",
+        cursor: "pointer", height: "20px"}}
+        onClick = {()=> {
+          if (currentProgress != "customer"){
+            setNum(state => state - 1)
+          }
+        }}>
+        <BiArrowBack style = {{cursor: "pointer", fontSize: "25px", 
+        color: "gray",
+        }} 
+        />
+        <Typography style = {{fontSize: "18px", color: "gray"}}> Back</Typography>
+        </div>
+        <CloseIcon style = {{cursor: "pointer", fontSize: "38px", 
+        color: "gray",
+        }} 
+        onClick = {closeForm}/>
         </div>
 
         {currentProgress == "customer" && <ProductForm data = {
@@ -120,21 +195,24 @@ const OrderForm = (props) => {
             });
           }
         } />}
-        {/* {currentProgress == "sizes" && <SizesForm data = {
+        {currentProgress == "sizes" && <SizesForm type = {props.type.typeName}
+        data = {
           (data) => {
             setOrderData(prevState => {
               return {...prevState, sizes: data.sizes};
             });
           }
-        }/>} */}
+        }
+        customer = {orderData.customer} type = {orderData.type}/>}
        
-      {/* { currentProgress == "styles" &&  <StylesForm data = {
+      { currentProgress == "styles" &&  <StylesForm data = {
           (data) => {
             setOrderData(prevState => {
               return {...prevState, styles: data.styles};
             });
           }
-        }/> } */}
+        }
+        /> }
 
        { currentProgress == "payment" && <PaymentForm data = {
           (data) => {
@@ -145,19 +223,28 @@ const OrderForm = (props) => {
           }
         }/> }
         <Button
+            disabled = {disabled}
             variant="contained"
             style={{
-              background: "#3245E9",
+              background: disabled ? "lightGray" : "#3245E9",
               borderRadius: "6px",
               height: "45px",
               color: "white",
               fontSize:"16px",
               width: "250px"
             }}
-            onClick = {()=> setCurrentProgress("payment")}
+            onClick = {()=> {
+              if (currentProgress != "payment"){
+                setNum(state => state + 1)
+              }
+              if (currentProgress == "payment"){
+                 completeOder()
+              }
+              
+            }}
           >
             {" "}
-            Next
+           {currentProgress == "payment" ? "complete" : "next"}
           </Button>
 
           {currentProgress == "customer" && <div style = {{display: "flex", gap: "10px",

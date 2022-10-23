@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { constants } from "../../Helpers/constantsFile";
 import { setUsers } from "../../redux/actions/usersActions";
 import Service from "../CustomerContainers/Service";
@@ -10,26 +10,30 @@ import "./list.css"
 import PaymentForm from "./PaymentForm";
 
 const ListDetails = (props) => {
-
+  const activeUser = useSelector(state => state.activeUser.activeUser)
   const [paymentForm, setPaymentForm] = useState(false)
   const [assign, setAssign] = useState(false)
   const dispatch = useDispatch()
 
   const orderActions = () => {
-    if (props.order?.status == "on-service") {
+    if (props.order?.status == "on-service" && activeUser.privillages?.includes("Finish Order")) {
       axios.post(`${constants.baseUrl}/orders/finish-order/${props.order?.id}`).then(()=> {
         alert("Successfully Finished Order")
+        props.change()
       })
     }
-    if (props.order?.status == "finished") {
+    if (props.order?.status == "finished" && activeUser.privillages?.includes("Take Order")) {
       setPaymentForm(true)
       // axios.post(`${constants.baseUrl}/orders/take-order/${props.order?.id}`).then(()=> {
       //   alert("Successfully Taken Order")
       // })
     }
-    if (props.order?.status == "pending") {
+    if (props.order?.status == "pending" && activeUser.privillages?.includes("Assign Order")) {
      setAssign(true)
     }
+    // else {
+    //   alert("You have no access!")
+    // }
   }
 
   const fetchUsers = async () => {
@@ -55,9 +59,10 @@ const ListDetails = (props) => {
       }}
     >
       {paymentForm && <PaymentForm hideModal = {()=> setPaymentForm(false)}
-      orderId = {props.order?.id} balance = {props.order?.balance}/>}
+      orderId = {props.order?.id} balance = {props.order?.balance} 
+      change = {()=> props.change()}/>}
       {assign && <AssignOrderToUser hideModal = {()=> setAssign(false)}
-      orderId = {props.order?.id} />}
+      orderId = {props.order?.id}  change = {()=> props.change()}/>}
       <div
         style={{
           display: "flex",
@@ -96,7 +101,8 @@ const ListDetails = (props) => {
               fontWeight: "bold",
             }}
           >
-            00{props.order.orderNumber}
+            {props.order.orderNumber < 10 ? "00" : props.order.orderNumber < 100 ? "0" : null }
+            {props.order.orderNumber}
           </div>
         </div>
 
@@ -162,7 +168,7 @@ const ListDetails = (props) => {
         </p>
         <div style = {{display: "flex", gap: "100px", flexWrap: "wrap"}}>
           {props.order?.services.map(service => (
-            <Service service = {service}/>
+            <Service service = {service} deadline = {props.order.deadline}/>
           ))}
         </div>
       </div>

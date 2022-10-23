@@ -25,8 +25,9 @@ const AssignOrderToUser = (props) => {
     console.log(user)
     const res = await axios.post(`${constants.baseUrl}/orders/assign-order-to-user/${props.orderId}/${user}`).then(()=> {
         props.hideModal()
-        alert(`Succesfully Assing Order to user`)
+        alert(`Succesfully Assigned Order to user`)
         setDisabled(false)
+        props.change()
       }
       ).catch((err)=> {
         props.hideModal()

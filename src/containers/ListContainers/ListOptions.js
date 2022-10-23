@@ -6,10 +6,10 @@ const ListOptions = (props) => {
     console.log(props.orders)
     
     return (
-        <div style = {{ width: "92%",
+        <div style = {{ width: "95%",
         margin: "30px auto",
         display: "flex",
-        gap: "35px",
+        gap: "30px",
         flexWrap: "wrap"}}>
           {!props.orders ? <p> Loading...</p> : 
           props.orders?.length < 1 ? <p> No orders to display</p> : null  }
@@ -28,7 +28,7 @@ const ListOrder = (props) => {
     return (
         <div class = "myDiv"
         style={{
-            width: "31%",
+            width: "30%",
             background: "white",
             display: "flex",
             flexDirection: "row",
@@ -36,7 +36,7 @@ const ListOrder = (props) => {
             alignItems: "center",
             justifyContent: "space-between",
             padding: "15px",
-            gap: "10px",
+            gap: "0px",
             cursor: "pointer"
           }}
           onClick = {()=> props.details(props.order)}>

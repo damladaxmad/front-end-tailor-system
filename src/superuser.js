@@ -34,7 +34,8 @@ module.exports = {
    "Add New Styles",
    "Update Styles",
    "Delete Styles",
-   "Lists",
+   "Lists", "Assign Order", "Finish Order",
+        "Take Order", "Cancel Order",
    "New Order",
   ],
 };

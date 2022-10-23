@@ -65,7 +65,7 @@ const Menus = () => {
     if (data?.length > 0) {
       return data.filter(
         (std) =>
-        std.name.toLowerCase().includes(query)
+        std.name.toLowerCase().includes(query.toLocaleLowerCase())
       );
     } else {
       return
@@ -240,7 +240,7 @@ const Menus = () => {
           flexWrap: "wrap"
         }}>
 
-        {menus?.map(menu => (
+        {handler(menus)?.map(menu => (
           <MenuContainer menu = {menu} change = {changeHandler}
           viewProducts = {(products)=> viewProductsHandler(products)}/>
         ))}

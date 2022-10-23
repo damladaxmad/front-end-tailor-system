@@ -6,6 +6,7 @@ import axios from "axios";
 import { constants } from "../../../Helpers/constantsFile";
 
 const ProductModel = (props) => {
+  
   const menus = useSelector((state) => state.menus.menus);
   const [menu, setMenu] = useState(menus[0]?._id);
   const [productModel, setProdcutModel] = useState(false);
@@ -68,6 +69,7 @@ const ProductModel = (props) => {
         >
           {menuProdcuts?.map((image) => (
             <ProductImages
+              menu = {menu}
               image={image}
               productName={(name) => {
                 props.productName(name);
@@ -91,7 +93,7 @@ const ProductImages = (props) => {
       .then((res) => {
         setImage(URL.createObjectURL(res.data));
       });
-  }, [props.image]);
+  }, [props.image, props.menu]);
 
   return (
     <img

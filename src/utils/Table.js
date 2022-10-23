@@ -11,6 +11,7 @@ import ResetUser from "../containers/AdminstrationContainers/UsersContainer/Rese
 import GiveUser from "../containers/EmplooyeeContainers/GiveUser";
 import { useNavigate, useLocation } from "react-router-dom";
 import Payment from "../containers/CustomerContainers/Payment";
+import Transactions from "../containers/CustomerContainers/Transactions";
 
 const Table = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -53,8 +54,9 @@ const Table = (props) => {
   const showOrders = () => {
     props.showOrders(instance)
   }
-  const showTransactions = () => {
-    alert("Learn again..")
+  const showTransactionsFun = () => {
+    props.showTransactions(instance)
+    handleClose()
   }
 
   const handleClick = (
@@ -189,7 +191,7 @@ const Table = (props) => {
         {(props.name == "Customer" || props.name == "Vendor")
           &&  <MenuItem onClick={() => {
           if (activeUser.privillages.includes("View Transactions"))
-          showTransactions()
+          showTransactionsFun()
           else alert("You have no access!")
           }}>View Transactions</MenuItem>}
 

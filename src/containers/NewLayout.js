@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import { SiStylelint } from "react-icons/si"; 
 import { VscPerson } from "react-icons/vsc";
-import { MdPointOfSale } from "react-icons/md";
+import { MdOutlineMenuBook } from "react-icons/md";
 import GroupIcon from "@material-ui/icons/Group";
 import { MdAdminPanelSettings } from "react-icons/md"; 
 import ListItem from '@mui/material/ListItem';
@@ -25,8 +25,8 @@ import { MdMenuOpen } from "react-icons/md";
 import { IoWalletOutline } from "react-icons/io5"; 
 import { FiMenu } from "react-icons/fi"; 
 import { HiOutlineDocumentReport } from "react-icons/hi"; 
-import { BiPurchaseTagAlt } from "react-icons/bi"; 
-import { AiOutlineTransaction } from "react-icons/ai"; 
+import { FaClipboardList } from "react-icons/fa"; 
+import { MdBorderColor } from "react-icons/md"; 
 import AppBarFile from './AppBarContainers/AppBar';
 import femaleProfile from "../assets/images/fitCasriLogo1.jpg";
 import { useSelector } from 'react-redux';
@@ -143,17 +143,17 @@ const menuItems = [
     },
     {
       text: "Menus",
-      icon: <DashboardIcon style={{fontSize: "20px", color: "white" }} />,
+      icon: <MdOutlineMenuBook style={{fontSize: "20px", color: "white" }} />,
       path: "/menus",
     },
     {
       text: "Lists",
-      icon: <DashboardIcon style={{fontSize: "20px", color: "white" }} />,
+      icon: <FaClipboardList style={{fontSize: "20px", color: "white" }} />,
       path: "/lists",
     },
     {
       text: "New Order",
-      icon: <DashboardIcon style={{fontSize: "20px", color: "white" }} />,
+      icon: <MdBorderColor style={{fontSize: "20px", color: "white" }} />,
       path: "/orders",
     },
     {
