@@ -7,6 +7,8 @@ import { constants } from "../../Helpers/constantsFile";
 
 const PaymentForm = (props) => {
 
+  const activeUser = useSelector(state => state.activeUser.activeUser)
+
   const [disabled, setDisabled] = useState(false)
   const loginArr = [
     { label: "Enter Amount", type: "number", name: "amount" },
@@ -22,7 +24,7 @@ const PaymentForm = (props) => {
   };
 
   const apiHandler = async(url, message) => {
-    const res = await axios.post(url).then(()=> {
+    const res = await axios.post(url, {user: activeUser.userName}).then(()=> {
         props.hideModal()
         alert(message)
         setDisabled(false)

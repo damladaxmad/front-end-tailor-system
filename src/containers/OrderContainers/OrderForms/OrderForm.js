@@ -43,7 +43,7 @@ const OrderForm = (props) => {
     imageUrl: null,
     customer: null,
     sizes: null,
-    styles: ["Kulleeti shiinees", "Gacmo Gaab"],
+    styles: null,
     advance: null,
     unitPrice: null,
     deadline: null,
@@ -193,10 +193,7 @@ const OrderForm = (props) => {
             style={{
               width: "150px",
               height: "100px",
-              borderRadius: "6px",
-              cursor: "pointer",
-              // visibility: !image ? "hidden" : null,
-              // flex: 1
+              borderRadius: "6px"
             }}
           />
           <div style={{ display: "flex", gap: "55px" }}>
@@ -294,7 +291,7 @@ const OrderForm = (props) => {
         )}
 
         {currentProgress == "styles" && (
-          <StylesForm
+          <StylesForm type = {props.type.typeName}
             data={(data) => {
               setOrderData((prevState) => {
                 return { ...prevState, styles: data.styles };

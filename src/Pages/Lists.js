@@ -35,7 +35,8 @@ const Lists = () => {
       return data.filter(
         (std) =>
         std.status == type && std.name.toLowerCase().includes(query.toLocaleLowerCase())
-      );
+        || std.status == type && std.customer.name.toLowerCase().includes(query.toLocaleLowerCase())
+        );
     } else {
       return
     }  

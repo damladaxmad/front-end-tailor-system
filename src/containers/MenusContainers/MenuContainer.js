@@ -7,6 +7,7 @@ import axios from "axios";
 import { constants } from "../../Helpers/constantsFile";
 import AddNewMenu from "./AddNewMenu";
 import AddNewProducts from "./AddNewProducts";
+import { deleteFunction } from "../../funcrions/deleteStuff";
 
 const MenuContainer = (props) => {
 
@@ -31,12 +32,13 @@ const MenuContainer = (props) => {
     setAnchorEl(null);
   };
 
-  const deleteMenu = () => {
-    axios.delete(`${constants.baseUrl}/menus/${props.menu.id}`).then((res)=> {
-      alert("Successfully deleted")
-      props.change()
-      setChange(state => state + 1)
-    })
+  const deleteMenu = async() => {
+   await deleteFunction(
+      `Delete ${props.menu.name}`,
+      props.menu.name,
+      `${constants.baseUrl}/menus/${props.menu.id}`,
+      props.change
+    ); 
     handleClose()
   }
   
@@ -102,7 +104,8 @@ const MenuContainer = (props) => {
         onClick = {addNewProducts}> ADD</Button>
           </div>
 
-        {update && <AddNewMenu id = {props.menu.id} hideModal = {hideModal} update = {2}/>}
+        {update && <AddNewMenu id = {props.menu.id} hideModal = {hideModal} 
+        update = {2} name = {props.menu.name}/>}
         {newProducts && <AddNewProducts id = {id} hideModal = {hideModal}/>}
 
           <Menu

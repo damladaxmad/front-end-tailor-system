@@ -93,6 +93,7 @@ const Styles = () => {
     setButtonName("Go To Styles")
     setUpdate(true)
     setUpdatedStyle(style)
+    console.log(style.name)
   }
 
   const resetFomr = () => {

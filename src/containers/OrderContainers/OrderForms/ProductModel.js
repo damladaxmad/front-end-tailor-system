@@ -69,6 +69,7 @@ const ProductModel = (props) => {
         >
           {menuProdcuts?.map((image) => (
             <ProductImages
+             key = {image}
               menu = {menu}
               image={image}
               productName={(name) => {
@@ -102,7 +103,7 @@ const ProductImages = (props) => {
         width: "32%",
         height: "100px",
         borderRadius: "6px",
-        cursor: "pointer",
+        cursor: "pointer"
       }}
       onClick={() => {
         props.productName(props.image);

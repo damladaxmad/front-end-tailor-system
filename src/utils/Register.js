@@ -61,12 +61,9 @@ const Register = (props) => {
       name: props.update ? props.instance.name : "",
       role: props.update ? props.instance.role : "",
     } : props.name == "Styles" ?  {
+      type: props.update ? props.instance.type : "",
+      name: props.update ? props.instance.name : "",
       description: props.update ? props.instance.description : "",
-      expenseType: props.update ? props.instance.expenseType : "",
-      date: props.update ? props.instance.date : "",
-      amount: props.update ? props.instance.amount : "",
-      user: props.update ? props.instance.user : "",
-      to: props.update ? props.instance.to : "",
     }
     : {
         name: props.update ? props.instance.name : "",
@@ -89,6 +86,7 @@ const Register = (props) => {
         });
         props.reset()
       } else {
+        
         axios.post(`${constants.baseUrl}/${props.url}`, values).then((res) => {
           alert("Successfully Created")
           resetForm();
