@@ -36,9 +36,7 @@ const Customers = () => {
   const columns = [
     { title: "ID", field: "customerId",},
     { title: "Full Name", field: "name", width: "4%"},
-    { title: "Email Address", field: "phone" },
-    { title: "Debit", field: "debit" },
-    { title: "Credit", field: "credit" },
+    { title: "Phone Number", field: "phone" },
     { title: "Balance", field: "balance" },
   ]
   const fields = [

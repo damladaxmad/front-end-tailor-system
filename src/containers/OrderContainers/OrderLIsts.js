@@ -2,19 +2,23 @@ import shaatiImage from "../../assets/images/shaati.webp";
 import surwaalImage from "../../assets/images/surwaal.jpg";
 import qamiisImage from "../../assets/images/qamiis.jpg";
 import jaakadImage from "../../assets/images/jaakad.jpg";
+import customImage from "../../assets/images/customImage.webp";
 import { Button, Typography } from "@material-ui/core";
 import { useState } from "react";
 import OrderForm from "./OrderForms/OrderForm";
+import CustomForm from "./OrderForms/customForm";
 
 const types = [
   { typeName: "Shaati", typeImage: shaatiImage },
   { typeName: "Surwaal", typeImage: surwaalImage },
   { typeName: "Qamiis", typeImage: qamiisImage },
   { typeName: "Jaakad", typeImage: jaakadImage },
+  { typeName: "Custom", typeImage: customImage },
 ];
 
 const OrderLists = (props) => {
     const [orderForm, setOrderForm] = useState(false)
+    const [customForm, setCustomForm] = useState(false)
     const [type, setType] = useState()
 
   return (
@@ -22,7 +26,9 @@ const OrderLists = (props) => {
     marginTop: "20px"}}
     class = "myDiv">
 
-        {orderForm && <OrderForm hideModal = {()=> setOrderForm(false)}
+        {(orderForm && type.typeName != "Custom") && <OrderForm hideModal = {()=> setOrderForm(false)}
+        type = {type} />}
+        {(customForm && type.typeName == "Custom") && <CustomForm hideModal = {()=> setCustomForm(false)}
         type = {type} />}
       {types.map((type) => (
         <div
@@ -59,6 +65,7 @@ const OrderLists = (props) => {
             }}
             onClick = {()=> {
               setOrderForm(true)
+              setCustomForm(true)
               setType(type)
             }}
           >

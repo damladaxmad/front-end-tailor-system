@@ -21,8 +21,9 @@ const StatCard = (props) => {
   return (
       
     <div
+      class = "myDiv"
       style={{
-        width: "236.5px",
+        width: "220.5px",
         height: "95px",
         background: "#FFFFFF",
         borderRadius: "10px",
@@ -30,14 +31,14 @@ const StatCard = (props) => {
         display: "flex",
         justifyContent: "start",
         alignItems: "center",
-        gap: "8px",
-        boxShadow: "1px 1px 1px #9E9E9E"
+        gap: "12px",
+        // boxShadow: "1px 1px 1px #9E9E9E"
       }}
     >
       <Avatar className={classes.avatar}>
         <IoMdStats style={{ color: "#2F49D1" }} />
       </Avatar>
-      <div>
+      <div style={{display: "flex", gap: "4px", flexDirection: "column"}}>
         <p
           style={{
             margin: "0px",

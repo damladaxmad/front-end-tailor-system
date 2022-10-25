@@ -24,7 +24,6 @@ const Menus = () => {
   const [showCornerIcon, setShowCornerIcon] = useState(false)
   const [updatedMenu, setUpdatedMenu] = useState(null)
   const [del, setDel] = useState(1);
-  const [menuIds, setMenusIds] = useState('')
   const [state, setState] = useState("")
   const activeUser = useSelector(state => state.activeUser.activeUser)
   const menus = useSelector((state) => state.menus.menus);
@@ -72,21 +71,6 @@ const Menus = () => {
     }  
   };
 
- 
-  let menusIds = '';
-  const selectHandler = (data) => {
-    data.map((d)=> {
-      menusIds += d._id
-      menusIds += ','
-    })
-    const slicedMenusIds = menusIds.slice(0, -1)
-    setMenusIds(slicedMenusIds)
-
-    setShowCornerIcon(true)
-    if (data.length < 1) {
-      setShowCornerIcon(false)
-    }
-  }
 
   const updateHandler = (menu) => {
     setNewMenus(true)
