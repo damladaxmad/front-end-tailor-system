@@ -82,28 +82,33 @@ const Lists = () => {
           >
             
        
-          {activeUser.privillages?.includes("Users") && <Tab 
+          {activeUser.privillages?.includes("Order Lists") && <Tab 
             disableFocusRipple = {true}
             disableRipple = {true}
             value="pending" label="Pending"
             style={{ fontSize: "16px", fontWeight: "700" }} />}
 
-          {activeUser.privillages.includes("Access") && <Tab 
+          {activeUser.privillages.includes("Order Lists") && <Tab 
             disableFocusRipple = {true}
             disableRipple = {true}
             value="on-service" label="On Service"
             style={{ fontSize: "16px", fontWeight: "700" }} />}
 
-          {activeUser.privillages?.includes("Company Info") && <Tab 
+          {activeUser.privillages?.includes("Order Lists") && <Tab 
             disableFocusRipple = {true}
             disableRipple = {true}
             value="finished" label="Finished"
             style={{ fontSize: "16px", fontWeight: "700" }} />}
 
-          {activeUser.privillages?.includes("Import Products") && <Tab 
+          {activeUser.privillages?.includes("Order Lists") && <Tab 
             disableFocusRipple = {true}
             disableRipple = {true}
-            value="importProducts" label="Import Products"
+            value="taken" label="Taken"
+            style={{ fontSize: "16px", fontWeight: "700" }} />}
+          {activeUser.privillages?.includes("Order Lists") && <Tab 
+            disableFocusRipple = {true}
+            disableRipple = {true}
+            value="left" label="Left"
             style={{ fontSize: "16px", fontWeight: "700" }} />}
           </Tabs>
         </Box>
@@ -111,7 +116,7 @@ const Lists = () => {
           type="text"
           placeholder="Search"
           style={{
-            width: "500px",
+            width: "40%",
             height: "40px",
             padding: "10px",
             fontSize: "16px",
@@ -130,6 +135,8 @@ const Lists = () => {
         {(value == "on-service" && !details) && <ListOptions orders = {filterer(orders, "on-service")}
         details = {(order)=> detailHandler(order)}/>}
         {(value == "finished" && !details) && <ListOptions orders = {filterer(orders, "finished")}
+        details = {(order)=> detailHandler(order)}/>}
+        {(value == "taken" && !details) && <ListOptions orders = {filterer(orders, "taken")}
         details = {(order)=> detailHandler(order)}/>}
    
     </div>

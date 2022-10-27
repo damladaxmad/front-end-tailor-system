@@ -1,8 +1,8 @@
 import { Typography } from "@material-ui/core";
-import { constants } from "../../Helpers/constantsFile";
+import { constants } from "../../../Helpers/constantsFile";
 
 const RevenueStats = (props) => {
-    console.log(props.data)
+  
   const orders = [
     { name: "Advanced Money", value: props.data?.advancedMoney },
     { name: "Payed Money", value: props.data?.payedMoney },
@@ -19,7 +19,7 @@ const RevenueStats = (props) => {
         display: "flex",
         flexDirection: "column",
         gap: "8px",
-        width: "275px",
+        width: "30%",
       }}
     >
       <Typography style={{ color: "#3245E9", fontWeight: "bold" }}>
@@ -31,11 +31,11 @@ const RevenueStats = (props) => {
 
       {orders.map((order, index) => (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography style={{ fontSize: "16px", color: "#575656" }}>
+          <Typography style={{ fontSize: "15px", color: "#575656" }}>
             {" "}
             {order.name}{" "}
           </Typography>
-          <Typography style={{ fontSize: "16px", color: "#575656" }}>
+          <Typography style={{ fontSize: "15px", color: "#575656" }}>
             {" "}
             {constants.moneySign}{order.value}{" "}
           </Typography>

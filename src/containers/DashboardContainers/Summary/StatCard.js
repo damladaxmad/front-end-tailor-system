@@ -3,7 +3,7 @@ import { Avatar, Typography, makeStyles } from "@material-ui/core";
 import { IoMdStats } from "react-icons/io";
 import { useSelect } from "@mui/base";
 import { useSelector } from "react-redux";
-import { constants } from "../../Helpers/constantsFile";
+import { constants } from "../../../Helpers/constantsFile";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -18,12 +18,14 @@ const useStyles = makeStyles((theme) => {
 const StatCard = (props) => {
   const classes = useStyles();
 
+  const formatter = Intl.NumberFormat('en', {notation: "compact"})
+
   return (
       
     <div
       class = "myDiv"
       style={{
-        width: "220.5px",
+        minWidth: props.type == "summary" ? "23%" : "46%",
         height: "95px",
         background: "#FFFFFF",
         borderRadius: "10px",
@@ -42,24 +44,24 @@ const StatCard = (props) => {
         <p
           style={{
             margin: "0px",
-            fontSize: "16px",
+            fontSize: "18px",
             color: "#171717",
             fontWeight: "600",
           }}
         >
           { props.value.isMoney ? 
-          props.value.value < 0 ? `-${constants.moneySign}${props.value.value*-1}` : `${constants.moneySign}${props.value.value}`
-        : props.value.value}
+          props.value.value < 0 ? `-${constants.moneySign}${formatter.format(props.value.value)*-1}` : `${constants.moneySign}${formatter.format(props.value.value)}`
+        : formatter.format(props.value.value)}
         </p>
         <Typography
           style={{
             color: "#B9B9B9",
             margin: "0px",
-            fontSize: "14px",
+            fontSize: "15px",
             fontWeight: "500",
           }}
         >
-          {props.value.label}
+          {props.value.label.toLowerCase()}
         </Typography>
       </div>
     </div>

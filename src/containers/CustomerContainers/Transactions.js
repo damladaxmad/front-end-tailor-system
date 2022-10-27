@@ -39,6 +39,7 @@ const Transactions = (props) => {
     },
   };
 
+
   const columns = [
     {
       title: "ID",
@@ -60,21 +61,10 @@ const Transactions = (props) => {
     //   cellStyle: { border: "none" },
     // },
     {
-      title: "Invoice",
-      field: "invoice",   
+      title: "Type",
+      field: "transactionType",   
       width: "4%",
-      render: (data) => (
-        <p
-          style={{ cursor: "pointer", color: data?.sale?.invoice || data?.purchase?.invoice ? "blue" : "black"}}
-          onClick={() => {
-            setData(data?.sale ? data.sale.products : data?.purchase?.products);
-            setShow(true);
-          }}
-        >
-          { !data?.sale?.invoice && !data?.purchase?.invoice ? "payment" :
-          data?.sale ? data.sale.invoice : data?.purchase?.invoice}
-        </p>
-      ),
+      
       cellStyle: { border: "none" },
     },
     {
@@ -92,11 +82,12 @@ const Transactions = (props) => {
     {
       title: "Balance",
       field: "balance",
-      render: (data) => (
-        <p style={{texAlign: 'end'}}>
-          {data.balance < 0 ? `-${constants.moneySign}${data.balance * -1}` : `${constants.moneySign}${data.balance}`}
+      render: (data) => {
+  
+        return <p style={{texAlign: 'end'}}>
+          {data.balance < 0 ? `-${constants.moneySign}${data.balance* -1}` : `${constants.moneySign}${data.balance}`}
         </p>
-      ),
+      },
       cellStyle: { border: "none" },
     },
   ];
@@ -179,11 +170,11 @@ const Transactions = (props) => {
             justifyContent: "space-between", padding: "10px",
             fontSize: "20px",}}>
             <div style={{ display: "flex", gap: "20px" }}>
-              <p style={{ fontWeight: "700" }}> {props.name} Name:</p>
+              <p style={{ fontWeight: "700" }}> Customer Name:</p>
               <p> {props.instance.name}</p>
             </div>
             <div style={{ display: "flex", gap: "20px" }}>
-              <p style={{ fontWeight: "700" }}> {props.name} Phone:</p>
+              <p style={{ fontWeight: "700" }}> Customer Phone:</p>
               <p> {props.instance.phone}</p>
             </div>
           </div>

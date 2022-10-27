@@ -38,7 +38,8 @@ const Service = (props) => {
           {" "}
           {props.service.type}
         </Typography>
-        <Typography> {moment(props.deadline).format("YYYY-MM-DD")}</Typography>
+        {/* <Typography> {moment(props.deadline).format("YYYY-MM-DD")}</Typography> */}
+        <Typography> {constants.moneySign}{props.service.unitPrice}</Typography>
       </div>
 
       <img

@@ -20,16 +20,6 @@ const Register = (props) => {
   const validate = (values) => {
     const errors = {};
 
-    if (props.name == "Employee") {
-        if (!values.email) {
-            errors.email = "Field is Required";
-          } else if (values.email.length < 4) {
-            errors.email = "Must be 5 characters or more";
-          }
-        // if (!values.role) {
-        //     errors.role = "Field is Required";
-        //   }
-    }
    if (props.name !== "Expense") {
      if (!values.name) {
        errors.name = "Field is Required";
@@ -57,7 +47,7 @@ const Register = (props) => {
 
   const formik = useFormik({
     initialValues: props.name == "Employee" ? {
-      email: props.update ? props.instance.email : "",
+      phone: props.update ? props.instance.phone : "",
       name: props.update ? props.instance.name : "",
       role: props.update ? props.instance.role : "",
     } : props.name == "Styles" ?  {

@@ -9,16 +9,21 @@ const ListOptions = (props) => {
         <div style = {{ width: "95%",
         margin: "30px auto",
         display: "flex",
-        gap: "30px",
-        flexWrap: "wrap"}}>
+      }}>
           {!props.orders ? <p> Loading...</p> : 
-          props.orders?.length < 1 ? <p> No orders to display</p> : null  }
+          props.orders?.length < 1 ? <p style = {{width: "50%"}}> No orders to display</p> : null  }
+          <div style={{
+          display: "flex",
+          gap: "25px",
+          width: "100%",
+          flexWrap: "wrap",
+        }}>
             {props.orders?.map(order => (
                 <ListOrder details = {(order)=> {
-                  console.log(order)
                   props.details(order)
                 }} order = {order} />
             ))}
+            </div>
         </div>
     )
 }
@@ -28,7 +33,7 @@ const ListOrder = (props) => {
     return (
         <div class = "myDiv"
         style={{
-            width: "30%",
+            width: "290px",
             background: "white",
             display: "flex",
             flexDirection: "row",
@@ -48,7 +53,8 @@ const ListOrder = (props) => {
         
         <div>
           <p style = {{fontSize: "16px", fontWeight: "bold",
-        margin: "0px"}}> {props.order.name}</p>
+        margin: "0px"}}> {props.order.name.substring(0, 16)}
+        {props.order.name.length <= 16 ? null : "..." }</p>
           <p style = {{fontSize: "14px",
         margin: "0px", color: "#8B8B8B"}}> {props.order.customer.name}</p>
         </div>

@@ -3,7 +3,10 @@ import { useFormik } from "formik";
 import { Typography } from "@material-ui/core";
 
 const PaymentForm = (props) => {
-  const arr = [
+  const arr = props.orderType == "custom" ? [
+    { label: "Enter Amount", type: "number", name: "advance" },
+    { label: "Enter Amount", type: "date", name: "deadline" }
+  ] : [
     { label: "Enter Amount", type: "number", name: "unitPrice" },
     { label: "Enter Amount", type: "number", name: "advance" },
     { label: "Enter Amount", type: "date", name: "deadline" }
@@ -43,11 +46,6 @@ const PaymentForm = (props) => {
    
   }, [formik.values])
 
-//  useEffect(()=> {
-//     return () => {
-//         props.data({sizes: formik.values})
-//       };
-//  }, [])
   
   return (
     <form

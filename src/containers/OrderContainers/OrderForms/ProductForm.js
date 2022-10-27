@@ -45,7 +45,7 @@ const ProductForm = (props) => {
         Add Product
       </Button>
 
-      <FormControl style={{ width: "250px" }}>
+      {props.orderType == "normal" && <FormControl style={{ width: "250px" }}>
         <TextField
         select
           style={selectStyle}
@@ -61,7 +61,7 @@ const ProductForm = (props) => {
             </MenuItem>
           ))}
         </TextField>
-      </FormControl>
+      </FormControl>}
     </div>
   );
 };

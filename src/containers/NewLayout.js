@@ -147,7 +147,7 @@ const menuItems = [
       path: "/menus",
     },
     {
-      text: "Lists",
+      text: "Order Lists",
       icon: <FaClipboardList style={{fontSize: "20px", color: "white" }} />,
       path: "/lists",
     },

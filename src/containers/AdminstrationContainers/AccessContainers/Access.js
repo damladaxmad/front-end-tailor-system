@@ -56,9 +56,9 @@ const Access = () => {
       ],
     },
     {
-      name: "Lists",
+      name: "Order Lists",
       access: [
-        "Lists", "Assign Order", "Finish Order",
+        "Order Lists", "Assign Order", "Finish Order",
         "Take Order", "Cancel Order"
       ],
     },

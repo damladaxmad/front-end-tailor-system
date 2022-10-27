@@ -265,6 +265,7 @@ const OrderForm = (props) => {
 
         {currentProgress == "customer" && (
           <ProductForm
+          orderType = "normal"
             data={(data) => {
               setOrderData((prevState) => {
                 return {

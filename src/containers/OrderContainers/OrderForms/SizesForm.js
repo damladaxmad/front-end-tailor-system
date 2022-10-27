@@ -6,6 +6,7 @@ import axios from "axios";
 
 const SizesForm = (props) => {
 
+
   const arr = props.type == "Surwaal" ?  
    [
     { label: "Enter Amount", type: "number", name: "l" },

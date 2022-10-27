@@ -15,6 +15,8 @@ import Register from "../../../utils/Register";
 import { setCustomers } from "../../../redux/actions/customersActions";
 import useFetch from "../../../funcrions/DataFetchers";
 import { useDispatch } from "react-redux";
+import Types from "./Types";
+import CustomStyles from "./CustomStyles";
 
 const fields = [
   { label: "Enter Name", type: "text", name: "name" },
@@ -25,7 +27,8 @@ const CustomForm = (props) => {
   const [orders, setOrders] = useState();
 
   const progress = [
-    { name: "customer" },
+    { name: "initials" },
+    { name: "product" },
     { name: "sizes" },
     { name: "styles" },
     { name: "payment" },
@@ -33,12 +36,25 @@ const CustomForm = (props) => {
   const [num, setNum] = useState(0);
   const [currentProgress, setCurrentProgress] = useState(progress[num].name);
   const [disabled, setDisabled] = useState(false);
+  const [types, setTypes] = useState([])
+  const [typeNum, setTypeNum] = useState(0)
+  const [currentType, setCurrentType] = useState(types[typeNum])
+
   useEffect(() => {
-    if (num < 4) setCurrentProgress(progress[num].name);
+    if (num < 5) setCurrentProgress(progress[num].name);
   }, [num]);
 
+  useEffect(() => {
+    if (typeNum < types.length) setCurrentType(types[typeNum]);
+  }, [typeNum]);
+
+  useEffect(()=> {
+    setCurrentType(types[typeNum])
+  }, [types])
+
+
   const [orderData, setOrderData] = useState({
-    type: props.type.typeName,
+    type: currentType,
     imageUrl: null,
     customer: null,
     sizes: null,
@@ -47,6 +63,8 @@ const CustomForm = (props) => {
     unitPrice: null,
     deadline: null,
   });
+
+  const [services, setServices] = useState([])
 
   const dispatch = useDispatch()
   const [register, setRegister] = useState(false);
@@ -58,6 +76,8 @@ const CustomForm = (props) => {
   useEffect(() => {}, [register]);
 
   const [image, setImage] = useState();
+
+  console.log(orderData)
 
   useEffect(() => {
     if (orderData.imageUrl)
@@ -78,7 +98,7 @@ const CustomForm = (props) => {
 
     let olderSizes = null;
     services.map((service) => {
-      if (service.type == props.type.typeName) {
+      if (service.type == currentType) {
         olderSizes = service.sizes;
       }
     });
@@ -122,16 +142,7 @@ const CustomForm = (props) => {
       customer: orderData.customer,
       advance: orderData.advance,
       deadline: orderData.deadline,
-      services: [
-        {
-          type: orderData.type,
-          sizes: orderData.sizes,
-          styles: orderData.styles,
-          unitPrice: orderData.unitPrice,
-          imageUrl: orderData.imageUrl,
-          quantity: 1,
-        },
-      ],
+      services: services,
     };
     postOrder(data);
   };
@@ -151,6 +162,17 @@ const CustomForm = (props) => {
       }
     });
   };
+
+  useEffect(()=> {
+    setOrderData((prevState) => {
+      return {
+        ...prevState,
+        type: currentType,
+      };
+    });
+  }, [currentType])
+
+  console.log(services)
 
   return (
     <MyModal left="25%" top="23vh">
@@ -180,8 +202,7 @@ const CustomForm = (props) => {
           style={{
             display: "flex",
             width: "100%",
-            justifyContent: "space-between",
-            background: "red",
+            justifyContent: "space-between"
           }}
         >
           <img
@@ -242,7 +263,7 @@ const CustomForm = (props) => {
               height: "20px",
             }}
             onClick={() => {
-              if (currentProgress != "customer") {
+              if (currentProgress != "initials") {
                 setNum((state) => state - 1);
               }
             }}
@@ -261,14 +282,33 @@ const CustomForm = (props) => {
           />
         </div>
 
-        {currentProgress == "customer" && (
+        
+         {currentProgress == "initials" && <Types data = {(data) => 
+         {
+          setOrderData((prevState) => {
+            setTypes(data)
+            return {
+              ...prevState,
+              type: data[typeNum],
+            };
+          });
+        }}
+         customer = {(data) => {
+          setOrderData((prevState) => {
+            return {
+              ...prevState,
+              customer: data.customer,
+            };
+          });
+        }}/> }
+        {currentProgress == "product" && (
           <ProductForm
+            orderType = "custom"
             data={(data) => {
               setOrderData((prevState) => {
                 return {
                   ...prevState,
-                  imageUrl: data.imageUrl,
-                  customer: data.customer,
+                  imageUrl: data.imageUrl
                 };
               });
             }}
@@ -276,7 +316,7 @@ const CustomForm = (props) => {
         )}
         {currentProgress == "sizes" && (
           <SizesForm
-            type={props.type.typeName}
+            type={orderData.type}
             olderSizes={myFunction()}
             data={(data) => {
               setOrderData((prevState) => {
@@ -284,15 +324,17 @@ const CustomForm = (props) => {
               });
             }}
             customer={orderData.customer}
-            type={orderData.type}
+            type={currentType}
           />
         )}
 
         {currentProgress == "styles" && (
-          <StylesForm type = {props.type.typeName}
+          <CustomStyles type = {currentType}
             data={(data) => {
+              console.log(data)
               setOrderData((prevState) => {
-                return { ...prevState, styles: data.styles };
+                return { ...prevState, styles: data.styles,
+                unitPrice: parseInt(data.unitPrice)  };
               });
             }}
           />
@@ -300,6 +342,7 @@ const CustomForm = (props) => {
 
         {currentProgress == "payment" && (
           <PaymentForm
+           orderType = "custom"
             data={(data) => {
               setOrderData((prevState) => {
                 return {
@@ -312,6 +355,14 @@ const CustomForm = (props) => {
             }}
           />
         )}
+        {currentProgress !== "initials" && 
+        <div style = {{display: "flex"}}>
+          {types?.map(type => (
+          <p style = {{marginLeft: "10px", 
+          color: type == currentType && "#3245E9"
+        }}>{`${type} >`}</p>
+        ))}
+        </div>}
         <Button
           disabled={disabled}
           variant="contained"
@@ -327,7 +378,21 @@ const CustomForm = (props) => {
             if (currentProgress != "payment") {
               setNum((state) => state + 1);
             }
+            if (currentProgress == "styles" && typeNum < types.length) {
+              setTypeNum(state => state + 1)
+              setNum(1)
+              setServices([...services, {
+                type: orderData.type,
+                sizes: orderData.sizes,
+                styles: orderData.styles,
+                unitPrice: orderData.unitPrice,
+                imageUrl: orderData.imageUrl,
+                quantity: 1,
+              }]);
+            }
+           
             if (currentProgress == "payment") {
+              
               completeOder();
             }
           }}

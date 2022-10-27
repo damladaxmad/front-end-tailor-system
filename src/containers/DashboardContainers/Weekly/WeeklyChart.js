@@ -11,7 +11,7 @@ const WeeklyChart = (props) => {
         display: "flex",
         flexDirection: "column",
         gap: "12px",
-        width: "270px",
+        width: "280px",
       }}
     >
       <Typography style={{ fontWeight: "550", fontSize: "18px" }}>

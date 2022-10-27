@@ -32,12 +32,11 @@ const Emplooyees = () => {
   const columns = [
     { title: "ID", field: "employeeId",},
     { title: "Full Name", field: "name", width: "4%"},
-    { title: "Email Address", field: "email" },
-    { title: "Employee Role", field: "role" },
+    { title: "Phone Number", field: "phone" }
   ]
   const fields = [
     { label: "Enter Name", type: "text", name: "name" },
-    { label: "Enter Email", type: "gmail", name: "email" }
+    { label: "Enter Phone", type: "phone", name: "phone" }
   ];
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>, student) => {

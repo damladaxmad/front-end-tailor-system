@@ -31,7 +31,7 @@ const Payment = (props) => {
     },
     validate,
     onSubmit: async (values, { resetForm }) =>  {
-      values.type = "Payment"
+      values.transactionType = "Payment"
       values[props.name] = props.instance._id
       values.user = activeUser.userName
       setDisabled(true)
