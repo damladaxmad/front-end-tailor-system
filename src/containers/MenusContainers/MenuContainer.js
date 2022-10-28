@@ -8,6 +8,7 @@ import { constants } from "../../Helpers/constantsFile";
 import AddNewMenu from "./AddNewMenu";
 import AddNewProducts from "./AddNewProducts";
 import { deleteFunction } from "../../funcrions/deleteStuff";
+import { useSelector } from "react-redux";
 
 const MenuContainer = (props) => {
 
@@ -18,6 +19,7 @@ const MenuContainer = (props) => {
   const [menuImage, setMenuImage] = useState()
   const [newProducts, setNewProducts] = useState(false)
   const [change, setChange] = useState(1)
+  const activeUser = useSelector(state => state.activeUser.activeUser)
 
   useEffect(()=> {
     axios.get(`${constants.baseUrl}/files/${props.menu.coverImageUrl}`,
@@ -98,7 +100,11 @@ const MenuContainer = (props) => {
         justifyContent: "space-between"}}>
             <Button style = {{border: "1px solid #F2994A", borderRadius: "6px",
         width: "45%", height: "30px"}}
-        onClick = {()=>props.viewProducts(props.menu.menuProducts)}> View</Button>
+        onClick = {()=>{
+          if (activeUser.privillages.includes("View Menu"))
+          props.viewProducts(props.menu.menuProducts)
+          else alert("You have no access!")
+        }}> View</Button>
             <Button variant="contained" style = {{background: "#3245E9", borderRadius: "6px",
         width: "45%", height: "30px"}}
         onClick = {addNewProducts}> ADD</Button>
@@ -117,8 +123,23 @@ const MenuContainer = (props) => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={updatedMenu}>Update Menu</MenuItem>
-        <MenuItem onClick={deleteMenu}>Delete Menu</MenuItem>
+        <MenuItem onClick={() => {
+          handleClose()
+          if (activeUser.privillages.includes("Update Menu")){
+            updatedMenu()
+          } else {
+            alert("You hae no access!")
+          }
+        } }>
+          Update Menu</MenuItem>
+        <MenuItem onClick={() => {
+          handleClose()
+          if (activeUser.privillages.includes("Delete Menu")){
+            deleteMenu()
+          } else {
+            alert("You hae no access!")
+          }
+        } }>Delete Menu</MenuItem>
       </Menu>
 
 

@@ -25,6 +25,7 @@ const fields = [
 
 const CustomForm = (props) => {
   const [orders, setOrders] = useState();
+  const [change, setChange] = useState(1)
 
   const progress = [
     { name: "initials" },
@@ -70,7 +71,7 @@ const CustomForm = (props) => {
   const [register, setRegister] = useState(false);
   dispatch(
     setCustomers(
-      useFetch("customers/customers-with-transactions", register, "customers")
+      useFetch("customers", change, "customers")
     )
   );
   useEffect(() => {}, [register]);
@@ -172,7 +173,24 @@ const CustomForm = (props) => {
     });
   }, [currentType])
 
-  console.log(services)
+  const setServiceHandler = () => {
+    setServices([...services, {
+      type: orderData.type,
+      sizes: orderData.sizes,
+      styles: orderData.styles,
+      unitPrice: orderData.unitPrice,
+      imageUrl: orderData.imageUrl,
+      quantity: 1,
+    }]);
+  }
+
+  const changeHandler = () => {
+    setChange(state => state + 1 )
+  }
+
+  useEffect(()=> {
+
+  },[change])
 
   return (
     <MyModal left="25%" top="23vh">
@@ -190,13 +208,15 @@ const CustomForm = (props) => {
       >
         {register && (
           <Register
-            hideModal={() => {
-              setRegister(false);
-            }}
-            fields={fields}
-            url="customers"
-            name="Customer"
-          />
+          hideModal={() => {
+            setRegister(false);
+            changeHandler()
+          }}
+          change = {changeHandler}
+          fields={fields}
+          url="customers"
+          name="Customer"
+        />
         )}
         <div
           style={{
@@ -378,19 +398,15 @@ const CustomForm = (props) => {
             if (currentProgress != "payment") {
               setNum((state) => state + 1);
             }
-            if (currentProgress == "styles" && typeNum < types.length) {
+            if (currentProgress == "styles" && typeNum < types.length - 1) {
               setTypeNum(state => state + 1)
               setNum(1)
-              setServices([...services, {
-                type: orderData.type,
-                sizes: orderData.sizes,
-                styles: orderData.styles,
-                unitPrice: orderData.unitPrice,
-                imageUrl: orderData.imageUrl,
-                quantity: 1,
-              }]);
+              setServiceHandler()
             }
-           
+            if (currentProgress == "styles") {
+              setServiceHandler()
+            }
+            
             if (currentProgress == "payment") {
               
               completeOder();
@@ -401,7 +417,7 @@ const CustomForm = (props) => {
           {currentProgress == "payment" ? "complete" : "next"}
         </Button>
 
-        {currentProgress == "customer" && (
+        {currentProgress == "initials" && (
           <div style={{ display: "flex", gap: "10px", fontSize: "16px" }}>
             <p style={{ margin: "0px" }}> Customer does not exist?</p>
             <p

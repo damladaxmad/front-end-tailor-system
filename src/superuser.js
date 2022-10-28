@@ -1,6 +1,6 @@
 module.exports = {
   name: "Super User",
-  userName: "superuser",
+  username: "superuser",
   password: "234",
   privillages: [
     "Customers",
@@ -25,6 +25,7 @@ module.exports = {
    "Add New Menus",
    "Delete Menu",
    "Update Menu",
+   "View Menu",
    "Styles",
    "Add New Styles",
    "Update Styles",

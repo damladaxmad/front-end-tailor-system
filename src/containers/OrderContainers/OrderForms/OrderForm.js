@@ -8,7 +8,6 @@ import StylesForm from "./StylesForm";
 import React, { useEffect } from "react";
 import axios from "axios";
 import { constants } from "../../../Helpers/constantsFile";
-// import image from "../../../assets/images/stripes.jpg";
 import CloseIcon from "@material-ui/icons/Close";
 import swal from "sweetalert";
 import { BiArrowBack } from "react-icons/bi";
@@ -24,6 +23,7 @@ const fields = [
 
 const OrderForm = (props) => {
   const [orders, setOrders] = useState();
+  const [change, setChange] = useState(1)
 
   const progress = [
     { name: "customer" },
@@ -53,7 +53,7 @@ const OrderForm = (props) => {
   const [register, setRegister] = useState(false);
   dispatch(
     setCustomers(
-      useFetch("customers/customers-with-transactions", register, "customers")
+      useFetch("customers", change, "customers")
     )
   );
   useEffect(() => {}, [register]);
@@ -104,10 +104,6 @@ const OrderForm = (props) => {
         });
   }, [orderData.customer]);
 
-  console.log(orders);
-
-  console.log(myFunction());
-
   const postOrder = async (data) => {
     setDisabled(true);
     const res = await axios
@@ -157,6 +153,14 @@ const OrderForm = (props) => {
     });
   };
 
+  const changeHandler = () => {
+    setChange(state => state + 1 )
+  }
+
+  useEffect(()=> {
+
+  },[change])
+
   return (
     <MyModal left="25%" top="23vh">
       <div
@@ -174,7 +178,9 @@ const OrderForm = (props) => {
           <Register
             hideModal={() => {
               setRegister(false);
+              changeHandler()
             }}
+            change = {changeHandler}
             fields={fields}
             url="customers"
             name="Customer"

@@ -171,7 +171,8 @@ const ListDetails = (props) => {
           >
             Back
           </Button>
-          <Button
+
+          {props.order?.status != "taken" && <Button
             variant="contained"
             style={{
               color: "white",
@@ -186,7 +187,7 @@ const ListDetails = (props) => {
               : props.order?.status == "on-service"
               ? "finish"
               : "take"}
-          </Button>
+          </Button>}
           <Button
             variant="contained"
             style={{

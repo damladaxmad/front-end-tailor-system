@@ -80,11 +80,11 @@ const Register = (props) => {
         axios.post(`${constants.baseUrl}/${props.url}`, values).then((res) => {
           alert("Successfully Created")
           resetForm();
-          (props.name == "Customer" || props.name == "Vendor")&&props.reset()
+          // (props.name == "Customer" || props.name == "Vendor")&&props.reset()
           props.hideModal()
-          props.name == "Employee" && props.change()
+          props.change()
         }).catch((err) => {
-          alert(err.response?.data?.message);
+          alert(err.response.data.message);
           // props.reset()
         });
         // props.change()
