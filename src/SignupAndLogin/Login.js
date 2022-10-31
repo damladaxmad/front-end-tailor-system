@@ -37,11 +37,12 @@ const Login = (props) => {
 
   const fetchCompanyInfo = async () => {
     const res = await axios
-    .get(`${constants.baseUrl}/companyInfo`).then((res)=> {
-      // setTimeout(()=> {
+    .get(`${constants.baseUrl}/customers`).then((res)=> {
+     
         dispatch(setIsConnected("connected"))
-        dispatch(setCompanyInfo(res.data.data))
-      // }, 5000)
+        // dispatch(setCompanyInfo(res.data.data))
+     
+
     })
     .catch((err)=> {
       dispatch(setIsConnected("no connection"))
@@ -112,7 +113,9 @@ const Login = (props) => {
 
   useEffect(() => {
     if (isConnected != "connected") {
+       setTimeout(()=> {
       fetchCompanyInfo()
+       }, 20000)
     } 
   }, [timeInterval, isConnected]);
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { Typography } from "@material-ui/core";
+import moment from "moment";
 
 const PaymentForm = (props) => {
   const arr = props.orderType == "custom" ? [
@@ -13,6 +14,7 @@ const PaymentForm = (props) => {
   ];
 
   const errorStyle = { color: "red", marginLeft: "27px", fontSize: "16px" };
+  let today = new Date();
 
   const validate = (values) => {
     const errors = {};
@@ -35,7 +37,8 @@ const PaymentForm = (props) => {
     initialValues: {
       unitPrice: null,
       advance: null,
-      deadline: null
+      deadline: moment(new Date(today.getFullYear(), today.getMonth(), today.getDate()+7)).format("YYYY-MM-DD")
+      
     },
     validate,
   });

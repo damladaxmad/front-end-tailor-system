@@ -85,7 +85,7 @@ const CustomerOrders = (props) => {
           gap: "45px",
         }}
       >
-        {services?.map((service) => {
+        {services?.reverse().map((service) => {
           return (<Service service={service} deadline = {orders?.date}/>)
         })}
       </div>

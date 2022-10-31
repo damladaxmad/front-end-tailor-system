@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer } from "react";
 import { Button } from "@material-ui/core";
 import { MdAdd } from "react-icons/md";
 import { FormControl, MenuItem, Menu } from "@material-ui/core";
-import {Select} from "@mui/material"
+import {Select, Typography} from "@mui/material"
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { BiArrowBack } from "react-icons/bi";
@@ -169,8 +169,8 @@ const Emplooyees = () => {
         }}
       >
    
-        <h2> {newEmployees ? "Create New Employees" : 
-        showProfile ? "Employee Profile" : "Employees"}</h2>
+   <Typography style={{ fontWeight: "600", fontSize: "25px" }}> {newEmployees ? "Create New Employees" : 
+        showProfile ? "Employee Profile" : "Employees"}</Typography>
         <Button
           variant="contained"
           style={{

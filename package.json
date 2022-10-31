@@ -1,7 +1,7 @@
 {
-  "name": "inventory-management-system",
+  "name": "tailor-management-system",
   "version": "0.1.0",
-  "author": "RacayaamSoft",
+  "author": "casriware",
   "private": true,
   "dependencies": {
     "@electron/remote": "^1.0.2",
@@ -51,7 +51,7 @@
     },
     "nsis": {
       "oneClick": false,
-      "uninstallDisplayName": "inventory-system",
+      "uninstallDisplayName": "tailor-system",
       "license": "license.md",
       "allowToChangeInstallationDirectory": true
     },

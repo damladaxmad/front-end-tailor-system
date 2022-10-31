@@ -29,6 +29,7 @@ const AssignOrderToUser = (props) => {
         alert(`Succesfully Assigned Order to user`)
         setDisabled(false)
         props.change()
+        props.back()
       }
       ).catch((err)=> {
         props.hideModal()

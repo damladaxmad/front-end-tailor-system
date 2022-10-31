@@ -49,17 +49,21 @@ const Access = () => {
       ],
     },
     {
-      name: "Styles",
-      access: [
-        "Styles", "Add New Styles", "Delete Styles",
-        "Update Styles", "View Styles"
-      ],
-    },
-    {
       name: "Order Lists",
       access: [
         "Order Lists", "Assign Order", "Finish Order",
         "Take Order", "Cancel Order"
+      ],
+    },
+    {
+      name: "New Order",
+      access: ["New Order"],
+    },
+    {
+      name: "Styles",
+      access: [
+        "Styles", "Add New Styles", "Delete Styles",
+        "Update Styles", "View Styles"
       ],
     },
  
@@ -78,10 +82,7 @@ const Access = () => {
       access: ["Adminstration", "Users", "Access", "Reset User", 
       "Delete User", "Company Info"],
     },
-     {
-      name: "New Order",
-      access: ["New Order"],
-    },
+   
      
    ];
 

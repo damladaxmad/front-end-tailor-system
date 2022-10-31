@@ -26,6 +26,7 @@ const ListDetails = (props) => {
         .then(() => {
           alert("Successfully Finished Order");
           props.change();
+          props.back()
         });
     }
     if (
@@ -53,6 +54,7 @@ const ListDetails = (props) => {
       .then(() => {
         alert("Successfully Cancelled Order");
         props.change();
+        props.back()
       }).catch(err => {alert(err.response.data.message)});
   };
 
@@ -85,6 +87,7 @@ const ListDetails = (props) => {
           orderId={props.order?.id}
           balance={props.order?.balance}
           change={() => props.change()}
+          back={() => props.back()}
         />
       )}
       {assign && (
@@ -92,6 +95,7 @@ const ListDetails = (props) => {
           hideModal={() => setAssign(false)}
           orderId={props.order?.id}
           change={() => props.change()}
+          back={() => props.back()}
         />
       )}
       <div

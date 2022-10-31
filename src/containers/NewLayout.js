@@ -24,7 +24,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { MdMenuOpen } from "react-icons/md"; 
 import { IoWalletOutline } from "react-icons/io5"; 
 import { FiMenu } from "react-icons/fi"; 
-import { HiOutlineDocumentReport } from "react-icons/hi"; 
+import { HiOutlineDocumentReport } from "react-icons/hi";
 import { FaClipboardList } from "react-icons/fa"; 
 import { MdBorderColor } from "react-icons/md"; 
 import AppBarFile from './AppBarContainers/AppBar';
@@ -180,8 +180,8 @@ const menuItems = [
   ];
 
 export default function NewLayout({children}) {
-    const navigate = useNavigate();
-    const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);

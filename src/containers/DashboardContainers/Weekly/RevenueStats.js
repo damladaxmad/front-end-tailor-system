@@ -26,7 +26,7 @@ const RevenueStats = (props) => {
         Today
       </Typography>
       <Typography style={{ fontWeight: "500", fontSize: "22px" }}>
-        Revenue Stats
+        Revenue stats
       </Typography>
 
       {orders.map((order, index) => (

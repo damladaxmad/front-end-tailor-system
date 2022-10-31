@@ -27,8 +27,6 @@ const SignupAndLogin = (props) => {
 
     const showHandler = () => {
       props.showHandler()
-        // const win = remote.getCurrentWindow();
-        // win.maximize();
     }
 
     const parentDivStyle = {

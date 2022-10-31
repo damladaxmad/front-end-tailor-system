@@ -64,6 +64,10 @@ const MenuContainer = (props) => {
     setId(props.menu.id)
     setNewProducts(true)
   }
+
+  useEffect(()=> {
+
+  },[props.menu])
   
     return (
         <div 

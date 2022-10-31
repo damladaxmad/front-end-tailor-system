@@ -1,14 +1,34 @@
 import React, { useEffect, useState } from "react";
 import StatCard from "../containers/DashboardContainers/Summary/StatCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Typography } from "@material-ui/core";
 import WeeklyChart from "../containers/DashboardContainers/Weekly/WeeklyChart";
 import OrderUpdates from "../containers/DashboardContainers/Weekly/OrderUpdates";
 import RevenueStats from "../containers/DashboardContainers/Weekly/RevenueStats";
 import Top5Employees from "../containers/DashboardContainers/Monthly/Top5Employees";
+import Top5DeenCustomers from "../containers/DashboardContainers/Customer/Top5DeenCustomers";
+import { setDashboard } from "../redux/actions/dashboardActions";
+import useFetch from "../funcrions/DataFetchers";
+import Top5OrderCustomers from "../containers/DashboardContainers/Customer/Top5OrderCustomers";
 
 const Dashboard = () => {
   const dashboard = useSelector((state) => state.dashboard.dashboard);
+
+  const dispatch = useDispatch()
+  const [state, setState] = useState(1)
+  dispatch(setDashboard(useFetch("dashboard", state, "dashboard")))
+
+  const myDate = [
+    {label: "sample", value: 0, isMoney: false},
+    {label: "sample", value: 0, isMoney: false},
+    {label: "sample", value: 0, isMoney: false},
+    {label: "sample", value: 0, isMoney: false},
+    {label: "sample", value: 0, isMoney: false},
+    {label: "sample", value: 0, isMoney: false},
+    {label: "sample", value: 0, isMoney: false},
+    {label: "sample", value: 0, isMoney: false},
+ 
+]
 
   return (
     <div
@@ -37,6 +57,10 @@ const Dashboard = () => {
         {dashboard?.summary.map((d, index) => (
           <StatCard value={d} key={index} type = "summary"/>
         ))}
+        {!dashboard?.summary && myDate.map((d, index) => (
+          <StatCard value={d} key={index} type = "summary"/>
+        ))}
+
       </div>
 
       <Typography
@@ -71,8 +95,7 @@ const Dashboard = () => {
           marginTop: "40px",
         }}
       >
-        {" "}
-        Monthly Statistics{" "}
+        Monthly Statistics
       </Typography>
 
       <div
@@ -125,6 +148,29 @@ const Dashboard = () => {
           />
         </div>
       </div>
+
+      <Typography
+        style={{
+          fontWeight: "500",
+          color: "#928E8E",
+          fontSize: "25px",
+          marginTop: "40px",
+        }}
+      >
+        Customer Statistics
+      </Typography> 
+
+         <div
+        style={{
+          display: "flex",
+          width: "98.5%",
+          gap: "50px",
+          flexWrap: "wrap",
+        }}
+      >
+        <Top5DeenCustomers data={dashboard?.other?.top5Customers} /> 
+        <Top5OrderCustomers data={dashboard?.other?.top5CustomersByOrder} /> 
+        </div>
     </div>
   );
 };

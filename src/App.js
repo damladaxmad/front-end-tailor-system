@@ -28,7 +28,7 @@ const pages = [
      <Route path= "/menus" element = {<Menus/>} />,  
      <Route path= "/orders" element = {<NewOrders/>} />,  
      <Route path= "/lists" element = {<Lists/>} />,  
-     <Route path= "/styles" element = {<Styles/>} />,  
+     <Route path= "/styles" element = {<Styles/>} />
 
 ]
 

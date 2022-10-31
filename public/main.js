@@ -5,7 +5,7 @@ const isDev = require('electron-is-dev')
 require('@electron/remote/main').initialize()
 const axios = require('axios')
 
-// const server = require(path.join(process.resourcesPath, "Inventory-Management-System/server.js"))
+// const server = require(path.join(process.resourcesPath, "Tailor-Management-System/server.js"))
 let splash
 let isConnected = "loading"
 
@@ -20,7 +20,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
-      // preload: path.join(__dirname, "../Inventory-Management-System/server.js"),
+      // preload: path.join(__dirname, "../Tailor-Management-System/server.js"),
     },
     devTools: false
   })

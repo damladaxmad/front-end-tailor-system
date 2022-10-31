@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core"
 
-const Top5Employees = (props) => {
+const Top5OrderCustomers = (props) => {
 
     console.log(props.data)
 
@@ -9,10 +9,10 @@ const Top5Employees = (props) => {
         borderRadius: "9px", display: "flex", flexDirection: "column",
         gap: "8px", width: "320px"}}>
             <Typography style = {{color: "#3245E9", fontWeight: "bold"}}>
-                Last Month
+              customer orders
             </Typography>
             <Typography style = {{fontWeight: "500", fontSize: "22px"}}>
-            Top employee services
+            Top order customers
             </Typography>
 
             {props.data?.map((order, index) => {
@@ -21,8 +21,7 @@ const Top5Employees = (props) => {
                     <Typography style = {{ fontSize: "15px",
                 color: "#575656"}}> {index + 1}. </Typography>
                     <Typography style = {{ fontSize: "15px",
-                color: "#575656"}}> {order.name.substring(0, 20)}
-                {order.name.length <= 20 ? null : "..." } </Typography>
+                color: "#575656"}}> {order.username} </Typography>
                     </div>
                     <Typography style = {{ fontSize: "15px",
                 color: "#575656"}}> {order.orders} </Typography>
@@ -34,4 +33,4 @@ const Top5Employees = (props) => {
     )
 }
 
-export default Top5Employees
+export default Top5OrderCustomers

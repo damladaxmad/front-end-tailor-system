@@ -23,7 +23,7 @@ const Lists = () => {
   const [details, setDetails] = useState(false)
   const [change, setChange] = useState(1)
   const dispatch = useDispatch()
-  dispatch(setOrders(useFetch("orders", change, "orders")))
+  dispatch(setOrders(useFetch("orders", [value, change], "orders")))
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -32,11 +32,20 @@ const Lists = () => {
   const filterer = (data, type) => { 
  
     if (data?.length > 0) {
-      return data.filter(
-        (std) =>
-        std.status == type && std.name.toLowerCase().includes(query.toLocaleLowerCase())
-        || std.status == type && std.customer.name.toLowerCase().includes(query.toLocaleLowerCase())
-        );
+      if (type != "taken") {
+        return data.filter(
+          (std) =>
+          std.status == type && std.name.toLowerCase().includes(query.toLocaleLowerCase())
+          || std.status == type && std.customer.name.toLowerCase().includes(query.toLocaleLowerCase())
+          ).reverse();
+      }
+      else if (type == "taken") {
+        return data.filter(
+          (std) =>
+          (std.status == type || "invoiced") && std.name.toLowerCase().includes(query.toLocaleLowerCase())
+          || std.status == type && std.customer.name.toLowerCase().includes(query.toLocaleLowerCase())
+          ).reverse();
+      }
     } else {
       return
     }  
@@ -55,7 +64,6 @@ const Lists = () => {
   useEffect(()=> {
   }, [change])
 
-  console.log(change)
   
   return (
     <div
@@ -105,11 +113,7 @@ const Lists = () => {
             disableRipple = {true}
             value="taken" label="Taken"
             style={{ fontSize: "16px", fontWeight: "700" }} />}
-          {activeUser.privillages?.includes("Order Lists") && <Tab 
-            disableFocusRipple = {true}
-            disableRipple = {true}
-            value="left" label="Left"
-            style={{ fontSize: "16px", fontWeight: "700" }} />}
+
           </Tabs>
         </Box>
         <input
@@ -128,7 +132,10 @@ const Lists = () => {
         />
         </div>}
 
-        {details && <ListDetails back = {()=> setDetails(false)} order = {order}
+        {details && <ListDetails back = {()=> {
+        setQuery('')
+        setDetails(false)
+      }} order = {order}
         change = {changeHandler}/>}
         {(value == "pending" && !details) && <ListOptions orders = {filterer(orders, "pending")}
         details = {(order)=> detailHandler(order)} />}

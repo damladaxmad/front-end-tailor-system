@@ -29,6 +29,7 @@ const PaymentForm = (props) => {
         alert(message)
         setDisabled(false)
         props.change()
+        props.back()
       }
       ).catch((err)=> {
         props.hideModal()
