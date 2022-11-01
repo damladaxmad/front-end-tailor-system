@@ -334,10 +334,14 @@ const OrderForm = (props) => {
           }}
           onClick={() => {
             if (currentProgress != "payment") {
+              if (orderData.customer && orderData.imageUrl)
               setNum((state) => state + 1);
+              else alert("Please select a product or a customer")
             }
             if (currentProgress == "payment") {
+              if (orderData.unitPrice && orderData.advance && orderData.deadline)
               completeOder();
+              else alert("Please fill all the data")
             }
           }}
         >

@@ -152,10 +152,10 @@ const ListDetails = (props) => {
           }}
         >
           <p style={{ fontSize: "25px", fontWeight: "600", margin: "0px" }}>
-            {props.order.customer.name}
+            {props.order.customer?.name}
           </p>
           <p style={{ fontSize: "20px", margin: "0px", color: "#8B8B8B" }}>
-            {props.order.customer.phone}
+            {props.order.customer?.phone}
           </p>
           <p style={{ fontSize: "18px", margin: "0px", color: "#8B8B8B"  }}>
             {moment(props.order.deadline).format("YYYY-MM-DD")}
@@ -176,7 +176,7 @@ const ListDetails = (props) => {
             Back
           </Button>
 
-          {props.order?.status != "taken" && <Button
+          {(props.order?.status != "taken" && props.order?.status != "invoiced") && <Button
             variant="contained"
             style={{
               color: "white",
@@ -217,6 +217,8 @@ const ListDetails = (props) => {
           ))}
         </div>
       </div>
+
+      { props.order?.status != "pending" && <p style = {{margin: "0px", fontSize: "16px"}}> Served by: {props.order.servedUser?.name}</p> }
     </div>
   );
 };

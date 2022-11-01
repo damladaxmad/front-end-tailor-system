@@ -27,7 +27,7 @@ const MenuContainer = (props) => {
       setMenuImage(URL.createObjectURL(res.data))
       console.log(res.data)
     })
-  }, [change, props.menu.coverImageUrl])
+  }, [change, props.menu])
   
 
   const handleClose = () => {

@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import {AiFillPrinter} from "react-icons/ai"
 import { Button } from "@mui/material";
 import { constants } from "../../Helpers/constantsFile";
-// import "./print.css"
+import "../../utils/print.css"
 
 const Transactions = (props) => {
   const companyInfo = useSelector((state) => state.companyInfo.companyInfo);

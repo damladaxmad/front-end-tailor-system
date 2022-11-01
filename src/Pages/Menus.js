@@ -54,9 +54,7 @@ const Menus = () => {
       setButtonName("Add New Menus") 
       setUpdate(false)
       setViewProducts(false)
-    }
-   
-    
+    }   
   }
 
   const handler = (data) => { 
@@ -181,6 +179,7 @@ const Menus = () => {
       >
         <input
           type="text"
+          value={query}
           placeholder="Search"
           style={{
             width: "400px",

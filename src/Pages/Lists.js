@@ -36,14 +36,14 @@ const Lists = () => {
         return data.filter(
           (std) =>
           std.status == type && std.name.toLowerCase().includes(query.toLocaleLowerCase())
-          || std.status == type && std.customer.name.toLowerCase().includes(query.toLocaleLowerCase())
+          || std.status == type && std.customer?.name.toLowerCase().includes(query.toLocaleLowerCase())
           ).reverse();
       }
       else if (type == "taken") {
         return data.filter(
           (std) =>
-          (std.status == type || "invoiced") && std.name.toLowerCase().includes(query.toLocaleLowerCase())
-          || std.status == type && std.customer.name.toLowerCase().includes(query.toLocaleLowerCase())
+          (std.status == type || std.status ==  "invoiced") && std.name.toLowerCase().includes(query.toLocaleLowerCase())
+          || (std.status == type || std.status == "invoiced") && std.customer?.name.toLowerCase().includes(query.toLocaleLowerCase())
           ).reverse();
       }
     } else {

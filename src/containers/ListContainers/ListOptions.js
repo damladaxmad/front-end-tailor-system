@@ -59,8 +59,8 @@ const ListOrder = (props) => {
         margin: "0px"}}> {props.order.name.substring(0, 16)}
         {props.order.name.length <= 16 ? null : "..." }</p>
           <p style = {{fontSize: "14px",
-        margin: "0px", color: "#8B8B8B"}}> {props.order.customer.name.substring(0, 18)}
-        {props.order.customer.name.length <= 18 ? null : "..." }</p>
+        margin: "0px", color: "#8B8B8B"}}> {props.order.customer?.name.substring(0, 18)}
+        {props.order.customer?.name.length <= 18 ? null : "..." }</p>
         </div>
 
         </div>
