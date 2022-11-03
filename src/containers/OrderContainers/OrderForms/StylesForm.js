@@ -1,13 +1,22 @@
 import { Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import React, {useState, useEffect} from "react"
+import Register from "../../../utils/Register";
+import { setStyles } from "../../../redux/actions/stylesActions";
+import useFetch from "../../../funcrions/DataFetchers";
 
 const StylesForm = (props) => {
   const styles = useSelector(state => state.styles.styles)
   const [styleData, setStyleData] = useState([])
+  const [register, setRegister] = useState(false)
+
+  const fields = [
+    { label: "Enter Name", type: "text", name: "name" },
+    { label: "Enter Description", type: "text", name: "description" }
+  ];
   
   let currentStyles = []
-  styles.map(style => {
+  styles?.map(style => {
     if (style.type == props.type)
     currentStyles.push(style)
   })
@@ -24,6 +33,18 @@ const StylesForm = (props) => {
     props.data({styles: styleData})
   }, [styleData])
 
+  const [change, setChange] = useState(1)
+
+  const changeHandler = () => {
+    setChange(state => state + 1 )
+  }
+
+  const dispatch = useDispatch()
+  dispatch(setStyles(useFetch("styles", change, "styles")))
+
+  useEffect(()=> {
+  },[change])
+
 
   return (
     <div
@@ -39,11 +60,33 @@ const StylesForm = (props) => {
       }}
       class="myDiv"
     >
+
       {currentStyles?.map((style) => (
         <SingleOutChecks style = {style} key = {style.id} 
         styleData = {styleData} addStyles = {(style) => addStyles(style)}
         removeStyles = {(style) => removeStyles(style)}/>
       ))}
+      <p style={{
+                color: "#3245E9",
+                // margin: "0px",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
+              onClick={() => setRegister(true)}> Add Style</p>
+
+    {register && (
+          <Register
+            hideModal={() => {
+              setRegister(false);
+              changeHandler()
+            }}
+            change = {changeHandler}
+            fields={fields}
+            url="styles"
+            name="Styles"
+            styleType = {props.type}
+          />
+        )}
     </div>
   );
 };

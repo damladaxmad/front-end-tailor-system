@@ -209,7 +209,9 @@ const Menus = () => {
           padding: "20px"
         }}>
           {products?.map(product => (
-            <ViewProducts product = {product}/>
+            <ViewProducts product = {product} getProduct = {(product)=> {
+              
+            } }/>
           ))}
         </div>
       

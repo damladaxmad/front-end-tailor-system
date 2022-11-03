@@ -37,7 +37,7 @@ const Login = (props) => {
 
   const fetchCompanyInfo = async () => {
     const res = await axios
-    .get(`${constants.baseUrl}/customers`).then((res)=> {
+    .get(`${constants.baseUrl}/test`).then((res)=> {
      
         dispatch(setIsConnected("connected"))
         // dispatch(setCompanyInfo(res.data.data))

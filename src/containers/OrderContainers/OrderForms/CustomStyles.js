@@ -1,6 +1,9 @@
 import { Checkbox, FormControlLabel, FormGroup, Typography } from "@material-ui/core";
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import React, {useState, useEffect} from "react"
+import { setStyles } from "../../../redux/actions/stylesActions";
+import useFetch from "../../../funcrions/DataFetchers";
+import Register from "../../../utils/Register";
 
 const CustomStyles = (props) => {
   const styles = useSelector(state => state.styles.styles)
@@ -12,7 +15,7 @@ const CustomStyles = (props) => {
   }
   
   let currentStyles = []
-  styles.map(style => {
+  styles?.map(style => {
     if (style.type == props.type)
     currentStyles.push(style)
   })
@@ -29,6 +32,24 @@ const CustomStyles = (props) => {
     props.data({styles: styleData, unitPrice: unitPrice})
   }, [styleData, unitPrice])
 
+  const fields = [
+    { label: "Enter Name", type: "text", name: "name" },
+    { label: "Enter Description", type: "text", name: "description" }
+  ];
+
+  const [change, setChange] = useState(1)
+  const [register, setRegister] = useState(false)
+
+  const changeHandler2 = () => {
+    setChange(state => state + 1 )
+  }
+
+  const dispatch = useDispatch()
+  dispatch(setStyles(useFetch("styles", change, "styles")))
+
+  useEffect(()=> {
+  },[change])
+
   return (
     <div
       style={{
@@ -44,16 +65,31 @@ const CustomStyles = (props) => {
       }}
       class="myDiv"
     >
-        <div style = {{display: "flex", width: "100%"}}>
+        <div style = {{display: "flex", width: "100%", flexWrap: "wrap"}}>
       {currentStyles?.map((style) => (
         <SingleOutChecks style = {style} key = {style.id} 
         styleData = {styleData} addStyles = {(style) => addStyles(style)}
         removeStyles = {(style) => removeStyles(style)}/>
       ))}
+
+    {register && (
+          <Register
+            hideModal={() => {
+              setRegister(false);
+              changeHandler2()
+            }}
+            change = {changeHandler2}
+            fields={fields}
+            url="styles"
+            name="Styles"
+            styleType = {props.type}
+          />
+        )}
       </div>
 
+   <div style = {{display: "flex", alignItems: "center", gap: "130px"}}>
       <div style={{display: "flex", gap: "10px", flexDirection: "column",
-    width: "100%", marginLeft: "15px"}}>
+     marginLeft: "15px"}}>
       <Typography
             style={{ fontWeight: "600", fontSize: "14px", marginLeft: "3px" }}
           >
@@ -72,6 +108,14 @@ const CustomStyles = (props) => {
             }}
           />
           </div>
+          <p style={{
+                color: "#3245E9",
+                // margin: "0px",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
+              onClick={() => setRegister(true)}> Add Style</p>
+      </div>
     </div>
   );
 };

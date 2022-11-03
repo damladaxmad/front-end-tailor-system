@@ -409,7 +409,9 @@ const CustomForm = (props) => {
             
             if (currentProgress == "payment") {
               
+              if (orderData.unitPrice > -1 && orderData.advance > -1 && orderData.deadline)
               completeOder();
+              else alert("Please fill all the data")
             }
           }}
         >

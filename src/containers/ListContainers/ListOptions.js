@@ -22,10 +22,10 @@ const ListOptions = (props) => {
           flexWrap: "wrap",
         }}>
             {props.orders?.map(order => (
-                <ListOrder details = {(order)=> {
+            <ListOrder details = {(order)=> {
                   props.details(order)
                 }} order = {order} />
-            ))}
+              ))}
             </div>
         </div>
     )

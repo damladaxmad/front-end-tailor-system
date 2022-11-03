@@ -41,6 +41,7 @@ const OrderForm = (props) => {
   const [orderData, setOrderData] = useState({
     type: props.type.typeName,
     imageUrl: null,
+    menu: null,
     customer: null,
     sizes: null,
     styles: null,
@@ -161,6 +162,8 @@ const OrderForm = (props) => {
 
   },[change])
 
+  console.log(orderData)
+
   return (
     <MyModal left="25%" top="23vh">
       <div
@@ -278,6 +281,7 @@ const OrderForm = (props) => {
                   ...prevState,
                   imageUrl: data.imageUrl,
                   customer: data.customer,
+                  menu: data.menu,
                 };
               });
             }}
@@ -339,7 +343,7 @@ const OrderForm = (props) => {
               else alert("Please select a product or a customer")
             }
             if (currentProgress == "payment") {
-              if (orderData.unitPrice && orderData.advance && orderData.deadline)
+              if (orderData.unitPrice > -1 && orderData.advance > -1 && orderData.deadline)
               completeOder();
               else alert("Please fill all the data")
             }

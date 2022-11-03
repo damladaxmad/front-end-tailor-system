@@ -63,7 +63,8 @@ const Register = (props) => {
     },
     validate,
     onSubmit: (values, { resetForm }) => {
-      if (props.name == "Styles") values.type = type
+      if (props.name == "Styles" && !props.styleType) values.type = type
+      if (props.name == "Styles" && props.styleType) values.type = props.styleType
       if (props.update){
         axios.patch(`${constants.baseUrl}/${props.url}/${props.instance._id}`, values).then((res) => {
           alert("Successfully Updated")
@@ -137,7 +138,7 @@ const Register = (props) => {
           </div>
         ))}
 
-      {props.name == "Styles" &&  <FormControl
+      {(props.name == "Styles" && !props.styleType)&&  <FormControl
               style={{
                 padding: "0px",
                 margin: "0px",

@@ -67,14 +67,16 @@ const ProductModel = (props) => {
             flexWrap: "wrap",
           }}
         >
+          {!menuProdcuts && <p>Loading...</p>}
           {menuProdcuts?.map((image) => (
             <ProductImages
              key = {image}
-              menu = {menu}
               image={image}
-              productName={(name) => {
-                props.productName(name);
+              menu = {menu}
+              productName={(obj) => {
+                props.productName(obj)
               }}
+              
             />
           ))}
         </div>
@@ -106,7 +108,7 @@ const ProductImages = (props) => {
         cursor: "pointer"
       }}
       onClick={() => {
-        props.productName(props.image);
+        props.productName({image: props.image, menu: props.menu});
       }}
     />
   );

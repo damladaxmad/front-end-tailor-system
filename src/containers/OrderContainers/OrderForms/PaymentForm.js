@@ -19,10 +19,10 @@ const PaymentForm = (props) => {
   const validate = (values) => {
     const errors = {};
 
-    if (!values.unitPrice) {
+    if (!values.unitPrice && values.unitPrice != 0) {
       errors.unitPrice = "Field is Required";
     }
-    if (!values.advance) {
+    if (!values.advance && values.advance != 0) {
       errors.advance = "Field is Required";
     }
     if (!values.deadline) {

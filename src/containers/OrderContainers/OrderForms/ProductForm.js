@@ -10,6 +10,7 @@ const ProductForm = (props) => {
   const customers = useSelector((state) => state.customers.customers);
   const [customer, setCustomer] = useState();
   const [productName, setProductName] = useState()
+  const [menuName, setMenuName] = useState()
   const [productModel, setProductModel] = useState(false);
 
   const customerHandler = (e) => {
@@ -29,8 +30,10 @@ const ProductForm = (props) => {
        productName = {(name)=> {
         setProductName(name)
         setProductModel(false)
-        props.data({imageUrl: name, customer: customer})
-        }}/>}
+        props.data({imageUrl: name.image, customer: customer, menu: name.menu})
+        }}
+      
+        />}
       <Button
         style={{
           border: "1.5px solid #F2994A",

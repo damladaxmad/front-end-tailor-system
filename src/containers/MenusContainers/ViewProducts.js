@@ -17,7 +17,8 @@ const ViewProducts = (props) => {
 
     return (
         <img src = {image} style = {{width: "20%", height: "130px",
-        borderRadius: "6px"}}/>
+        borderRadius: "6px", cursor: "pointer"}}
+        onClick = {()=> props.getProduct(props.product)}/>
     )
 
 }
