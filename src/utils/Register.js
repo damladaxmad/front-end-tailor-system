@@ -10,7 +10,7 @@ import EmplooyeeTitle from "../containers/EmplooyeeContainers/EmployeeTitle";
 
 const Register = (props) => {
 
-  const types = ["Shaati", "Surwaal", "Qamiis", "Isku Joog"]
+  const types = ["Shaati", "Surwaal", "Qamiis"]
   const [type, setType] = useState()
 
   const typeHandler = (e) => {
@@ -138,7 +138,7 @@ const Register = (props) => {
           </div>
         ))}
 
-      {(props.name == "Styles" && !props.styleType)&&  <FormControl
+      {(props.name == "Styles" && !props.styleType) &&  <FormControl
               style={{
                 padding: "0px",
                 margin: "0px",

@@ -20,18 +20,18 @@ const ViewProducts = (props) => {
       })
       axios.patch(`${constants.baseUrl}/menus/${props.whichMenu.id}`, {menuProducts: remainedProducts}).then(res => {
         alert("Successfully Deleted Image.")
+        props.resetPics()
       }).catch(err => {
         alert(err.response?.data?.message)
       })
     }
-
   
     useEffect(()=> {
       axios.get(`${constants.baseUrl}/files/${props.product}`,
       {responseType: 'blob'}).then((res)=> {
         setImage(URL.createObjectURL(res.data))
       })
-    }, [])
+    }, [props.product])
 
     const optionHadler = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);

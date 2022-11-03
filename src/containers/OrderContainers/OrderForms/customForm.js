@@ -59,6 +59,7 @@ const CustomForm = (props) => {
     imageUrl: null,
     customer: null,
     sizes: null,
+    menu: null,
     styles: null,
     advance: null,
     unitPrice: null,
@@ -178,6 +179,7 @@ const CustomForm = (props) => {
       type: orderData.type,
       sizes: orderData.sizes,
       styles: orderData.styles,
+      menu: orderData.menu,
       unitPrice: orderData.unitPrice,
       imageUrl: orderData.imageUrl,
       quantity: 1,
@@ -324,6 +326,14 @@ const CustomForm = (props) => {
         {currentProgress == "product" && (
           <ProductForm
             orderType = "custom"
+            menuStaff = {(data) => {
+              setOrderData((prevState) => {
+                return {
+                  ...prevState,
+                  menu: data,
+                };
+              });
+            }}
             data={(data) => {
               setOrderData((prevState) => {
                 return {

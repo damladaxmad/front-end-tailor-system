@@ -30,8 +30,6 @@ const Menus = () => {
   const [viewProducts, setViewProducts] = useState(false)
   const [products, setProducts] = useState()
 
-
-
   const changeHandler = () => {
     setDel(state => state + 1)
   }
@@ -111,6 +109,22 @@ const Menus = () => {
     setButtonName("Go To Menus")
   }
   const [menu, setMenu] = useState()
+
+  let newProducts = []
+  menus?.map(m => {
+    if (m?.id == menu?.id) 
+    newProducts = m.menuProducts
+  })
+
+
+  const resetPics = () =>  {
+    changeHandler()
+  }
+
+  useEffect(()=> {
+
+  }, [newProducts])
+
 
   return (
     <div
@@ -208,8 +222,9 @@ const Menus = () => {
           borderRadius: "6px",
           padding: "20px"
         }}>
-          {products?.map(product => (
-            <ViewProducts product = {product} whichMenu = {menu} />
+          {newProducts?.map(product => (
+            <ViewProducts product = {product} whichMenu = {menu} 
+            resetPics = {resetPics}/>
           ))}
         </div>
       

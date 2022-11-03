@@ -42,11 +42,15 @@ const Service = (props) => {
         <Typography> {constants.moneySign}{props.service.unitPrice} / {props.service.quantity}</Typography>
       </div>
 
+      <div>
       <img
         src={image}
         style={{ width: "100%", height: "150px", borderRadius: "8px" }}
       />
-
+           <p style = {{fontSize: "14px",
+        margin: "0px", color: "#8B8B8B"}}> {props.service?.menu?.name}</p>
+      </div>
+   
       <div>
         <Typography style={{ fontWeight: "600", fontSize: "14px" }}>
           {" "}

@@ -93,7 +93,7 @@ const StylesForm = (props) => {
             fields={fields}
             url="styles"
             name="Styles"
-            styleType = {props.type}
+            styleType = {props.type != "Isku Joog" ? props.type : null}
           />
         )}
     </div>

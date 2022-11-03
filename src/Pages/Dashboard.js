@@ -78,7 +78,7 @@ const Dashboard = () => {
       <div
         style={{
           display: "flex",
-          width: "97%",
+          width: "97.5%",
           justifyContent: "space-between",
         }}
       >

@@ -41,7 +41,7 @@ const WeeklyChart = (props) => {
             >
               <div
                 style={{
-                  background: day.orders > 10 ? "#3245E9" : "#F2994A",
+                  background: day.orders >= 10 ? "#3245E9" : "#F2994A",
                   width: "14px",
                   height: day.orders > 10 ? "100px" : `${day.orders}0px`,
                   borderRadius: "6px",
