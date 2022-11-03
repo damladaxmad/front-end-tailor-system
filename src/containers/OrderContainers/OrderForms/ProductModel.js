@@ -76,6 +76,9 @@ const ProductModel = (props) => {
               productName={(obj) => {
                 props.productName(obj)
               }}
+              menuStaff = {(data) => {
+                props.menuStaff(data)
+              }}
               
             />
           ))}
@@ -109,6 +112,7 @@ const ProductImages = (props) => {
       }}
       onClick={() => {
         props.productName({image: props.image, menu: props.menu});
+        props.menuStaff(props.menu)
       }}
     />
   );

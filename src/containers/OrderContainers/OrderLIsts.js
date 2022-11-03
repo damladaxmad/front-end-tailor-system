@@ -12,7 +12,7 @@ const types = [
   { typeName: "Shaati", typeImage: shaatiImage },
   { typeName: "Surwaal", typeImage: surwaalImage },
   { typeName: "Qamiis", typeImage: qamiisImage },
-  { typeName: "Jaakad", typeImage: jaakadImage },
+  { typeName: "Isku Joog", typeImage: jaakadImage },
   { typeName: "Custom", typeImage: customImage },
 ];
 

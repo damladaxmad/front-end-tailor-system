@@ -6,11 +6,12 @@ import moment from "moment";
 const PaymentForm = (props) => {
   const arr = props.orderType == "custom" ? [
     { label: "Enter Amount", type: "number", name: "advance" },
-    { label: "Enter Amount", type: "date", name: "deadline" }
+    { label: "Enter Amount", type: "date", name: "deadline" },
   ] : [
     { label: "Enter Amount", type: "number", name: "unitPrice" },
     { label: "Enter Amount", type: "number", name: "advance" },
-    { label: "Enter Amount", type: "date", name: "deadline" }
+    { label: "Enter Quantity", type: "quantity", name: "quantity" },
+    { label: "Enter Amount", type: "date", name: "deadline" },
   ];
 
   const errorStyle = { color: "red", marginLeft: "27px", fontSize: "16px" };
@@ -45,7 +46,10 @@ const PaymentForm = (props) => {
 
   useEffect(()=> {
     props.data({unitPrice: formik.values.unitPrice,
-    advance: formik.values.advance, deadline: formik.values.deadline})
+    advance: formik.values.advance,
+     deadline: formik.values.deadline,
+     quantity: formik.values.quantity,
+    })
    
   }, [formik.values])
 

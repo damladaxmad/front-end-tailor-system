@@ -14,6 +14,17 @@ const SizesForm = (props) => {
     { label: "Enter Amount", type: "number", name: "t" },
     { label: "Enter Amount", type: "number", name: "c" },
     { label: "Enter Amount", type: "number", name: "k" },
+  ] : props.type == "Isku Joog" ?  [
+    { label: "Enter Amount", type: "number", name: "l1" },
+    { label: "Enter Amount", type: "number", name: "p1" },
+    { label: "Enter Amount", type: "number", name: "m" },
+    { label: "Enter Amount", type: "number", name: "s" },
+    { label: "Enter Amount", type: "number", name: "k1" },
+    { label: "Enter Amount", type: "number", name: "l2" },
+    { label: "Enter Amount", type: "number", name: "p2" },
+    { label: "Enter Amount", type: "number", name: "t" },
+    { label: "Enter Amount", type: "number", name: "c" },
+    { label: "Enter Amount", type: "number", name: "k2" },
   ] :
   [
     { label: "Enter Amount", type: "number", name: "l" },
@@ -70,8 +81,20 @@ const init2 = {
   c: null,
   k: null,
 }
+const init3 = {
+  l1: null,
+  p1: null,
+  t: null,
+  c: null,
+  k1: null,
+  l2: null,
+  p2: null,
+  m: null,
+  s: null,
+  k2: null,
+}
   const formik = useFormik({
-    initialValues: props.olderSizes ? props.olderSizes : props.type == "Surwaal" ? init2 : init1,
+    initialValues: props.olderSizes ? props.olderSizes : props.type == "Surwaal" ? init2 : props.type == "Isku Joog" ? init3 :  init1,
     validate,
     enableReintialize: true
   });
@@ -98,10 +121,13 @@ const init2 = {
         width: "100%",
         padding: "20px 0px",
         alignItems: "center",
+        width: "60%",
+        flexWrap: "wrap"
       }}
     >
       {arr.map((a, index) => (
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px",
+        }}>
           <Typography
             style={{ fontWeight: "600", fontSize: "14px", marginLeft: "3px" }}
           >

@@ -92,7 +92,6 @@ const MenuContainer = (props) => {
             aria-controls={open ? 'basic-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
-
               />
             </div>
           
@@ -105,8 +104,10 @@ const MenuContainer = (props) => {
             <Button style = {{border: "1px solid #F2994A", borderRadius: "6px",
         width: "45%", height: "30px"}}
         onClick = {()=>{
-          if (activeUser.privillages.includes("View Menu"))
+          if (activeUser.privillages.includes("View Menu")) {
           props.viewProducts(props.menu.menuProducts)
+          props.whichMenu(props.menu)
+          }
           else alert("You have no access!")
         }}> View</Button>
             <Button variant="contained" style = {{background: "#3245E9", borderRadius: "6px",

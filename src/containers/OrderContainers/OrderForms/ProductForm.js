@@ -28,12 +28,17 @@ const ProductForm = (props) => {
     >
        { productModel && <ProductModel hideModal = {()=> setProductModel(false)} 
        productName = {(name)=> {
-        setProductName(name)
+         setProductName(name.image)
+         props.data({imageUrl: name.image, customer: customer, menu: name.menu})
         setProductModel(false)
-        props.data({imageUrl: name.image, customer: customer, menu: name.menu})
         }}
-      
+
+        menuStaff = {(data)=> {
+          console.log(data)
+          props.menuStaff(data)
+        }}
         />}
+
       <Button
         style={{
           border: "1.5px solid #F2994A",

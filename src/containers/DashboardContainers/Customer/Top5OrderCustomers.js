@@ -9,7 +9,7 @@ const Top5OrderCustomers = (props) => {
         borderRadius: "9px", display: "flex", flexDirection: "column",
         gap: "8px", width: "320px"}}>
             <Typography style = {{color: "#3245E9", fontWeight: "bold"}}>
-              customer orders
+              Customer Orders
             </Typography>
             <Typography style = {{fontWeight: "500", fontSize: "22px"}}>
             Top order customers

@@ -10,7 +10,7 @@ import EmplooyeeTitle from "../containers/EmplooyeeContainers/EmployeeTitle";
 
 const Register = (props) => {
 
-  const types = ["Shaati", "Surwaal", "Qamiis", "Jaakad"]
+  const types = ["Shaati", "Surwaal", "Qamiis", "Isku Joog"]
   const [type, setType] = useState()
 
   const typeHandler = (e) => {

@@ -39,7 +39,7 @@ const Service = (props) => {
           {props.service.type}
         </Typography>
         {/* <Typography> {moment(props.deadline).format("YYYY-MM-DD")}</Typography> */}
-        <Typography> {constants.moneySign}{props.service.unitPrice}</Typography>
+        <Typography> {constants.moneySign}{props.service.unitPrice} / {props.service.quantity}</Typography>
       </div>
 
       <img

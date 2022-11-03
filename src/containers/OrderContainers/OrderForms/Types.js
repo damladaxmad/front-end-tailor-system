@@ -20,7 +20,7 @@ const Types = (props) => {
 
   const selectStyle = { height: "40px", color: "#B9B9B9", width: "100%" };
 
-  const types = ["Shaati", "Surwaal", "Qamiis", "Jaakad"];
+  const types = ["Shaati", "Surwaal", "Qamiis"];
   const [typeData, setTypeData] = useState([]);
 
   const addTypes = (type) => {

@@ -72,13 +72,13 @@ const Dashboard = () => {
         }}
       >
         {" "}
-        Weekly Statistics{" "}
+        Weekly Statistics
       </Typography>
 
       <div
         style={{
           display: "flex",
-          width: "98%",
+          width: "97%",
           justifyContent: "space-between",
         }}
       >

@@ -47,6 +47,7 @@ const OrderForm = (props) => {
     styles: null,
     advance: null,
     unitPrice: null,
+    quantity: null,
     deadline: null,
   });
 
@@ -128,10 +129,11 @@ const OrderForm = (props) => {
         {
           type: orderData.type,
           sizes: orderData.sizes,
+          menu: orderData.menu,
           styles: orderData.styles,
           unitPrice: orderData.unitPrice,
           imageUrl: orderData.imageUrl,
-          quantity: 1,
+          quantity: orderData.quantity,
         },
       ],
     };
@@ -275,13 +277,21 @@ const OrderForm = (props) => {
         {currentProgress == "customer" && (
           <ProductForm
           orderType = "normal"
+          menuStaff = {(data) => {
+            setOrderData((prevState) => {
+              return {
+                ...prevState,
+                menu: data,
+              };
+            });
+          }}
             data={(data) => {
+              // console.log(data.menu)
               setOrderData((prevState) => {
                 return {
                   ...prevState,
                   imageUrl: data.imageUrl,
                   customer: data.customer,
-                  menu: data.menu,
                 };
               });
             }}
@@ -319,6 +329,7 @@ const OrderForm = (props) => {
                   ...prevState,
                   unitPrice: data.unitPrice,
                   advance: data.advance,
+                  quantity: data.quantity,
                   deadline: data.deadline,
                 };
               });

@@ -110,7 +110,7 @@ const Menus = () => {
     setProducts(products)
     setButtonName("Go To Menus")
   }
-
+  const [menu, setMenu] = useState()
 
   return (
     <div
@@ -209,9 +209,7 @@ const Menus = () => {
           padding: "20px"
         }}>
           {products?.map(product => (
-            <ViewProducts product = {product} getProduct = {(product)=> {
-              
-            } }/>
+            <ViewProducts product = {product} whichMenu = {menu} />
           ))}
         </div>
       
@@ -227,7 +225,8 @@ const Menus = () => {
 
         {handler(menus)?.map(menu => (
           <MenuContainer menu = {menu} change = {changeHandler}
-          viewProducts = {(products)=> viewProductsHandler(products)}/>
+          viewProducts = {(products)=> viewProductsHandler(products)}
+          whichMenu = {(menu) => setMenu(menu)}/>
         ))}
 
       </div>}

@@ -25,9 +25,12 @@ const CustomerOrders = (props) => {
   let items = 0;
   let services = [];
   orders?.map((order) => {
-    items += order.services.length;
     Array.prototype.push.apply(services, order.services);
   });
+
+  services.map(service => {
+    items += service.quantity
+  })
 
   const customerInfo = [
     { title: "Name:", content: props.data.name },

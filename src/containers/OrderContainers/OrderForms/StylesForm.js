@@ -17,8 +17,15 @@ const StylesForm = (props) => {
   
   let currentStyles = []
   styles?.map(style => {
-    if (style.type == props.type)
-    currentStyles.push(style)
+    if (props.type != "Isku Joog") {
+      if (style.type == props.type) {
+        currentStyles.push(style)
+      }
+    } else {
+      if (style.type == "Shaati" || style.type == "Surwaal") {
+        currentStyles.push(style)
+      }
+    }
   })
 
   const addStyles = (style) => {
@@ -57,6 +64,8 @@ const StylesForm = (props) => {
         // justifyContent: "center",
         alignItems: "start",
         marginLeft: "180px",
+        height: "180px",
+        overflowY: "scroll"
       }}
       class="myDiv"
     >
