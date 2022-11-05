@@ -24,7 +24,7 @@ const PaymentForm = (props) => {
   };
 
   const apiHandler = async(url, message) => {
-    const res = await axios.post(url, {user: activeUser.userName}).then(()=> {
+    const res = await axios.post(url, {user: activeUser.username}).then(()=> {
         props.hideModal()
         alert(message)
         setDisabled(false)
@@ -49,7 +49,7 @@ const PaymentForm = (props) => {
       await apiHandler(`${constants.baseUrl}/orders/payment/${props.orderId}/${values.amount}`, "Succesfully Payed")
     }
     if (props.balance > values.amount) {
-        apiHandler(`${constants.baseUrl}/orders/invoice-order-to-customer/${props.orderId}/${activeUser.userName}`, "Successfully Invoiced")
+        apiHandler(`${constants.baseUrl}/orders/invoice-order-to-customer/${props.orderId}/${activeUser.username}`, "Successfully Invoiced")
     }
     if (props.balance <= values.amount) {
         apiHandler(`${constants.baseUrl}/orders/take-order/${props.orderId}`, "Successfully Taken")

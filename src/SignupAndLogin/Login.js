@@ -9,7 +9,6 @@ import { Button } from "@mui/material";
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
-import useNetworkHook from "./networkHook"
 import { setCompanyInfo } from "../redux/actions/companyInfoActions";
 import { constants } from "../Helpers/constantsFile";
 
@@ -156,11 +155,11 @@ const Login = (props) => {
       ))}
 
       <Button
-        disabled = {!props.status || isConnected == "no connection"}
+        disabled = {isConnected == "no connection"}
         style={{
           width: "290px",
           fontSize: "20px",
-          backgroundColor: props.status && isConnected !== "no connection" ? "#2F49D1" : "lightgray",
+          backgroundColor: isConnected !== "no connection" ? "#2F49D1" : "lightgray",
           fontWeight: "600",
           color: "white",
           height: "40px",

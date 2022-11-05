@@ -65,7 +65,8 @@ const CustomStyles = (props) => {
       }}
       class="myDiv"
     >
-        <div style = {{display: "flex", width: "100%", flexWrap: "wrap"}}>
+        <div style = {{display: "flex", width: "100%", flexWrap: "wrap",
+      height: "100px", overflowY: "scroll"}}>
       {currentStyles?.map((style) => (
         <SingleOutChecks style = {style} key = {style.id} 
         styleData = {styleData} addStyles = {(style) => addStyles(style)}
@@ -99,7 +100,7 @@ const CustomStyles = (props) => {
             onChange={changeHandler}
             style={{
               width: "170px",
-              height: "45px",
+              height: "40px",
               padding: "10px",
               fontSize: "16px",
               borderRadius: "8px",

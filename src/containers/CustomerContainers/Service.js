@@ -36,9 +36,9 @@ const Service = (props) => {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Typography style={{ color: "#3245E9", fontWeight: "600" }}>
           {" "}
-          {props.service.type}
+         {props.service.type}
         </Typography>
-        {/* <Typography> {moment(props.deadline).format("YYYY-MM-DD")}</Typography> */}
+
         <Typography> {constants.moneySign}{props.service.unitPrice} / {props.service.quantity}</Typography>
       </div>
 

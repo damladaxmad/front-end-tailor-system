@@ -65,7 +65,7 @@ const Dashboard = () => {
 
       <Typography
         style={{
-          fontWeight: "500",
+          fontWeight: "600",
           color: "#928E8E",
           fontSize: "25px",
           marginTop: "40px",
@@ -89,7 +89,7 @@ const Dashboard = () => {
 
       <Typography
         style={{
-          fontWeight: "500",
+          fontWeight: "600",
           color: "#928E8E",
           fontSize: "25px",
           marginTop: "40px",
@@ -151,7 +151,7 @@ const Dashboard = () => {
 
       <Typography
         style={{
-          fontWeight: "500",
+          fontWeight: "600",
           color: "#928E8E",
           fontSize: "25px",
           marginTop: "40px",

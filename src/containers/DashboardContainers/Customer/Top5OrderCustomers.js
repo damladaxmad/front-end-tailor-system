@@ -11,7 +11,7 @@ const Top5OrderCustomers = (props) => {
             <Typography style = {{color: "#3245E9", fontWeight: "bold"}}>
               Customer Orders
             </Typography>
-            <Typography style = {{fontWeight: "500", fontSize: "22px"}}>
+            <Typography style = {{fontWeight: "600", fontSize: "22px"}}>
             Top order customers
             </Typography>
 

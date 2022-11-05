@@ -4,10 +4,12 @@ import { constants } from "../../../Helpers/constantsFile";
 const RevenueStats = (props) => {
   
   const orders = [
-    { name: "Advanced Money", value: props.data?.advancedMoney },
-    { name: "Payed Money", value: props.data?.payedMoney },
-    { name: "Owed Money", value: props.data?.ownedMoney },
-    { name: "Estimated Profit", value: props.data?.estimatedPorfit },
+    // { name: "Payed Money", value: props.data?.payedMoney },
+    // { name: "Owed Money", value: props.data?.ownedMoney },
+
+    { name: "Today Orders", value: props.data?.todayOrders, isMoney: false },
+    { name: "Estimated Profit", value: props.data?.estimatedPorfit, isMoney: true },
+    { name: "Advanced Money", value: props.data?.advancedMoney, isMoney: true },
   ];
 
   return (
@@ -25,7 +27,7 @@ const RevenueStats = (props) => {
       <Typography style={{ color: "#3245E9", fontWeight: "bold" }}>
         Today
       </Typography>
-      <Typography style={{ fontWeight: "500", fontSize: "22px" }}>
+      <Typography style={{ fontWeight: "600", fontSize: "22px" }}>
         Revenue stats
       </Typography>
 
@@ -37,7 +39,7 @@ const RevenueStats = (props) => {
           </Typography>
           <Typography style={{ fontSize: "15px", color: "#575656" }}>
             {" "}
-            {constants.moneySign}{order.value}{" "}
+            {order.isMoney && constants.moneySign}{order.value}{" "}
           </Typography>
         </div>
       ))}

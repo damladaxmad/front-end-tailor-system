@@ -86,8 +86,8 @@ const Emplooyees = () => {
     if (data?.length > 0) {
       return data.filter(
         (std) =>
-        std.name.toLowerCase().includes(query) ||
-        std.email.toLowerCase().includes(query)
+        std.name?.toLowerCase().includes(query) ||
+        std.phone?.toLowerCase().includes(query)
       );
     } else {
       return

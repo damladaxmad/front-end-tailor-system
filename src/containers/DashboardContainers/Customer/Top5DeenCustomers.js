@@ -11,7 +11,7 @@ const Top5DeenCustomers = (props) => {
             <Typography style = {{color: "#3245E9", fontWeight: "bold"}}>
                 Deen
             </Typography>
-            <Typography style = {{fontWeight: "500", fontSize: "22px"}}>
+            <Typography style = {{fontWeight: "600", fontSize: "22px"}}>
             Top deen customers
             </Typography>
 

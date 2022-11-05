@@ -1608,7 +1608,7 @@
     "react-is" "^16.8.0 || ^17.0.0"
     "react-transition-group" "^4.4.0"
 
-"@material-ui/icons@^4.11.2":
+"@material-ui/icons@^4.11.3":
   "integrity" "sha512-IKHlyx6LDh8n19vzwH5RtHIOHl9Tu90aAAxcbWME6kp4dmvODM3UvOHJeMIDzUbd4muuJKHmlNoBN+mDY4XkBA=="
   "resolved" "https://registry.npmjs.org/@material-ui/icons/-/icons-4.11.3.tgz"
   "version" "4.11.3"
@@ -8131,6 +8131,11 @@
     "@sideway/formula" "^3.0.0"
     "@sideway/pinpoint" "^2.0.0"
 
+"jquery@x.*":
+  "integrity" "sha512-opJeO4nCucVnsjiXOE+/PcCgYw9Gwpvs/a6B1LL/lQhwWwpbVEVYDZ1FokFr8PRc7ghYlrFPuyHuiiDNTQxmcw=="
+  "resolved" "https://registry.npmjs.org/jquery/-/jquery-3.6.1.tgz"
+  "version" "3.6.1"
+
 "js-tokens@^3.0.0 || ^4.0.0", "js-tokens@^4.0.0":
   "integrity" "sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ=="
   "resolved" "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz"
@@ -11698,6 +11703,13 @@
   "version" "1.10.14"
   dependencies:
     "node-forge" "^0.10.0"
+
+"semantic-ui-css@^2.5.0":
+  "integrity" "sha512-jIWn3WXXE2uSaWCcB+gVJVRG3masIKtTMNEP2X8Aw909H2rHpXGneYOxzO3hT8TpyvB5/dEEo9mBFCitGwoj1A=="
+  "resolved" "https://registry.npmjs.org/semantic-ui-css/-/semantic-ui-css-2.5.0.tgz"
+  "version" "2.5.0"
+  dependencies:
+    "jquery" "x.*"
 
 "semver-compare@^1.0.0":
   "integrity" "sha1-De4hahyUGrN+nvsXiPavxf9VN/w="

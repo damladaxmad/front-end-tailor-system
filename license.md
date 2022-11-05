@@ -1,1 +1,1 @@
-This is the inventory system. Clike agree to continue.
+This is the tailor system prepared by CASRIWARE team. All rights reserved.

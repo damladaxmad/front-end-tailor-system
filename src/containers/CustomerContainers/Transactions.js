@@ -157,7 +157,7 @@ const Transactions = (props) => {
           />
           <p style={{ margin: "0px", fontWeight: "700", fontSize: "25px" }}>
             {" "}
-            {props.name} Transactions
+            Customer Transactions
           </p>
         </div>
 

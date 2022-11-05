@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import { forwardRef } from 'react';
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { Typography, Button, MenuItem, Menu, Avatar } from "@material-ui/core";
 import axios from "axios";
@@ -14,6 +19,14 @@ import Payment from "../containers/CustomerContainers/Payment";
 import Transactions from "../containers/CustomerContainers/Transactions";
 
 const Table = (props) => {
+  const tableIcons = {
+    // Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+    FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+    LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+    NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+    PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
+    
+  };
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const [show, setShow] = useState(false);
@@ -205,6 +218,7 @@ const Table = (props) => {
       </Menu>
 
       <MaterialTable
+      icons={tableIcons}
         columns={columns}
         data={props.data}
         localization={{

@@ -100,7 +100,7 @@ const EditProfile = (props) => {
 
         <Button
           style={{
-            width: "190px",
+            width: "290px",
             fontSize: "16px",
             backgroundColor: "#2F49D1",
             color: "white",

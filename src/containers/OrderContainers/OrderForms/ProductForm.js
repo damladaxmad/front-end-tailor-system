@@ -46,6 +46,7 @@ const ProductForm = (props) => {
           width: "250px",
           height: "45px",
           fontSize: "14px",
+          fontWeight: "bold"
         }}
         onClick = {()=> setProductModel(true)}
       >

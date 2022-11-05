@@ -41,25 +41,25 @@ const SizesForm = (props) => {
   const validate = (values) => {
     const errors = {};
 
-    if (!values.l) {
+    if (!values.l && values.l != 0) {
       errors.l = "Field is Required";
     }
-    if (!values.p) {
+    if (!values.p && values.p != 0) {
       errors.p = "Field is Required";
     }
-    if (props.type != "Surwaal" && !values.m) {
+    if (props.type != "Surwaal" && !values.m && values.m != 0) {
       errors.m = "Field is Required";
     }
-    if (props.type != "Surwaal" && !values.s) {
+    if (props.type != "Surwaal" && !values.s && values.s != 0) {
       errors.s = "Field is Required";
     }
-    if (props.type == "Surwaal" && !values.t) {
+    if (props.type == "Surwaal" && !values.t && values.t != 0) {
       errors.t = "Field is Required";
     }
-    if (props.type == "Surwaal" && !values.c) {
+    if (props.type == "Surwaal" && !values.c && values.c != 0) {
       errors.c = "Field is Required";
     }
-    if (!values.k) {
+    if (!values.k && values.k != 0) {
       errors.k = "Field is Required";
     }
     return errors;

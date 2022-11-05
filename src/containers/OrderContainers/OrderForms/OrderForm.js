@@ -346,6 +346,7 @@ const OrderForm = (props) => {
             color: "white",
             fontSize: "16px",
             width: "250px",
+            fontWeight: "bold"
           }}
           onClick={() => {
             if (currentProgress != "payment") {

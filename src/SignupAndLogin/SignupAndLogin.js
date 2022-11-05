@@ -6,7 +6,6 @@ import Login from "./Login";
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
-import useNetworkHook from "./networkHook"
 import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,8 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignupAndLogin = (props) => {
-  const classes=useStyles();
-  const status = useNetworkHook()
+  const classes=useStyles()
   const isConnected = useSelector(state => state.isLogin.isConnected)
 
     const handler = () => {
@@ -51,7 +49,6 @@ const SignupAndLogin = (props) => {
     >
         <div style={{display: "flex", flexDirection: "column",
       alignItems: "center"}}>
-        {!status && <p style={{color: "red"}}> No Internet connection!</p>}
         {isConnected == "no connection" && <p style={{color: "red"}}> No Server Connection!</p>}
         <p style={{margin: "0px",
         fontSize:"28px", fontWeight: "700",
@@ -62,7 +59,7 @@ const SignupAndLogin = (props) => {
        {/* {isConnected == "loading" && status && <Backdrop className={classes.backdrop} open>
         <CircularProgress color="inherit" />
       </Backdrop>} */}
-      <Login showHandler = {showHandler} status = {status}/>
+      <Login showHandler = {showHandler} />
     </div>
   );
 };

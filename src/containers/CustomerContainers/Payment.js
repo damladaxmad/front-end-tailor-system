@@ -95,7 +95,7 @@ const Payment = (props) => {
           backgroundColor: disabled ? "lightgrey" : "#2F49D1",
           fontWeight: "600",
           color: "white",
-          height: "40px",
+          height: "45px",
           border: "none",
           borderRadius: "6px",
           cursor: "pointer",

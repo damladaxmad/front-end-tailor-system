@@ -83,6 +83,7 @@ const AddNewProducts = (props) => {
             width: "300px",
             height: "45px",
             color: "white",
+            fontWeight: "bold"
           }}
           onClick={addMenuHandler}
         >
