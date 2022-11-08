@@ -67,20 +67,20 @@ const Access = () => {
       ],
     },
  
-    {
-      name: "Employees",
-      access: [
-        "Employees",
-        "Add New Employees",
-        "Give User",
-        "Delete Employee",
-        "Update Employee",
-      ],
-    },
+    // {
+    //   name: "Employees",
+    //   access: [
+    //     "Employees",
+    //     "Add New Employees",
+    //     "Give User",
+    //     "Delete Employee",
+    //     "Update Employee",
+    //   ],
+    // },
      {
       name: "Adminstration",
       access: ["Adminstration", "Users", "Access", "Reset User", 
-      "Delete User", "Company Info"],
+      "Delete User"],
     },
    
      
@@ -277,7 +277,7 @@ const Access = () => {
         }}
       ></div>
 
-      <div style={{ padding: "35px 20px" }}>
+      <div style={{ padding: "35px 30px" }}>
         <h3> User Access:</h3>
         {tabs[currentTab].access.map((access, index) => (
           <RenderCheckBoxes

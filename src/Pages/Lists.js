@@ -37,6 +37,7 @@ const Lists = () => {
           (std) =>
           std.status == type && std.name.toLowerCase().includes(query.toLocaleLowerCase())
           || std.status == type && std.customer?.name.toLowerCase().includes(query.toLocaleLowerCase())
+          || std.status == type && std.orderNumber.toString().includes(query.toLocaleLowerCase())
           ).reverse();
       }
       else if (type == "taken") {
@@ -44,6 +45,7 @@ const Lists = () => {
           (std) =>
           (std.status == type || std.status ==  "invoiced") && std.name.toLowerCase().includes(query.toLocaleLowerCase())
           || (std.status == type || std.status == "invoiced") && std.customer?.name.toLowerCase().includes(query.toLocaleLowerCase())
+          || (std.status == type || std.status == "invoiced") && std.orderNumber.toString().includes(query.toLocaleLowerCase())
           ).reverse();
       }  
     } else {

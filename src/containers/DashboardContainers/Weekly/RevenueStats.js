@@ -7,7 +7,7 @@ const RevenueStats = (props) => {
     // { name: "Payed Money", value: props.data?.payedMoney },
     // { name: "Owed Money", value: props.data?.ownedMoney },
 
-    { name: "Today Orders", value: props.data?.todayOrders, isMoney: false },
+    { name: "Today Orders", value: props.data?.totalOrders, isMoney: false },
     { name: "Estimated Profit", value: props.data?.estimatedPorfit, isMoney: true },
     { name: "Advanced Money", value: props.data?.advancedMoney, isMoney: true },
   ];

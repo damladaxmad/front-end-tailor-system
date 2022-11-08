@@ -20,7 +20,7 @@ const AddNewMenu = (props) => {
 
   const addMenuHandler = () => {
     setDisabled(true);
-    formData.append("name", `menu ${name}`);
+    formData.append("name", `MENU ${name.toUpperCase()}`);
     if (props.update) {
       axios
         .patch(`${constants.baseUrl}/menus/${props.id}`, formData)

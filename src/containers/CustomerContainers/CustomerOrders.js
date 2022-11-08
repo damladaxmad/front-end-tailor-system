@@ -9,12 +9,14 @@ import Service from "./Service";
 
 const CustomerOrders = (props) => {
   const [orders, setOrders] = useState();
+  const [state, setState] = useState(true)
 
   useEffect(() => {
     axios
       .get(`${constants.baseUrl}/customers/orders/${props.data._id}`)
       .then((res) => {
         setOrders(res.data.orders);
+        setState(false)
       })
       .catch((err) => {
         alert("failed to get request.");
@@ -78,7 +80,7 @@ const CustomerOrders = (props) => {
           </div>
         ))}
       </div>
-
+      {state ? <p> Loading...</p> : services?.length < 1 ? <p>No Orders to display!</p> : null}
       <div
         style={{
           display: "flex",

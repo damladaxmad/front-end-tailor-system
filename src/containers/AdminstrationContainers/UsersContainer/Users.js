@@ -7,7 +7,7 @@ import { setUsers } from "../../../redux/actions/usersActions";
 import useFetch from "../../../funcrions/DataFetchers";
 import Table from "../../../utils/Table";
 
-const Users = () => {
+const Users = (props) => {
 
   const dispatch = useDispatch();
   const [state, setState] = useState('')
@@ -67,6 +67,12 @@ const Users = () => {
     if (users?.length < 1)
     setState("No users found!")
   }, [users])
+
+  useEffect(() => {
+    if (query != "") {
+      setState("No matching users!");
+    }
+  }, [query]);
 
    
   return (

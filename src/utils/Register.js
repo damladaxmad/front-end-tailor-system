@@ -28,9 +28,9 @@ const Register = (props) => {
 
    if (props.name == "Expense") {
 
-    if (!values.description) {
-      errors.description = "Field is Required";
-    }
+    // if (!values.description) {
+    //   errors.description = "Field is Required";
+    // }
     if (!values.date) {
       errors.date = "Field is Required";
     }
@@ -64,6 +64,7 @@ const Register = (props) => {
     validate,
     onSubmit: (values, { resetForm }) => {
       if (props.name == "Styles" && !props.styleType) values.type = type
+      if (props.name == "Styles" && !values.description) values.description = values.name
       if (props.name == "Styles" && props.styleType) values.type = props.styleType
       if (props.update){
         axios.patch(`${constants.baseUrl}/${props.url}/${props.instance._id}`, values).then((res) => {

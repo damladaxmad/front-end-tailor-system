@@ -163,11 +163,11 @@ const menuItems = [
     },
 
     
-    {
-      text: "Employees",
-      icon: <VscPerson style={{ fontSize: "20px", color: "white" }} />,
-      path: "/emplooyees",
-    },
+    // {
+    //   text: "Employees",
+    //   icon: <VscPerson style={{ fontSize: "20px", color: "white" }} />,
+    //   path: "/emplooyees",
+    // },
     {
       text: "Adminstration",
       icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "white" }} />,

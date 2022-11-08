@@ -96,8 +96,8 @@ const MenuContainer = (props) => {
             </div>
           
           <img src = {menuImage} style = {{width: "100%", height: "130px",
-        borderRadius: "6px", cursor: "pointer"}}
-        onClick = {()=>props.viewProducts(props.menu.menuProducts)}/>
+        borderRadius: "6px"}}
+       />
 
           <div style = {{display: "flex", flexDirection: "row",
         justifyContent: "space-between"}}>

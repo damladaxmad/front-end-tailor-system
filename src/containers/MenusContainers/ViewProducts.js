@@ -2,12 +2,14 @@ import { Menu, MenuItem } from "@material-ui/core"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { constants } from "../../Helpers/constantsFile"
+import ImagePortal from "./ImagePortal"
 
 
 
 const ViewProducts = (props) => {
     const [image, setImage] = useState()
     const [anchorEl, setAnchorEl] = useState(null);
+    const [imagePortal, setImagePortal] = useState(false)
     const open = Boolean(anchorEl);
   const handleClose = () => {
     setAnchorEl(null);
@@ -40,28 +42,15 @@ const ViewProducts = (props) => {
 
     return (
       <>
+        {imagePortal && <ImagePortal hideModal = {()=> setImagePortal(false)} 
+        product = {props.product} whichMenu = {props.whichMenu} 
+        resetPics = {() => props.resetPics()}
+        product = {props.product}/>}
+
         <img src = {image} style = {{width: "20%", height: "130px",
         borderRadius: "6px", cursor: "pointer"}}
-        onClick = {optionHadler}
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}/>
-
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={() => {
-          handleClose()
-          updateMenu(props.product)
-        } }>Delete Image</MenuItem>
-      </Menu>
+        onClick = {()=> setImagePortal(true)} />
+      
       </>
     )
 
