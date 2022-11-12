@@ -135,10 +135,10 @@ const Customers = () => {
   useEffect(() => {}, [del]);
 
   useEffect(() => {
-    if (query != "") {
+    if (query != "" || status != "All") {
       setState("No matching customers!");
     }
-  }, [query]);
+  }, [query, status]);
 
   const showOrdersHandler = (customer) => {
     setShowOrders(true);

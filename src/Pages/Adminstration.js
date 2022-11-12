@@ -34,10 +34,17 @@ const Adminstration = () => {
   }
 
   const [change, setChange] = useState(1)
+  const [myChange, setMyChange] = useState(1)
 
   const changeHandler = () => {
     setChange(state => state + 1)
   }
+
+  const dispatch = useDispatch()
+  dispatch(setUsers(useFetch("users", change, "users")))
+  useEffect(() => {
+    console.log(`chang is happening ${change}`)
+  })
   
   return (
     <div
@@ -98,14 +105,13 @@ const Adminstration = () => {
         </Button>
 
         </div>
-    {value == "users" && <Users change = {change}/>}
+    {value == "users" && <Users key = {change}/>}
     {value == "access" && <Access/>}
 
     {newUser && (
         <Register
           hideModal={() => {
             setNewUser(false)
-            setChange(state => state + 1)
           }}
           fields={fields}
           url="users"

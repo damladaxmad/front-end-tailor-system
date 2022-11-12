@@ -4,6 +4,7 @@ import { constants } from "../../Helpers/constantsFile"
 import MyModal from "../../Modal/Modal"
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { Menu, MenuItem } from "@material-ui/core";
+import IdsMenu from "./IdsMenu";
 
 
 const ImagePortal = (props) => {
@@ -11,6 +12,7 @@ const ImagePortal = (props) => {
     const [image, setImage] = useState()
     const [anchorEl, setAnchorEl] = useState(null);
     const [imagePortal, setImagePortal] = useState(false)
+    const [idsMenu,setIdsMenu] = useState(false)
     const open = Boolean(anchorEl);
   const handleClose = () => {
     setAnchorEl(null);
@@ -27,11 +29,14 @@ const ImagePortal = (props) => {
         setAnchorEl(event.currentTarget);
       };
 
-      const deleteImage = (product) => {
+      const deleteImage = async(product) => {
         let remainedProducts = []
-        props.whichMenu.menuProducts?.map(m => {
-          if (m != product) remainedProducts.push(m)
+        await axios.get(`${constants.baseUrl}/menus/${props.whichMenu.id}`).then((res) => {
+          res.data?.data?.menu?.menuProducts?.map(m => {
+            if (m != product) remainedProducts.push(m)
+          })
         })
+
         axios.patch(`${constants.baseUrl}/menus/${props.whichMenu.id}`, {menuProducts: remainedProducts}).then(res => {
           alert("Successfully Deleted Image.")
           props.resetPics()
@@ -41,25 +46,26 @@ const ImagePortal = (props) => {
         })
       }
 
-      const moveImage = (product) => {
+      const moveImage = async(product, menu) => {
         let remainedProducts = []
-        props.whichMenu.menuProducts?.map(m => {
-          if (m != product) remainedProducts.push(m)
+        await axios.get(`${constants.baseUrl}/menus/${menu}`).then((res) => {
+          remainedProducts = res.data.data.menu.menuProducts
+          remainedProducts.push(product)
         })
-        axios.patch(`${constants.baseUrl}/menus/${props.whichMenu.id}`, {menuProducts: remainedProducts}).then(res => {
-          // alert("Successfully Moved Image.")
-          props.resetPics()
-          props.hideModal()
-        }).catch(err => {
-          alert(err.response?.data?.message)
-        })
-        axios.patch(`${constants.baseUrl}/menus/635a1d208b514c19dcbc3616`, {menuProducts: remainedProducts}).then(res => {
+       await axios.patch(`${constants.baseUrl}/menus/${menu}`, {menuProducts: remainedProducts}).then(res => {
           alert("Successfully Moved Image.")
           props.resetPics()
           props.hideModal()
         }).catch(err => {
           alert(err.response?.data?.message)
         })
+
+        deleteImage(product)
+     
+      }
+
+      const openMenuPortal = () => {
+        setIdsMenu(true)
       }
 
     return (
@@ -92,9 +98,16 @@ const ImagePortal = (props) => {
         } }>Delete Image</MenuItem>
         <MenuItem onClick={() => {
           handleClose()
-          moveImage(props.product)
+          // moveImage(props.product)
+          openMenuPortal()
         } }>Move Image</MenuItem>
       </Menu>
+
+        {idsMenu && <IdsMenu hideModal = {(menu)=> {
+          moveImage(props.product, menu)
+          setIdsMenu(false)
+        }}/>}
+
       </div>
         </MyModal>
     )

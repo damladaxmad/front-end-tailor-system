@@ -41,12 +41,13 @@ const ResetUser = (props) => {
     onSubmit: (values, { resetForm }) => {
         axios.patch(`${constants.baseUrl}/users/${props.user._id}`, values).then((res) => {
              alert("Successfully Updated")
+             resetForm();
+             props.hideModal();
+             props.change()
         }).catch((err) => {
           alert(err.response.data.message);
         });
-        resetForm();
-        props.hideModal();
-        props.change()
+       
     
     },
   });
