@@ -83,7 +83,7 @@ const Adminstration = () => {
             style={{ fontSize: "16px", fontWeight: "700" }} />}
           </Tabs>
         </Box>
-        <Button
+        {value == "users" && <Button
           style={{
             width: "250px",
             fontSize: "14px",
@@ -102,7 +102,7 @@ const Adminstration = () => {
           onClick={addHandler}
         >
          add new user
-        </Button>
+        </Button> }
 
         </div>
     {value == "users" && <Users key = {change}/>}

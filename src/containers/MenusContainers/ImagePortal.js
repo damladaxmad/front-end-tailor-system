@@ -71,7 +71,7 @@ const ImagePortal = (props) => {
     return (
         <MyModal onClose = {()=> props.hideModal()} left = "36%">
             <div style = {{display: "flex", flexDirection: "column",
-        alignItems: "end", gap: "15px"}}>
+        alignItems: "flex-end", gap: "15px"}}>
              <BiDotsVerticalRounded style = {{fontSize: "18px", cursor: "pointer"}} 
             onClick = {optionHadler}
             id="basic-button"

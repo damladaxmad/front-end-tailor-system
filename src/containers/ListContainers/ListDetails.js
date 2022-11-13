@@ -1,4 +1,5 @@
 import { Button } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -16,6 +17,12 @@ const ListDetails = (props) => {
   const [assign, setAssign] = useState(false);
   const dispatch = useDispatch();
 
+  const information = [
+    {title: "Name", content: props.order?.customer?.name},
+    {title: "Phone", content: props.order?.customer?.phone},
+    {title: "Balance", content: `$${props.order?.balance}`},
+    {title: "Deadline", content: moment(props.order?.deadline).format("YYYY/MM/DD")},
+  ]
   const orderActions = () => {
     if (
       props.order?.status == "on-service" &&
@@ -146,20 +153,31 @@ const ListDetails = (props) => {
 
         <div
           style={{
+            background: "white",
+            padding: "20px",
             display: "flex",
-            alignItems: "center",
             flexDirection: "column",
+            borderRadius: "8px",
+            gap: "10px",
+            width: "300px"
           }}
         >
-          <p style={{ fontSize: "25px", fontWeight: "600", margin: "0px" }}>
-            {props.order.customer?.name}
-          </p>
-          <p style={{ fontSize: "20px", margin: "0px", color: "#8B8B8B" }}>
-            {props.order.customer?.phone}
-          </p>
-          <p style={{ fontSize: "18px", margin: "0px", color: "#8B8B8B"  }}>
-            {moment(props.order.deadline).format("YYYY-MM-DD")}
-          </p>
+          {information.map(info => (
+            <div style={{ display: "flex", gap: "20px", 
+            gap: "30px",  }}>
+            <Typography style={{ fontWeight: "600", fontSize: "16px" }}>
+              {info.title}:
+            </Typography>
+            <Typography
+              style={{
+                fontSize: "16px",
+              }}
+            >
+              {info.content}
+            </Typography>
+          </div>
+          ))}
+         
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>

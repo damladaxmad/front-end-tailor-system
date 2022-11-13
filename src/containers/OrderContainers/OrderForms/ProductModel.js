@@ -4,6 +4,7 @@ import { FormControl, MenuItem, Select } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { constants } from "../../../Helpers/constantsFile";
+import ImagePopUp from "./ImagePopUp";
 
 const ProductModel = (props) => {
   
@@ -91,6 +92,7 @@ const ProductModel = (props) => {
 
 const ProductImages = (props) => {
   const [image, setImage] = useState();
+  const [imagePopUp, setImagePopUp] = useState(false)
 
   useEffect(() => {
     axios
@@ -103,6 +105,7 @@ const ProductImages = (props) => {
   }, [props.image, props.menu]);
 
   return (
+    <>
     <img
       src={image}
       style={{
@@ -112,10 +115,16 @@ const ProductImages = (props) => {
         cursor: "pointer"
       }}
       onClick={() => {
-        props.productName({image: props.image, menu: props.menu});
-        props.menuStaff(props.menu)
+        setImagePopUp(true)
       }}
     />
+    {imagePopUp && <ImagePopUp hideModal = {()=> setImagePopUp(false)}
+    product = {props.image} onOk = {() => {
+      props.productName({image: props.image, menu: props.menu});
+        props.menuStaff(props.menu)
+        setImagePopUp(false)
+    }}/>}
+    </>
   );
 };
 
