@@ -9,6 +9,7 @@ import { Button, Typography } from "@material-ui/core";
 import { useState } from "react";
 import OrderForm from "./OrderForms/OrderForm";
 import CustomForm from "./OrderForms/customForm";
+import JumloForm from "./OrderForms/JumloForm";
 
 const types = [
   { typeName: "Shaati", typeImage: shaatiImage },
@@ -18,12 +19,13 @@ const types = [
   { typeName: "Jaakad", typeImage: jaakadImage },
   // { typeName: "Isku Joog", typeImage: jaakadImage },
   { typeName: "Custom", typeImage: customImage },
-  { typeName: "Uniform", typeImage: jumloImage },
+  { typeName: "Jumlo", typeImage: jumloImage },
 ];
 
 const OrderLists = (props) => {
     const [orderForm, setOrderForm] = useState(false)
     const [customForm, setCustomForm] = useState(false)
+    const [jumloForm, setJumloForm] = useState(false)
     const [type, setType] = useState()
 
   return (
@@ -35,6 +37,9 @@ const OrderLists = (props) => {
         type = {type} />}
         {(customForm && type.typeName == "Custom") && <CustomForm hideModal = {()=> setCustomForm(false)}
         type = {type} />}
+        {(jumloForm && type.typeName == "Jumlo") && <JumloForm hideModal = {()=> setJumloForm(false)}
+        type = {type} />}
+
       {types.map((type) => (
         <div
           style={{
@@ -69,8 +74,9 @@ const OrderLists = (props) => {
               fontSize:"16px"
             }}
             onClick = {()=> {
-              setOrderForm(true)
-              setCustomForm(true)
+              (type.typeName != "Custom" || type.typeName != "Jumlo") &&setOrderForm(true)
+              type.typeName == "Custom" && setCustomForm(true)
+              type.typeName == "Jumlo" && setJumloForm(true)
               setType(type)
             }}
           >

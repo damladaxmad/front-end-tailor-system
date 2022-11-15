@@ -6,12 +6,23 @@ import {
   FormGroup,
   MenuItem,
   TextField,
+  Typography,
 } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
 const Types = (props) => {
   const customers = useSelector((state) => state.customers.customers);
   const [customer, setCustomer] = useState();
+  const [unitPrice, setUnitPrice] = useState()
+
+  const changeHandler = (e) => {
+    props.times(e.target.value)
+  }
+
+  const unitHandler = (e) => {
+    setUnitPrice(e.target.value)
+  }
+
   const customerHandler = (e) => {
     setCustomer(e.target.value);
     props.customer({customer: e.target.value})
@@ -31,9 +42,20 @@ const Types = (props) => {
     setTypeData((arr) => arr.filter((el) => el !== type));
   };
 
+  const [check, setCheck] = useState(false);
+
+  const checkHandler = (data) => {
+    setCheck(state => !state)
+    props.check(!check)
+  }
+
   useEffect(() => {
     props.data(typeData);
   }, [typeData]);
+
+  useEffect(() => {
+    props.unitPrice(unitPrice)
+  }, [unitPrice])
 
   useEffect(()=> {
     props.customer({customer: customer})
@@ -43,7 +65,8 @@ const Types = (props) => {
     <div style={{ display: "flex", flexDirection: "column", gap: "20px",
     alignItems: "center" }}>
       <div style = {{display: "flex"}}>
-        {types.map((type, index) => (
+
+        {!props.type && types.map((type, index) => (
           <SingleOutChecks
             type={type}
             key={index}
@@ -52,7 +75,66 @@ const Types = (props) => {
             removeTypes={(type) => removeTypes(type)}
           />
         ))}
+
       </div>
+
+    {props.type && <div style = {{display: "flex", alignItems: "center", gap: "14px"}}>
+      <div style = {{display: "flex", gap: "10px", flexDirection: "column"}}>
+      <Typography style={{ fontWeight: "600", fontSize: "14px" }}>
+          {" "}
+          How many:
+        </Typography>
+      <input
+            onChange={changeHandler}
+            style={{
+              width: "150px",
+              height: "45px",
+              padding: "10px",
+              fontSize: "16px",
+              borderRadius: "8px",
+              background: "#EFF0F6",
+              border: "none",
+            }}
+          />
+          </div>
+
+          {check && <div style={{display: "flex", gap: "10px", flexDirection: "column",
+     marginLeft: "15px"}}>
+      <Typography
+            style={{ fontWeight: "600", fontSize: "14px", marginLeft: "3px" }}
+          >
+            UnitPrice:
+          </Typography>
+      <input
+            onChange={unitHandler}
+            style={{
+              width: "170px",
+              height: "40px",
+              padding: "10px",
+              fontSize: "16px",
+              borderRadius: "8px",
+              background: "#EFF0F6",
+              border: "none",
+            }}
+          />
+          </div> }
+
+          <FormGroup style={{ width: "38%" }}>
+      <FormControlLabel
+        control={
+          <Checkbox
+            style={{ padding: "10px 25px" }}
+            value={check}
+            color="primary"
+            checked={check}
+            onChange={() => checkHandler(props.type)}
+          />
+        }
+        label={"Uniform"}
+      />
+    </FormGroup>
+    </div> }
+    
 
       <FormControl style={{ width: "250px" }}>
         <TextField

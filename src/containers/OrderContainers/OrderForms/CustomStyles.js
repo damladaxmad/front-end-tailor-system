@@ -29,7 +29,8 @@ const CustomStyles = (props) => {
   };
 
   useEffect(()=> {
-    props.data({styles: styleData, unitPrice: unitPrice})
+    !props.isUniform && props.data({styles: styleData, unitPrice: unitPrice})
+    props.isUniform && props.data({styles: styleData})
   }, [styleData, unitPrice])
 
   const fields = [
@@ -89,7 +90,7 @@ const CustomStyles = (props) => {
       </div>
 
    <div style = {{display: "flex", alignItems: "center", gap: "130px"}}>
-      <div style={{display: "flex", gap: "10px", flexDirection: "column",
+     {!props.isUniform && <div style={{display: "flex", gap: "10px", flexDirection: "column",
      marginLeft: "15px"}}>
       <Typography
             style={{ fontWeight: "600", fontSize: "14px", marginLeft: "3px" }}
@@ -108,7 +109,7 @@ const CustomStyles = (props) => {
               border: "none",
             }}
           />
-          </div>
+          </div> }
           <p style={{
                 color: "#3245E9",
                 // margin: "0px",

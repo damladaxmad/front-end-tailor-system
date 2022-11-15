@@ -59,7 +59,7 @@ const Service = (props) => {
 
         <div style={{ display: "flex", gap: "12px", marginTop: "10px",
       flexWrap: "wrap" }}>
-          {props.service.styles.map((style) => (
+          {props.service?.styles?.map((style) => (
             <div style = {{background: "#F0F2FA",
             borderRadius: "6px", padding: "6px"}}>
             <p

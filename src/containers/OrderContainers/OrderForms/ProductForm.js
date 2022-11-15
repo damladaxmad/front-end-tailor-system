@@ -18,7 +18,14 @@ const ProductForm = (props) => {
     props.data({imageUrl: productName, customer: e.target.value})
   };
 
-  console.log(productName)
+  const types = ["Shaati", "Surwaal", "Qamiis", "Jaakad", "Futishaari"]
+  const [type, setType] = useState("")
+
+  const typeHandler = (e) => {
+    setType(e.target.value)
+    props.data({imageUrl: productName, 
+    type: e.target.value})
+  }
 
 
   return (
@@ -53,6 +60,37 @@ const ProductForm = (props) => {
         {" "}
         Add Product
       </Button>
+
+      {props.orderType == "Jumlo" &&<FormControl
+              style={{
+                padding: "0px",
+                margin: "0px",
+                width: "250px",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              <TextField
+                select
+                style={{width: "100%", color: "black"}}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={type}
+                label="Select a type"
+                onChange={typeHandler}
+              >
+               {types?.map((type, index) => (
+                  <MenuItem value={type} key={index}>
+                    {type}
+                  </MenuItem>
+                ))
+              }
+              </TextField>
+
+              
+            </FormControl>}
 
       {props.orderType == "normal" && <FormControl style={{ width: "250px" }}>
         <TextField
