@@ -27,8 +27,8 @@ const ProductModel = (props) => {
     <MyModal
       onClose={() => props.hideModal()}
       background="rgb(0,0,0, 0.24)"
-      pwidth="480px"
-      left="36%"
+      pwidth="600px"
+      left="32%"
     >
       <div
         style={{
@@ -36,7 +36,7 @@ const ProductModel = (props) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "start",
-          width: "480px",
+          width: "600px",
           padding: "0px 10px",
           overflowY: "scroll",
           gap: "15px",
@@ -110,7 +110,7 @@ const ProductImages = (props) => {
       src={image}
       style={{
         width: "32%",
-        height: "100px",
+        height: "120px",
         borderRadius: "6px",
         cursor: "pointer"
       }}

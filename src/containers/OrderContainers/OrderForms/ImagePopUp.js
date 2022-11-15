@@ -26,7 +26,7 @@ const ImagePopUp = (props) => {
         <MyModal onClose = {()=> props.hideModal()} left = "41.5%"
         background="rgb(0,0,0, 0.24)">
             <div style = {{display: "flex", flexDirection: "column",
-        alignItems: "end", gap: "15px"}}>
+        alignItems: "flex-end", gap: "15px"}}>
                
         <img src = {image} style = {{width: "320px", height: "240px",
         borderRadius: "6px", cursor: "pointer"}}

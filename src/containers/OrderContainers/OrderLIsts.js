@@ -1,8 +1,10 @@
 import shaatiImage from "../../assets/images/shaati.webp";
 import surwaalImage from "../../assets/images/surwaal.jpg";
+import futishaariImage from "../../assets/images/futishaari.jpg";
 import qamiisImage from "../../assets/images/qamiis.jpg";
 import jaakadImage from "../../assets/images/jaakad.jpg";
 import customImage from "../../assets/images/customImage.webp";
+import jumloImage from "../../assets/images/vip.jpg";
 import { Button, Typography } from "@material-ui/core";
 import { useState } from "react";
 import OrderForm from "./OrderForms/OrderForm";
@@ -11,9 +13,12 @@ import CustomForm from "./OrderForms/customForm";
 const types = [
   { typeName: "Shaati", typeImage: shaatiImage },
   { typeName: "Surwaal", typeImage: surwaalImage },
+  { typeName: "Futishaari", typeImage: futishaariImage },
   { typeName: "Qamiis", typeImage: qamiisImage },
-  { typeName: "Isku Joog", typeImage: jaakadImage },
+  { typeName: "Jaakad", typeImage: jaakadImage },
+  // { typeName: "Isku Joog", typeImage: jaakadImage },
   { typeName: "Custom", typeImage: customImage },
+  { typeName: "Uniform", typeImage: jumloImage },
 ];
 
 const OrderLists = (props) => {

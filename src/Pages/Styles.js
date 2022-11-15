@@ -80,8 +80,8 @@ const Styles = () => {
     if (data?.length > 0) {
       return data.filter(
         (std) =>
-        std.name.toLowerCase().includes(query) ||
-        std.type.toLowerCase().includes(query)
+        std.name.toLowerCase().includes(query.toLocaleLowerCase()) ||
+        std.type.toLowerCase().includes(query.toLocaleLowerCase())
       );
     } else {
       return

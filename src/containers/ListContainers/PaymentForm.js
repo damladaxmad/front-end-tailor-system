@@ -18,7 +18,10 @@ const PaymentForm = (props) => {
     const errors = {};
 
     if (!values.amount && values.amount != 0) {
-      errors.name = "Field is Required";
+      errors.amount = "Field is Required";
+    }
+    if (values.amount > props.balance) {
+      errors.amount = "Amount cannot be bigger than the balance!"
     }
     return errors;
   };
