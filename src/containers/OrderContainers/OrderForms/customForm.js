@@ -194,6 +194,22 @@ const CustomForm = (props) => {
 
   },[change])
 
+  const setterFun = () => {
+
+    setNum(1)
+    setOrderData((prevState) => {
+      return {
+        ...prevState,
+        imageUrl: null,
+        unitPrice: null,
+        sizes: null,
+        styles: null
+      };
+    })
+
+  }
+
+
   return (
     <MyModal left="25%" top="23vh">
       <div
@@ -406,13 +422,19 @@ const CustomForm = (props) => {
             fontWeight: "bold"
           }}
           onClick={() => {
+            if (num == 0 && types.length < 1) return alert("Please select some types")
+            if (num == 0 && !orderData.customer) return alert("Please select a customer")
+            if (num == 1 && (!orderData.imageUrl || !orderData.type)) return alert("Please select product!")
+            if (num == 3 && !orderData.unitPrice ) return alert("Please enter unitPrice!")
+            if (currentProgress == "payment" && !orderData.advance ) return alert("Please enter advance money!")
+           
             if (currentProgress != "payment") {
               setNum((state) => state + 1);
             }
             if (currentProgress == "styles" && typeNum < types.length - 1) {
               setTypeNum(state => state + 1)
-              setNum(1)
               setServiceHandler()
+              setterFun()
             }
             if (currentProgress == "styles") {
               setServiceHandler()

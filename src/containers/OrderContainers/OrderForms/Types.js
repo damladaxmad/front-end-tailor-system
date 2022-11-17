@@ -50,11 +50,11 @@ const Types = (props) => {
   }
 
   useEffect(() => {
-    props.data(typeData);
+    !props.type && props.data(typeData);
   }, [typeData]);
 
   useEffect(() => {
-    props.unitPrice(unitPrice)
+    props.type && props.unitPrice(unitPrice)
   }, [unitPrice])
 
   useEffect(()=> {
@@ -82,9 +82,10 @@ const Types = (props) => {
       <div style = {{display: "flex", gap: "10px", flexDirection: "column"}}>
       <Typography style={{ fontWeight: "600", fontSize: "14px" }}>
           {" "}
-          How many:
+          Number:
         </Typography>
       <input
+            type = "number"
             onChange={changeHandler}
             style={{
               width: "150px",
@@ -106,6 +107,7 @@ const Types = (props) => {
             UnitPrice:
           </Typography>
       <input
+            type = "number"
             onChange={unitHandler}
             style={{
               width: "170px",

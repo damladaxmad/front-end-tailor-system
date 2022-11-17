@@ -12,18 +12,17 @@ const ProductForm = (props) => {
   const [productName, setProductName] = useState()
   const [menuName, setMenuName] = useState()
   const [productModel, setProductModel] = useState(false);
+  const types = ["Shaati", "Surwaal", "Qamiis", "Jaakad", "Futishaari"]
+  const [type, setType] = useState("")
 
   const customerHandler = (e) => {
     setCustomer(e.target.value);
     props.data({imageUrl: productName, customer: e.target.value})
   };
 
-  const types = ["Shaati", "Surwaal", "Qamiis", "Jaakad", "Futishaari"]
-  const [type, setType] = useState("")
-
   const typeHandler = (e) => {
     setType(e.target.value)
-    props.data({imageUrl: productName, 
+    props.data2({imageUrl: productName, 
     type: e.target.value})
   }
 

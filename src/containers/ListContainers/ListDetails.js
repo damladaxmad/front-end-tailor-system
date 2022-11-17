@@ -77,6 +77,8 @@ const ListDetails = (props) => {
   useEffect(() => {
     fetchUsers();
   }, []);
+
+
   return (
     <div
       class="myDiv"
@@ -112,7 +114,10 @@ const ListDetails = (props) => {
           justifyContent: "space-between",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px",
+        flexWrap: "wrap", height: "230px"
+      // height: "150px", overflowY: props.order?.services?.length > 3 && "scroll" 
+      }}>
           {props.order?.services?.map((service) => (
             <div
               style={{
@@ -159,7 +164,8 @@ const ListDetails = (props) => {
             flexDirection: "column",
             borderRadius: "8px",
             gap: "10px",
-            width: "300px"
+            width: "300px",
+            height: "165px"
           }}
         >
           {information.map(info => (
@@ -230,8 +236,9 @@ const ListDetails = (props) => {
           Services
         </p>
         <div style={{ display: "flex", gap: "100px", flexWrap: "wrap" }}>
-          {props.order?.services.map((service) => (
-            <Service service={service} deadline={props.order.deadline} />
+          {props.order?.services.map((service, index) => (
+            <Service service={service} deadline={props.order.deadline} 
+            key = {index}/>
           ))}
         </div>
       </div>

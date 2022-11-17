@@ -74,7 +74,7 @@ const OrderLists = (props) => {
               fontSize:"16px"
             }}
             onClick = {()=> {
-              (type.typeName != "Custom" || type.typeName != "Jumlo") &&setOrderForm(true)
+              (type.typeName != "Custom" && type.typeName != "Jumlo") &&setOrderForm(true)
               type.typeName == "Custom" && setCustomForm(true)
               type.typeName == "Jumlo" && setJumloForm(true)
               setType(type)

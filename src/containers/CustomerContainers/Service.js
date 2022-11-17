@@ -24,7 +24,7 @@ const Service = (props) => {
     <div
     class = "myDiv"
       style={{
-        width: "250px",
+        width: "255px",
         background: "white",
         display: "flex",
         flexDirection: "column",

@@ -98,6 +98,7 @@ const CustomStyles = (props) => {
             UnitPrice:
           </Typography>
       <input
+            type= "number"
             onChange={changeHandler}
             style={{
               width: "170px",

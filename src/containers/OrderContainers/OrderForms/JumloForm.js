@@ -197,7 +197,21 @@ const JumloForm = (props) => {
 
   },[change])
 
-  console.log(isUniform)
+  const setterFun = () => {
+
+    setNum(1)
+    !isUniform && setOrderData((prevState) => {
+      return {
+        ...prevState,
+        imageUrl: null,
+        type: null,
+        unitPrice: null,
+        sizes: null,
+        styles: null
+      };
+    })
+
+  }
 
   return (
     <MyModal left="25%" top="23vh">
@@ -308,7 +322,6 @@ const JumloForm = (props) => {
             onClick={closeForm}
           />
         </div>
-
         
          {currentProgress == "initials" && <Types 
          unitPrice = {(data) => 
@@ -358,8 +371,17 @@ const JumloForm = (props) => {
               setOrderData((prevState) => {
                 return {
                   ...prevState,
+                  // type: data.type,
                   imageUrl: data.imageUrl,
-                  type: data.type
+                };
+              });
+            }}
+            data2={(data) => {
+              setOrderData((prevState) => {
+                return {
+                  ...prevState,
+                  type: data.type,
+                  imageUrl: data.imageUrl,
                 };
               });
             }}
@@ -385,8 +407,14 @@ const JumloForm = (props) => {
             data={(data) => {
               console.log(data)
               setOrderData((prevState) => {
-                return { ...prevState, styles: data.styles,
-                // unitPrice: parseInt(data.unitPrice)  
+                if (isUniform) {
+                return { ...prevState, styles: data.styles
+                }
+              }
+                else {
+                  return { ...prevState, styles: data.styles,
+                  unitPrice: parseInt(data.unitPrice)  
+                }
             };
               });
             }}
@@ -428,13 +456,23 @@ const JumloForm = (props) => {
             fontWeight: "bold"
           }}
           onClick={() => {
+            if (num == 0 && times <= 0) return alert("Please select how many orders you want")
+            if (num == 0 && isUniform && !orderData.unitPrice) return alert("Please enter unitPrice")
+            if (num == 1 && (!orderData.imageUrl || !orderData.type)) return alert("Please select all product and type!")
+            if (num == 3 && !orderData.unitPrice ) return alert("Please enter unitPrice!")
+            if (num == 0 && !orderData.customer ) return alert("Please select a customer!")
+            if (currentProgress == "payment" && !orderData.advance ) return alert("Please enter advance money!")
+           
             if (currentProgress != "payment") {
               setNum((state) => state + 1);
             }
+
             if (currentProgress == "styles" && typeNum < times - 1) {
-              setTypeNum(state => state + 1)
-              isUniform ? setNum(2) : setNum(1)
-              setServiceHandler()
+              if (orderData.unitPrice) {
+                setTypeNum(state => state + 1)
+                setServiceHandler()
+                isUniform ? setNum(2) : setterFun()
+              } else alert("Please enter unitPrice")
             }
             if (currentProgress == "styles") {
               setServiceHandler()
@@ -448,7 +486,6 @@ const JumloForm = (props) => {
             }
           }}
         >
-          {" "}
           {currentProgress == "payment" ? "complete" : "next"}
         </Button>
 
