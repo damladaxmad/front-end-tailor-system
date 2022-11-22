@@ -424,6 +424,7 @@ const CustomForm = (props) => {
           onClick={() => {
             if (num == 0 && types.length < 1) return alert("Please select some types")
             if (num == 0 && !orderData.customer) return alert("Please select a customer")
+            if (currentProgress == "sizes" && orderData.sizes?.length < 5) return alert("Please enter all sizes")
             if (num == 1 && (!orderData.imageUrl || !orderData.type)) return alert("Please select product!")
             if (num == 3 && !orderData.unitPrice ) return alert("Please enter unitPrice!")
             if (currentProgress == "payment" && !orderData.advance ) return alert("Please enter advance money!")

@@ -3,10 +3,23 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { constants } from "../../Helpers/constantsFile";
 import moment from "moment/moment";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import { MenuItem, Menu } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import AssignOrderToUser from "../ListContainers/AssingOrderToUser";
 
 const Service = (props) => {
   const [image, setImage] = useState();
-  console.log(props.deadline)
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const activeUser = useSelector(state => state.activeUser.activeUser)
+  const [assignService, setAssignService] = useState(false)
+  const [change, setChange] = useState(1)
+  const [notFinish, setNotFinish] = useState(false)
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     axios
@@ -17,8 +30,26 @@ const Service = (props) => {
         setImage(URL.createObjectURL(res.data));
       });
   }, []);
+ 
+  useEffect(() => {
+    console.log(props.order)
+  }, [props.order, props.service])
 
-  console.log(props.service);
+  const optionHadler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const assingService = () => {
+    setAssignService(true)
+  }
+
+  const finishService = async() => {
+    await axios.post(`${constants.baseUrl}/services/finish-service/${props.service?.id}`).then((res) => {
+      alert("Successfully finished service!")
+      // props.back()
+    })
+  }
+
 
   return (
     <div
@@ -29,17 +60,39 @@ const Service = (props) => {
         display: "flex",
         flexDirection: "column",
         borderRadius: "8px",
-        padding: "10px",
         gap: "15px",
       }}
     >
+      {assignService && <AssignOrderToUser hideModal = {()=> {
+        setAssignService(false)}} 
+        serviceId = {props.service?.id} 
+        order = {props.order}
+        back={() => props.back()}
+      />}
+      <div style = {{padding: "10px", display: "flex",
+        flexDirection: "column",
+        borderRadius: "8px",
+        gap: "15px",}}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Typography style={{ color: "#3245E9", fontWeight: "600" }}>
           {" "}
          {props.service.type}
         </Typography>
 
-        <Typography> {constants.moneySign}{props.service.unitPrice} / {props.service.quantity}</Typography>
+      <div style = {{display: "flex", alignItems: "center", gap: "10px"}}>
+        <Typography style = {{
+          color: "#8B8B8B"
+        }}> {constants.moneySign}{props.service.unitPrice} / {props.service.quantity}</Typography>
+
+       { props.kind == "list" && <BiDotsVerticalRounded style = {{fontSize: "18px", cursor: "pointer",
+        fontWeight: "600"}} 
+            onClick = {optionHadler}
+            id="basic-button"
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+              /> }
+        </div>
       </div>
 
       <div>
@@ -96,6 +149,47 @@ const Service = (props) => {
           ))}
         </div>
       </div>
+      </div>
+        <div style={{width: "100%", background: "#E2E2E2",
+      borderRadius: "0px 0px 8px 8px", padding: "6px 10px", display: "flex",
+      gap: "10px", justifyContent: "space-between",
+      marginTop: "auto"}}> 
+      <Typography style = {{fontWeight: "500",
+    fontSize: "14px"}}> {props.service?.servedUser ? props.service?.servedUser?.name : "Not assigned"}</Typography>
+      <Typography style = {{fontWeight: "600",
+    fontSize: "14px", color: props.service?.status == "finished" ? "green" : "#3245E9"}}> {props.service?.status}</Typography>
+      </div>
+
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        {props.service?.status == "pending" &&<MenuItem onClick={() => {
+          handleClose()
+          if (activeUser.privillages.includes("Assign Order")){
+            assingService()
+          } else {
+            alert("You hae no access!")
+          }
+        } }>
+          Assign Service</MenuItem> }
+
+        {props.service?.status == "on-service" && <MenuItem onClick={() => {
+          handleClose()
+          if (activeUser.privillages.includes("Finish Order")){
+            finishService()
+          } else {
+            alert("You hae no access!")
+          }
+        } }>
+          Finish Service</MenuItem>}
+        
+      </Menu>
     </div>
   );
 };

@@ -38,7 +38,7 @@ const PaymentForm = (props) => {
     initialValues: {
       unitPrice: null,
       advance: null,
-      deadline: moment(new Date(today.getFullYear(), today.getMonth(), today.getDate()+7)).format("YYYY-MM-DD")
+      deadline: moment(new Date(today.getFullYear(), today.getMonth(), today.getDate()+4)).format("YYYY-MM-DD")
       
     },
     validate,

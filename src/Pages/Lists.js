@@ -38,7 +38,7 @@ const Lists = () => {
           std.status == type && std.name.toLowerCase().includes(query.toLocaleLowerCase())
           || std.status == type && std.customer?.name.toLowerCase().includes(query.toLocaleLowerCase())
           || std.status == type && std.orderNumber.toString().includes(query.toLocaleLowerCase())
-          ).reverse();
+          );
       }
       else if (type == "taken") {
         return data.filter(
@@ -46,7 +46,7 @@ const Lists = () => {
           (std.status == type || std.status ==  "invoiced") && std.name.toLowerCase().includes(query.toLocaleLowerCase())
           || (std.status == type || std.status == "invoiced") && std.customer?.name.toLowerCase().includes(query.toLocaleLowerCase())
           || (std.status == type || std.status == "invoiced") && std.orderNumber.toString().includes(query.toLocaleLowerCase())
-          ).reverse();
+          );
       }  
     } else {
         return
@@ -138,7 +138,8 @@ const Lists = () => {
         setQuery('')
         setDetails(false)
       }} order = {order}
-        change = {changeHandler}/>}
+        change = {changeHandler}
+        key = {order.id}/>}
         {(value == "pending" && !details) && <ListOptions orders = {filterer(orders, "pending")}
         details = {(order)=> detailHandler(order)} />}
         {(value == "on-service" && !details) && <ListOptions orders = {filterer(orders, "on-service")}

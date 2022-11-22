@@ -25,7 +25,7 @@ const Top5Employees = (props) => {
                 {order.name.length <= 20 ? null : "..." } </Typography>
                     </div>
                     <Typography style = {{ fontSize: "15px",
-                color: "#575656"}}> {order.orders} </Typography>
+                color: "#575656"}}> {order.services} </Typography>
                 </div>
                 })}
 

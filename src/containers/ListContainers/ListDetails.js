@@ -64,6 +64,7 @@ const ListDetails = (props) => {
         props.back()
       }).catch(err => {alert(err.response.data.message)});
   };
+ 
 
   const fetchUsers = async () => {
     const response = await axios
@@ -77,6 +78,21 @@ const ListDetails = (props) => {
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  const isFinish = () => {
+    let isFinished = true
+    props.order?.services?.map(service => {
+      if (service.status != "finished") return isFinished = false
+    })
+
+    return isFinished
+
+  }
+
+
+  useEffect(()=> {
+    console.log("Change is happening..")
+  }, [props.order])
 
 
   return (
@@ -200,7 +216,9 @@ const ListDetails = (props) => {
             Back
           </Button>
 
-          {(props.order?.status != "taken" && props.order?.status != "invoiced") && <Button
+          {(props.order?.status != "taken" && props.order?.status != "invoiced" 
+          && props.order?.status != "pending" 
+          && isFinish()) && <Button
             variant="contained"
             style={{
               color: "white",
@@ -210,9 +228,7 @@ const ListDetails = (props) => {
             }}
             onClick={orderActions}
           >
-            {props.order?.status == "pending"
-              ? "assign"
-              : props.order?.status == "on-service"
+            {props.order?.status == "on-service"
               ? "finish"
               : "take"}
           </Button>}
@@ -238,12 +254,15 @@ const ListDetails = (props) => {
         <div style={{ display: "flex", gap: "100px", flexWrap: "wrap" }}>
           {props.order?.services.map((service, index) => (
             <Service service={service} deadline={props.order.deadline} 
-            key = {index}/>
+            order = {props.order}
+            key = {index} kind = "list"
+            change = {()=> props.change()}
+            back={() => props.back()}
+            />
           ))}
         </div>
       </div>
 
-      { props.order?.status != "pending" && <p style = {{margin: "0px", fontSize: "16px"}}> Served by: {props.order.servedUser?.name}</p> }
     </div>
   );
 };

@@ -21,21 +21,34 @@ const AssignOrderToUser = (props) => {
 
   const [disabled, setDisabled] = useState(false)
 
+  const serviceOrder = (order) => {
+    if (order.status != "pending") return
+    axios
+      .patch(`${constants.baseUrl}/orders/${order.id}`, {
+        status: "on-service"
+      })
+      .then(() => {
+        alert("Successfully made Order on-service");
+        // props.change();
+        props.back()
+      }).catch(err => {alert(err.response.data.message)});
+  };
+
   const assignHandler = async() => {
     setDisabled(true)
-    console.log(user)
-    const res = await axios.post(`${constants.baseUrl}/orders/assign-order-to-user/${props.orderId}/${user}`).then(()=> {
+    const res = await axios.post(`${constants.baseUrl}/services/assign-service-to-user/${props.serviceId}/${user}`).then(()=> {
         props.hideModal()
-        alert(`Succesfully Assigned Order to user`)
+        alert(`Succesfully Assigned service to user`)
         setDisabled(false)
-        props.change()
-        props.back()
+        // props.change()
+        // props.back()
       }
       ).catch((err)=> {
         props.hideModal()
         alert(err.response.data.message);
         setDisabled(false)
       })
+      serviceOrder(props.order)
   }
 
 

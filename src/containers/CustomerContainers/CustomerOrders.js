@@ -91,7 +91,8 @@ const CustomerOrders = (props) => {
         }}
       >
         {services?.reverse().map((service) => {
-          return (<Service service={service} deadline = {orders?.date}/>)
+          return (<Service service={service} deadline = {orders?.date}
+            kind = "customer"/>)
         })}
       </div>
     </div>

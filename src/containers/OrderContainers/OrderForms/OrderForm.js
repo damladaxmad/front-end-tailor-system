@@ -351,11 +351,15 @@ const OrderForm = (props) => {
           onClick={() => {
             if (currentProgress == "payment" && (!orderData.unitPrice || 
               !orderData.advance || !orderData.quantity)) return alert("Please fill all the data!")
+            
+            if (currentProgress == "sizes" && orderData.sizes?.length < 5) return alert("Please enter all sizes")
+            
             if (currentProgress != "payment") {
               if (orderData.customer && orderData.imageUrl)
               setNum((state) => state + 1);
               else alert("Please select a product and a customer")
             }
+            
             if (currentProgress == "payment") {
               if (orderData.unitPrice > -1 && orderData.advance > -1 && orderData.deadline)
               completeOder();

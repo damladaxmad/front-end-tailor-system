@@ -459,6 +459,7 @@ const JumloForm = (props) => {
             if (num == 0 && times <= 0) return alert("Please select how many orders you want")
             if (num == 0 && isUniform && !orderData.unitPrice) return alert("Please enter unitPrice")
             if (num == 1 && (!orderData.imageUrl || !orderData.type)) return alert("Please select all product and type!")
+            if (currentProgress == "sizes" && orderData.sizes?.length < 5) return alert("Please enter all sizes")
             if (num == 3 && !orderData.unitPrice ) return alert("Please enter unitPrice!")
             if (num == 0 && !orderData.customer ) return alert("Please select a customer!")
             if (currentProgress == "payment" && !orderData.advance ) return alert("Please enter advance money!")
