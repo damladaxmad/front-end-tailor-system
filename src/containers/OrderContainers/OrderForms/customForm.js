@@ -426,8 +426,8 @@ const CustomForm = (props) => {
             if (num == 0 && !orderData.customer) return alert("Please select a customer")
             if (currentProgress == "sizes" && orderData.sizes?.length < 5) return alert("Please enter all sizes")
             if (num == 1 && (!orderData.imageUrl || !orderData.type)) return alert("Please select product!")
-            if (num == 3 && !orderData.unitPrice ) return alert("Please enter unitPrice!")
-            if (currentProgress == "payment" && !orderData.advance ) return alert("Please enter advance money!")
+            if ((num == 3 && orderData.unitPrice != 0 ) && !orderData.unitPrice ) return alert("Please enter unitPrice!")
+            if (currentProgress == "payment" && orderData.advance == null ) return alert("Please enter advance money!")
            
             if (currentProgress != "payment") {
               setNum((state) => state + 1);

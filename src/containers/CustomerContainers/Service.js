@@ -15,6 +15,7 @@ const Service = (props) => {
   const activeUser = useSelector(state => state.activeUser.activeUser)
   const [assignService, setAssignService] = useState(false)
   const [change, setChange] = useState(1)
+  const [localService, setLocalService] = useState(null)
   const [notFinish, setNotFinish] = useState(false)
 
   const handleClose = () => {
@@ -30,11 +31,17 @@ const Service = (props) => {
         setImage(URL.createObjectURL(res.data));
       });
   }, []);
- 
-  useEffect(() => {
-    console.log(props.order)
-  }, [props.order, props.service])
 
+
+  useEffect(() => {
+    if (change == 1) return
+    axios.get(`${constants.baseUrl}/services/${props.service.id}`).then(res => {
+      setLocalService(res.data.data?.service)
+    })
+  }, [change])
+
+  console.log(localService)
+ 
   const optionHadler = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -46,7 +53,7 @@ const Service = (props) => {
   const finishService = async() => {
     await axios.post(`${constants.baseUrl}/services/finish-service/${props.service?.id}`).then((res) => {
       alert("Successfully finished service!")
-      // props.back()
+      setChange(state => state + 1)
     })
   }
 
@@ -67,7 +74,8 @@ const Service = (props) => {
         setAssignService(false)}} 
         serviceId = {props.service?.id} 
         order = {props.order}
-        back={() => props.back()}
+        back = {() => props.back()}
+        change = {() => setChange(state => state + 1)}
       />}
       <div style = {{padding: "10px", display: "flex",
         flexDirection: "column",
@@ -150,15 +158,20 @@ const Service = (props) => {
         </div>
       </div>
       </div>
-        <div style={{width: "100%", background: "#E2E2E2",
+        
+        {props.kind == "list" && <div style={{width: "100%", background: "#E2E2E2",
       borderRadius: "0px 0px 8px 8px", padding: "6px 10px", display: "flex",
       gap: "10px", justifyContent: "space-between",
       marginTop: "auto"}}> 
-      <Typography style = {{fontWeight: "500",
-    fontSize: "14px"}}> {props.service?.servedUser ? props.service?.servedUser?.name : "Not assigned"}</Typography>
+      {props.kind == "list" && <Typography style = {{fontWeight: "500",
+    fontSize: "14px"}}> 
+    {!localService ? props.service?.servedUser ? props.service?.servedUser?.name : "Not assigned" :
+    localService?.servedUser ? localService?.servedUser?.name : "Not assigned" }</Typography> }
+
       <Typography style = {{fontWeight: "600",
-    fontSize: "14px", color: props.service?.status == "finished" ? "green" : "#3245E9"}}> {props.service?.status}</Typography>
-      </div>
+    fontSize: "14px", color: (props.service?.status == "finished" || localService?.status == "finished") ? "green" : "#3245E9"}}> 
+    {!localService ? props.service?.status : localService?.status}</Typography>
+      </div> }
 
       <Menu
         id="basic-menu"
@@ -169,7 +182,8 @@ const Service = (props) => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        {props.service?.status == "pending" &&<MenuItem onClick={() => {
+        {(!localService ? props.service?.status == "pending" : 
+        localService?.status == "pending") && <MenuItem onClick={() => {
           handleClose()
           if (activeUser.privillages.includes("Assign Order")){
             assingService()
@@ -179,7 +193,8 @@ const Service = (props) => {
         } }>
           Assign Service</MenuItem> }
 
-        {props.service?.status == "on-service" && <MenuItem onClick={() => {
+        {(!localService ? props.service?.status == "on-service" : 
+        localService?.status == "on-service") && <MenuItem onClick={() => {
           handleClose()
           if (activeUser.privillages.includes("Finish Order")){
             finishService()

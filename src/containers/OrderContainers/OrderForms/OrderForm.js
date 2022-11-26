@@ -349,8 +349,9 @@ const OrderForm = (props) => {
             fontWeight: "bold"
           }}
           onClick={() => {
-            if (currentProgress == "payment" && (!orderData.unitPrice || 
-              !orderData.advance || !orderData.quantity)) return alert("Please fill all the data!")
+            if (currentProgress == "payment" && orderData.advance == null ) return alert("Please enter advance money!")
+            if (currentProgress == "payment" && !orderData.unitPrice ) return alert("Please enter unitPrice!")
+            if (currentProgress == "payment" && !orderData.quantity ) return alert("Please enter quantity!")
             
             if (currentProgress == "sizes" && orderData.sizes?.length < 5) return alert("Please enter all sizes")
             

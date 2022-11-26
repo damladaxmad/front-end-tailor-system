@@ -148,7 +148,7 @@ const init3 = {
               fontSize: "16px",
               borderRadius: "8px",
               background: "#EFF0F6",
-              border: "none",
+              border: "2px solid black",
             }}
             key={index}
           />

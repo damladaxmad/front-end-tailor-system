@@ -90,7 +90,7 @@ const PaymentForm = (props) => {
               fontSize: "16px",
               borderRadius: "8px",
               background: "#EFF0F6",
-              border: "none",
+              border: "2px solid black",
             }}
             key={index}
           />

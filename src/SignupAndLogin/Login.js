@@ -143,7 +143,7 @@ const Login = (props) => {
               height: "50px",
               padding: "15px",
               fontSize: "16px",
-              border: "1px solid grey",
+              border: "1.5px solid grey",
               borderRadius: "6px",
             }}
             key={index}

@@ -29,7 +29,7 @@ const AssignOrderToUser = (props) => {
       })
       .then(() => {
         alert("Successfully made Order on-service");
-        // props.change();
+        props.change();
         props.back()
       }).catch(err => {alert(err.response.data.message)});
   };
@@ -40,7 +40,7 @@ const AssignOrderToUser = (props) => {
         props.hideModal()
         alert(`Succesfully Assigned service to user`)
         setDisabled(false)
-        // props.change()
+        props.change()
         // props.back()
       }
       ).catch((err)=> {

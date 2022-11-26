@@ -94,7 +94,7 @@ const Types = (props) => {
               fontSize: "16px",
               borderRadius: "8px",
               background: "#EFF0F6",
-              border: "none",
+              border: "2px solid black",
             }}
           />
           </div>
@@ -116,7 +116,7 @@ const Types = (props) => {
               fontSize: "16px",
               borderRadius: "8px",
               background: "#EFF0F6",
-              border: "none",
+              border: "2px solid black",
             }}
           />
           </div> }
