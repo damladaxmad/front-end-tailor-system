@@ -7,6 +7,7 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { MenuItem, Menu } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import AssignOrderToUser from "../ListContainers/AssingOrderToUser";
+import {BsCheckLg} from "react-icons/bs"
 
 const Service = (props) => {
   const [image, setImage] = useState();
@@ -40,7 +41,6 @@ const Service = (props) => {
     })
   }, [change])
 
-  console.log(localService)
  
   const optionHadler = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -57,6 +57,16 @@ const Service = (props) => {
     })
   }
 
+  const takeService = async() => {
+    await axios.patch(`${constants.baseUrl}/services/${props.service?.id}`, {
+      isTaken: true
+    }).then((res) => {
+      alert("Successfully Taken service")
+      setChange(state => state + 1)
+    }).catch((err) => {
+      alert("Could not take service")
+    })
+  }
 
   return (
     <div
@@ -82,10 +92,14 @@ const Service = (props) => {
         borderRadius: "8px",
         gap: "15px",}}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
+
+        <div style = {{display: "flex", gap: "12px", alignItems: "center"}}>
+        {(props.service?.isTaken || localService?.isTaken )&& <BsCheckLg style = {{color: "green"}}/>}
         <Typography style={{ color: "#3245E9", fontWeight: "600" }}>
           {" "}
          {props.service.type}
         </Typography>
+        </div>
 
       <div style = {{display: "flex", alignItems: "center", gap: "10px"}}>
         <Typography style = {{
@@ -203,6 +217,12 @@ const Service = (props) => {
           }
         } }>
           Finish Service</MenuItem>}
+
+      { (!props.service?.isTaken && !localService?.isTaken) && <MenuItem onClick = {() => {
+          handleClose()
+          takeService()
+        }}>
+        Take service</MenuItem>}
         
       </Menu>
     </div>
