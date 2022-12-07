@@ -14,7 +14,7 @@ const SizesForm = (props) => {
     { label: "Enter Amount", type: "number", name: "t" },
     { label: "Enter Amount", type: "number", name: "c" },
     { label: "Enter Amount", type: "number", name: "k" },
-  ] : props.type == "Isku Joog" ?  [
+  ] : props.type == "Isku Joog S" || props.type == "Isku Joog F" ?  [
     { label: "Enter Amount", type: "number", name: "l1" },
     { label: "Enter Amount", type: "number", name: "p1" },
     { label: "Enter Amount", type: "number", name: "m" },

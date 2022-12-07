@@ -218,7 +218,7 @@ const Service = (props) => {
         } }>
           Finish Service</MenuItem>}
 
-      { (!props.service?.isTaken && !localService?.isTaken) && <MenuItem onClick = {() => {
+      { (!props.service?.isTaken && !localService?.isTaken && (props.service?.status == "finished" || localService?.status == "finished")) && <MenuItem onClick = {() => {
           handleClose()
           takeService()
         }}>

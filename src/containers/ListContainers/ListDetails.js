@@ -181,7 +181,7 @@ const ListDetails = (props) => {
             borderRadius: "8px",
             gap: "10px",
             width: "300px",
-            height: "165px"
+            height: "185px"
           }}
         >
           {information.map(info => (

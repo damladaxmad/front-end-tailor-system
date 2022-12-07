@@ -2,7 +2,8 @@ import shaatiImage from "../../assets/images/shaati.webp";
 import surwaalImage from "../../assets/images/surwaal.jpg";
 import futishaariImage from "../../assets/images/futishaari.jpg";
 import qamiisImage from "../../assets/images/qamiis.jpg";
-import jaakadImage from "../../assets/images/jaakad.jpg";
+import jaakadImage from "../../assets/images/redJacket.png";
+import iskuJoogImage from "../../assets/images/jaakad.jpg";
 import customImage from "../../assets/images/customImage.webp";
 import jumloImage from "../../assets/images/vip.jpg";
 import { Button, Typography } from "@material-ui/core";
@@ -17,9 +18,10 @@ const types = [
   { typeName: "Futishaari", typeImage: futishaariImage },
   { typeName: "Qamiis", typeImage: qamiisImage },
   { typeName: "Jaakad", typeImage: jaakadImage },
-  // { typeName: "Isku Joog", typeImage: jaakadImage },
   { typeName: "Custom", typeImage: customImage },
   { typeName: "Jumlo", typeImage: jumloImage },
+  { typeName: "Isku Joog S", typeImage: iskuJoogImage },
+  { typeName: "Isku Joog F", typeImage: iskuJoogImage },
 ];
 
 const OrderLists = (props) => {
